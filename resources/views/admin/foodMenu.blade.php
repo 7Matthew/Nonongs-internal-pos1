@@ -35,7 +35,7 @@
                     <div class="row">
                         <div class="col-lg-2 mt-5">
                             <a href="{{ route('food-item.create')}}" class="btn btn-success btn-lg" title="Add Menu">
-                                Add Item
+                                ADD NEW ITEM
                             </a>
                         </div>
                         @foreach ($data as $item)
