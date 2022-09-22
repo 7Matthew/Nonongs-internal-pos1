@@ -1,0 +1,103 @@
+body {
+  /* background-image:url(../images/nonongs-lounge.jpg); */
+  background-color:#f4eedb;
+  overflow-x: hidden;
+  font-family: 'Roboto Serif', serif;
+  color: black;
+  letter-spacing: 1px;
+}
+a{
+  text-decoration:none;
+  color:black;
+}
+
+a:hover{
+  color:grey;
+}
+
+.content-wrapper
+{
+  background-color: #f4eedb;
+}
+
+.align-right
+{
+  text-align:center;
+}
+.card
+{
+  border-radius: 5px;
+}
+.no-border
+{
+  border:none;
+  box-shadow: none;
+}
+.btn-h1
+{
+  margin-left:30%;
+  margin-right:30%;
+}
+
+.btn-Link
+{
+  text-decoration:none;
+}
+#nav-item
+{
+  color:red;
+}
+#login-card
+{
+  box-shadow: 10px 10px lightyellow;
+  border-radius: 5px;
+}
+#header
+{
+  margin-top: 100px;
+  text-shadow: 2px 2px 3px #808080 /*grey shadow*/
+}
+#shadowed-text
+{
+  text-shadow: 2px 2px 3px #808080 /*grey shadow*/
+}
+#left
+{
+  background: url("../images/nonongs-lounge.jpg");
+  background-size: 50%;
+}
+
+
+.page-content{
+  position:relative;
+  flex: auto;
+  margin-top:5%;
+  margin-right:2%;
+  margin-left:5%;
+  margin-bottom:2%;
+  
+}
+
+/*FOOD MENU */
+
+div .foodtext h2{
+    color:#737068;
+    font-weight: 600;
+    font-size: 2.0em;
+    text-transform: uppercase;
+    margin-left: 2.5em;
+    margin-top: 1em;
+    margin-bottom: 20px;
+    border-bottom: 4px solid #E0B215;
+    display: inline-block;
+    letter-spacing: 1px;
+}
+div .foodtext h3{
+  color:#737068;
+    font-size: 25px;
+    margin-left: 3.2em;
+    margin-top: 1em;
+    margin-bottom: 20px;
+    display: inline-block;
+    letter-spacing: 1px;
+}
