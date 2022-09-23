@@ -29,11 +29,6 @@ Route::get('/order_history',  [App\Http\Controllers\AdminController::class, 'ord
 /**ROUTE FOR CRUD */
 Route::resource("/food-item", FoodItemController::class);
 Route::resource('/guitars', GuitarController::class);
- 
-
-
-
-
 
 /** */
 Route::get('/admin-login',function(){
