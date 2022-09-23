@@ -33,9 +33,9 @@
                 </div>
                 <div class="card-body text-dark">
                     <div class="row">
-                        <div class="col-lg-2 mt-5">
+                        <div class="col-lg-2 mt-2">
                             <a href="{{ route('food-item.create')}}" class="btn btn-success btn-lg" title="Add Menu">
-                                ADD NEW ITEM
+                                <i class="fa-solid fa-square-plus fa-2x mr-3"></i><h6>Add New Item</h6>
                             </a>
                         </div>
                         @foreach ($data as $item)
