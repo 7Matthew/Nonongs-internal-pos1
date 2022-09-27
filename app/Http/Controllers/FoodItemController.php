@@ -43,6 +43,7 @@ class FoodItemController extends Controller
      */
     public function store(Request $request)
     {
+        echo($request->file('food-item'));
         $request->validate([
             'name'=> 'required',
             'price'=> 'required|int',
