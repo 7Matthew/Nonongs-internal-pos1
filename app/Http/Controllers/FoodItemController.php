@@ -43,16 +43,19 @@ class FoodItemController extends Controller
      */
     public function store(Request $request)
     {
-        echo($request->file('food-item'));
         $request->validate([
             'name'=> 'required',
             'price'=> 'required|int',
-            'stocks'=> 'required|int'
+            'stocks'=> 'required|int',
+            'food-image'=> 'required'
         ]);
         $food = new FoodMenu();
         $food->name = strip_tags($request->input('name'));
         $food->price = strip_tags($request->input('price'));
         $food->stocks = strip_tags($request->input('stocks'));
+        if ($request->hasFile('food-image')) {
+            $food['food-image'] = $request->file('food-image')->store('uploads','public');
+        }
         $food->save();
 
         return redirect()->route('food-item.index')->with('success','item added successfully!');
