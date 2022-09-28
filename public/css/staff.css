@@ -1,0 +1,63 @@
+div .foodtext h2{
+    color:#737068;
+    font-weight: 600;
+    font-size: 2.0em;
+    text-transform: uppercase;
+    margin-left: 2.5em;
+    margin-top: 1em;
+    margin-bottom: 20px;
+    border-bottom: 4px solid #E0B215;
+    display: inline-block;
+    letter-spacing: 1px;
+}
+div .foodtext h3{
+  color:#737068;
+    font-size: 25px;
+    margin-left: 3.2em;
+    margin-top: 1em;
+    margin-bottom: 20px;
+    display: inline-block;
+    letter-spacing: 1px;
+}
+
+/**STAFF FOOD MENU*/
+.items{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 30px 20px;
+    grid-column-gap: 20px;
+    grid-row-gap: 30px;
+  }
+  .item img{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+  .item img:hover{
+    transform: scale(1.04);
+  }
+  .item h4, h5{
+    padding: 5px;
+    text-align: center;
+  }
+  .item button{
+    padding: 5px 30px;
+    border: none;
+    outline: none;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 20px;
+    display: block;
+    margin: 0 auto;
+    transition: 0.2s all;
+  }
+  .item button:hover{
+    transform: scale(1.08);
+  }
+  .btn{
+    margin-left: 58rem;
+  }

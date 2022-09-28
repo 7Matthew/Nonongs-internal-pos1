@@ -39,6 +39,11 @@ Route::get('/admin-login',function(){
 //   return view('admin/admin-dashboard');
 // })->name('admin-dashboard');
 
+//for staff layout design
+Route::get('/foodorder',function(){
+  return view('staff/foodorder');
+})->name('foodorder');
+
 Route::get('/staff-login',function(){
   return view('admin/admin-login');
 })->name('staff-login');

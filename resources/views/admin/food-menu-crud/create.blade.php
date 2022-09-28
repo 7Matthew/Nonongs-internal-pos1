@@ -31,9 +31,6 @@
               <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
             </div>
           @enderror
-<<<<<<< HEAD
-          
-=======
           <label for="food-image">Food image</label></br>
           <input type="file" name="food-image" class="form-control" accept="image/png, image/gif, image/jpeg" value ={{old('food-image')}}></br>
           @error('food-image')
@@ -41,7 +38,6 @@
               <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
             </div>
           @enderror
->>>>>>> 5ec479c290bb9ba5d5f73d7a47f493e44b9f72ad
           <input type="submit" value="Save" class="btn btn-success mt-2"></br>
       </form>
       
