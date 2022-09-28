@@ -42,7 +42,7 @@
                             <div class="col-lg-2">
                                 <div class="card no-border m-relative p-auto">
                                     <div class="page-content justify-content">
-                                        <a href="{{ route('food-item.show',['food_item' => $item['id']])}}"><img src="images/logo.jpg" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
+                                        <a href="{{ route('food-item.show',['food_item' => $item['id']])}}"><img src="storage/{{$item['food-image']}}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
                                         <p font size ="2px">{{$item->name}}</p>
                                         </a>
                                     </div>
