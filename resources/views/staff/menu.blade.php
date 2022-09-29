@@ -13,47 +13,22 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-13 p-3 text-dark m-relative">
-        <div class="card">
-                <div class="card-body text-dark">
-                    <section class="items">
-                        <div class="item">
-                            <img src="images/combo1.JPG">
-                            <h4>COMBO 1</h4>
-                            <h5>145.00 </h5>
-                            <button>Add to Order</button>
+            <div class="card border-3">
+                <div class="card-header">
+                    <div class="card-body text-dark">
+                        <div class="row">
+                            @foreach ($food as $item)
+                                <div class="col-lg-2">
+                                    <div class="card no-border m-relative p-auto justify-content-end">
+                                        <div class="page-content text-center">
+                                            <img class = ""src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
+                                            <p font size ="2px">{{$item->name}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach   
                         </div>
-                        <div class="item">
-                            <img src="images/combo2.avif">
-                            <h4>COMBO 2</h4>
-                            <h5>169.00 </h5>
-                            <button>Add to Order</button>
-                        </div>
-                        <div class="item">
-                            <img src="images/combo3.avif">
-                            <h4>COMBO 3</h4>
-                            <h5>189.00 </h5>
-                            <button>Add to Order</button>
-                        </div>
-                        <div class="item">
-                            <img src="images/solomeal.avif">
-                            <h4>Solo Meal</h4>
-                            <h5>95.00 </h5>
-                            <button>Add to Order</button>
-                        </div>
-                        <div class="item">
-                            <img src="images/garlicchicken.avif">
-                            <h4>Garlic Chicken Meal</h4>
-                            <h5>115.00 </h5>
-                            <button>Add to Order</button>
-                        </div>
-                        <div class="item">
-                            <img src="images/lechonkawali.jpg">
-                            <h4>Lechon Kawali Meal</h4>
-                            <h5>130.00 </h5>
-                            <button>Add to Order</button>
-                        </div>
-                    </section>
-                    
+                    </div>
                 </div>
             </div>
         </div>
