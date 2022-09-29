@@ -1,10 +1,3 @@
-{{-- @extends('conf.connect')
-@extends('conf.functions') --}}
-<?php
-session_start();
-
-?>
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -29,8 +22,23 @@ session_start();
           <a class = "navbar-brand" href="{{ url('/') }}"> <img class="m-2"src="images/logo.jpg" alt="logo" width ="30px" height ="30px"></a>
           @auth
               <a href="{{ url('/admin-dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
+              <div class ="dropdown me-3">
+                <a class = "btn dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true"data-bs-placement="bottom" title="Account"><i class="fa-solid fa-user 100 fa-lg m-2">
+                </i></a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                            {{ __('Log-out') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                </form>
+                    </li>
+                </ul>
+              </div>
               @php
-                  return redirect('/admin-dashboard');
+                 return redirect('/admin-dashboard');
               @endphp
           @else
               <a class ="text-sm text-gray-700 dark:text-gray-500 underline" href="{{ route('admin-login') }}">Log-in</a>

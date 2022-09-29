@@ -47,14 +47,13 @@ class FoodItemController extends Controller
             'name'=> 'required',
             'price'=> 'required|int',
             'stocks'=> 'required|int',
-            'food-image'=> 'required'
         ]);
         $food = new FoodMenu();
         $food->name = strip_tags($request->input('name'));
         $food->price = strip_tags($request->input('price'));
         $food->stocks = strip_tags($request->input('stocks'));
-        if ($request->hasFile('food-image')) {
-            $food['food-image'] = $request->file('food-image')->store('uploads','public');
+        if ($request->hasFile('image')) {
+            $food->image = $request->file('image')->store('uploads','public');
         }
         $food->save();
 
@@ -107,7 +106,10 @@ class FoodItemController extends Controller
         $food->name = strip_tags($request->input('name'));
         $food->price = strip_tags($request->input('price'));
         $food->stocks = strip_tags($request->input('stocks'));
-        $food->save();
+        if ($request->hasFile('image')) {
+            $food->image = $request->file('image')->store('uploads','public');
+        }
+        $food->update();
 
         return redirect()->route('food-item.index', $id)->with('edit-success','Item Edited Successfully');
     }

@@ -32,7 +32,7 @@
   <!-- JavaScript -->
   <script src="{{ url('js/bootstrap.bundle.min.js') }}"></script>
   <!-- CSS -->
-  <link rel="stylesheet" type="text/css" href="{{ url('css/staff.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url('css/main.css') }}">
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -121,7 +121,7 @@
           <a href="{{ route('admin-dashboard') }}" class="d-block text-light">{{ Auth::user()->username}} </a>
         </div>
       </div>
-
+  
       <!-- SidebarSearch Form -->
       <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
@@ -140,7 +140,14 @@
             
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin-dashboard') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dashboard">
+              <i class="fa-solid fa-chart-line fa-lg mr-auto"></i>  
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('order_history') }}"data-bs-toggle="tooltip" data-bs-placement="bottom" title="Order History">
                 <i class="fa-solid fa-table fa-lg mr-auto"></i> 
@@ -150,10 +157,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('foodorder')}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Food Menu">
+            <a class="nav-link" href="{{ route('food-item.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Food Menu">
               <i class="fas fa-hamburger fa-lg mr-auto"></i>  
               <p>
                 Food Menu
+              </p>
+            </a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('forecasting') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sales Forecast And CRM">
+              <i class="fas fa-tachometer-alt fa-lg mr-auto"></i>  
+              <p>
+                Sales Forecast
               </p>
             </a>
           </li> 
@@ -168,7 +183,7 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     @yield('content')
-  </div> 
+  </div>
   <!-- /.content-wrapper -->
   
 

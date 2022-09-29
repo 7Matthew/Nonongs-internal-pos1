@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('name');
             $table->integer('price');
             $table->integer('stocks');
-            $table->string('food-image')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

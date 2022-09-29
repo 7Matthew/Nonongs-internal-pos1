@@ -8,7 +8,7 @@
     <div class="card-header">Edit Item</div>
     <div class="card-body">
        
-        <form action="{{route('food-item.update', ['food_item'=> $food->id])}}" method="post">
+        <form action="{{route('food-item.update', ['food_item'=> $food->id])}}" method="post" enctype="multipart/form-data">
           @csrf
           @method('PUT')
           <label>Name</label></br>
@@ -32,6 +32,8 @@
               <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
             </div>
           @enderror
+          <label for="image">Food image</label></br>
+          <input type="file" name="image" class="form-control" accept="image/png, image/gif, image/jpeg" value ={{$food['image']}}></br>
           <input type="submit" value="Save" class="btn btn-success"> 
           <a href="{{ route('food-item.index') }}" class="btn btn-primary">Cancel</a>
       </form>
