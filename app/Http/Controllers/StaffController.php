@@ -23,9 +23,9 @@ class StaffController extends Controller
         return view('staff/menu');
     }
 
-    public function index()
-    {
-        
+    public function order_history()
+    {   
+        return view('staff/order_history');
     }
 
     /**

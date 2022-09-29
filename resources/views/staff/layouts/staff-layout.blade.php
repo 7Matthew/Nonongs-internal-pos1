@@ -141,7 +141,7 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin-dashboard') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dashboard">
+            <a class="nav-link" href="{{ route('menu') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dashboard">
               <i class="fa-solid fa-chart-line fa-lg mr-auto"></i>  
               <p>
                 Menu
