@@ -41,9 +41,7 @@ Route::middleware(['auth','isAdmin'])->group(function(){
 
 //Authenticated staff
 Route::middleware('auth')->group(function(){
-  Route::get('/foodorder',function(){
-    return view('staff/foodorder');
-  })->name('foodorder');
+  Route::get('/menu', [App\Http\Controllers\StaffController::class, 'menu'])->name('menu');
 });
 
 Auth::routes();

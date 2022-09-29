@@ -144,7 +144,7 @@
             <a class="nav-link" href="{{ route('admin-dashboard') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dashboard">
               <i class="fa-solid fa-chart-line fa-lg mr-auto"></i>  
               <p>
-                Dashboard
+                Menu
               </p>
             </a>
           </li>
@@ -156,23 +156,6 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('food-item.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Food Menu">
-              <i class="fas fa-hamburger fa-lg mr-auto"></i>  
-              <p>
-                Food Menu
-              </p>
-            </a>
-          </li> 
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('forecasting') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sales Forecast And CRM">
-              <i class="fas fa-tachometer-alt fa-lg mr-auto"></i>  
-              <p>
-                Sales Forecast
-              </p>
-            </a>
-          </li> 
-          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

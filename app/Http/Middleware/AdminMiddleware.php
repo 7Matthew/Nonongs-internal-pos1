@@ -24,7 +24,7 @@ class AdminMiddleware
                return $next($request);
             } 
             else{
-                return redirect('/foodorder')->with('message', 'Access Denied!');
+                return redirect('/menu')->with('message', 'Access Denied!');
             }
         }
         else {
