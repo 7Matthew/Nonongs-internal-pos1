@@ -22,7 +22,9 @@
                                     <div class="card no-border m-relative p-auto justify-content-end">
                                         <div class="page-content text-center">
                                             <img class = ""src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
-                                            <p font size ="2px">{{$item->name}}</p>
+                                            <p class="justify-content d-flex" font size ="2px">{{$item->name}}</p>
+                                            <p class="bg-warning justify-content-center d-flex" font size ="2px">P{{$item->price}}</p>
+                                            <p class="bg-danger justify-content-center d-flex" font size ="2px">Stock: {{$item->stocks}}</p>
                                         </div>
                                     </div>
                                 </div>
