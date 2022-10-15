@@ -17,6 +17,21 @@
               <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
             </div>
           @enderror
+          <label for="category">Category</label></br>
+          <select name ="category" id="category" class="form-control" value ="{{old('category')}}">
+              <option></option>
+              <option value="chicken">Chicken</option>
+              <option value="ulam"> Ulam </option>
+              <option value="pork"> Pork </option>
+              <option value="drinks"> Drinks </option>
+              <option value="desserts"> Desserts </option>
+          </select>
+          </br>
+          @error('category')
+            <div class="alert alert-danger" role="alert">
+              <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+            </div>
+          @enderror
           <label for="price">Price</label></br>
           <input type="number" name="price" id="price" class="form-control" value ="{{old('price')}}"></br>
           @error('price')
