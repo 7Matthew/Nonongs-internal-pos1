@@ -20,6 +20,7 @@
           <label for="category">Category</label></br>
           <select name ="category" id="category" class="form-control" value ="{{old('category')}}">
               <option></option>
+              <option value="combo-meal">Combo Meal</option>
               <option value="chicken">Chicken</option>
               <option value="ulam"> Ulam </option>
               <option value="pork"> Pork </option>
