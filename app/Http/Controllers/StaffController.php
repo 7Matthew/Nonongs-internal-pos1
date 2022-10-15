@@ -25,9 +25,9 @@ class StaffController extends Controller
         ]);
     }
 
-    public function order_history()
+    public function orders()
     {   
-        return view('staff/order_history');
+        return view('staff/orders');
     }
 
     /**

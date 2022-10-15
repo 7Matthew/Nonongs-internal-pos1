@@ -149,7 +149,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('order_history') }}"data-bs-toggle="tooltip" data-bs-placement="bottom" title="Order History">
+            <a class="nav-link" href="{{ route('orders') }}"data-bs-toggle="tooltip" data-bs-placement="bottom" title="Order History">
                 <i class="fa-solid fa-table fa-lg mr-auto"></i> 
               <p>
                 Order History

@@ -42,7 +42,7 @@ Route::middleware(['auth','isAdmin'])->group(function(){
 //Authenticated staff
 Route::middleware('auth')->group(function(){
   Route::get('/menu', [App\Http\Controllers\StaffController::class, 'menu'])->name('menu');
-  Route::get('/order_history', [App\Http\Controllers\StaffController::class, 'order_history'])->name('order_history');
+  Route::get('/orders', [App\Http\Controllers\StaffController::class, 'orders'])->name('orders');
 });
 
 Auth::routes();
