@@ -7,11 +7,24 @@
 <body>
     <div class="foodtext">
     <h2>FOOD MENU</h2>
+        <div class="row">
+            <div class="col">
+                <div class="col mt-2" data-aos="fade-in"  data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
+                    <nav class = "navbar-nav" id="categories">
+                        <li class="nav-item justify-content-end">
+                            <a class="ml-4 fs-5" href="#combo-meals">COMBO MEALS</a>
+                            <a class="ml-4 fs-5" href="#chicken">CHICKEN</a>
+                            <a class="ml-4 fs-5" href="#ulam">OTHER SPECIALTIES</a>
+                        </li>
+                    </nav> 
+                </div>
+            </div>
+        </div> 
     </div>
-<div class="container-fluid">
+<div class="container-fluid" data-bs-smooth-scroll="true" data-bs-spy="scroll" data-bs-target="#categories">
     <div class="row">
-        <div class="col-lg-13 p-3 text-dark m-relative">
-            <div class="card border-3" data-aos="fade-left" delay="300" duration="700" data-aos-easing="ease-in-out">
+        <div class="col p-5 text-dark m-relative">
+            <div class="card border-3" id="combo-meals" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
                     <h6> Combo Meals </h6>
                 </div>
@@ -34,7 +47,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card border-3 mt-2" data-aos="fade-right" delay="300" duration="700" data-aos-easing="ease-in-out">
+            <div class="card border-3 mt-2" id="chicken" data-aos="fade-right"  data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
                     <h6> Chicken </h6>
                 </div>
@@ -57,7 +70,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card border-3" data-aos="fade-left" delay="300" duration="700" data-aos-easing="ease-in-out">
+            <div class="card border-3" id="ulam" data-aos="fade-left"  data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
                     <h6> Combo Meals </h6>
                 </div>
@@ -80,7 +93,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card border-3 mt-2" data-aos="fade-right" delay="300" duration="700" data-aos-easing="ease-in-out">
+            <div class="card border-3 mt-2" data-aos="fade-right" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
                     <h6> Chicken </h6>
                 </div>
@@ -103,7 +116,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card border-3" data-aos="fade-left" delay="300" duration="700" data-aos-easing="ease-in-out">
+            <div class="card border-3" data-aos="fade-left"  data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
                     <h6> Combo Meals </h6>
                 </div>
@@ -126,7 +139,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card border-3 mt-2" data-aos="fade-right" delay="300" duration="700" data-aos-easing="ease-in-out">
+            <div class="card border-3 mt-2" data-aos="fade-right"  data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
                     <h6> Chicken </h6>
                 </div>
@@ -154,8 +167,8 @@
 </div>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-13 p-3 text-dark m-relative">
-            <div class="card" data-aos="fade-left" delay="300" duration="700" data-aos-easing="ease-in-out">
+        <div class="col p-5 text-dark m-relative">
+            <div class="card" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-body text-dark">
                     <h4>ORDER</h4>
                     <br>
@@ -173,18 +186,18 @@
 </div>  
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="modal-confirm-order" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header bg-warning">
+        <div class="modal-header bg-alert">
           <h1 class="modal-title fs-4" id="modal-confirm-order">Confirm Order?</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Order Content here...
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary">Confirm</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Confirm</button>
         </div>
       </div>
     </div>

@@ -26,7 +26,21 @@
         <form method="POST" action="{{ route('food-item.destroy', $food->id) }}" accept-charset="UTF-8" style="display:inline">
             @method('DELETE')
             @csrf
-            <button type="submit" class="btn btn-danger btn-sm mt-2" title="Delete item" onclick="return confirm('Confirm Delete?')"><i class="fa-solid fa-trash"></i></button>
+            <button type="button" class="btn btn-danger btn-sm mt-2" title="Delete item" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-trash"></i></button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="modal-confirm-order" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header d-flex pb-5">
+                      <h1 class="modal-title fs-5" id="modal-confirm-order">Confirm Deletion of {{ $food->name }}?</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                      <button type="submit" class="btn btn-primary">Confirm</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
         </form>
         <a href="{{ route('food-item.index') }}" class="btn btn-success btn-sm mt-2">Back</a>
     </div>

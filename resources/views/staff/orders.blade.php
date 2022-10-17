@@ -6,19 +6,19 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <body>
-    <div class="foodtext">
-    <h2>Order History</h2>
-    <br>
-    <h3>Manage your recent orders and invoices</h3>
+    <div class="foodtext" data-aos="slide-left" delay="500" duration="700">
+        <h2>Order History</h2>
+        <br>
+        <h3>Manage your recent orders and invoices</h3>
     </div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-13 p-3 text-dark m-relative">
         <div class="card">
-                <div class="card-body text-dark">
+                <div class="card-body text-dark" data-aos="flip-right" delay="1000" duration="2000">
                     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Order ID" title="Type in a name"><br><br>
                     <section>
-                        <table id="myTable" class="table table-striped">
+                        <table id="myTable" class="table table-striped aos-init aos-animate" data-aos="fade-right" delay="500" duration="700">
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
