@@ -45,6 +45,11 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body class="hold-transition sidebar-mini">
+  
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
 <div class="wrapper">
 
   <!-- Preloader -->
