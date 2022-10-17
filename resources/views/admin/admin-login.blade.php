@@ -57,7 +57,7 @@
   			<div class ="col-lg-4 text-left mt-5">
   				<div class = "card" id="login-card">
   					<div class="row m-3">
-  						<h5> <font color = "#808080">Admin Login </font></h5>
+  						<h5> <font color = "#808080">Please Login </font></h5>
   					</div>
   					<div class="row m-3">
   						<div class="col-lg-10 m-4">

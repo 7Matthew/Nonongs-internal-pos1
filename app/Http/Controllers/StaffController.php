@@ -21,7 +21,7 @@ class StaffController extends Controller
     public function menu()
     {
         return view('staff/menu',[
-            'food' => FoodMenu::all()
+            'data' => FoodMenu::all()
         ]);
     }
 
