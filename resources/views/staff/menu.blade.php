@@ -26,17 +26,17 @@
         <div class="col p-5 text-dark m-relative">
             <div class="card border-3" id="combo-meals" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
-                    <h6> Combo Meals </h6>
+                    <h6> Fried Chicken </h6>
                 </div>
                 <div class="card-body text-dark">
                     <div class="row">
                         @foreach ($data as $item)
-                            @if($item->category == "combo-meal")
+                            @if($item->category == "fried-chicken")
                                 <div class="col-lg-2">
                                     <div class="card no-border m-relative p-auto justify-content-end">
                                         <div class="page-content text-center">
                                             <img class = ""src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
-                                            <p class="justify-content d-flex" font size ="2px">{{$item->name}}</p>
+                                            <p class="justify-content" font size ="2px">{{$item->name}}</p>
                                             <p class="bg-warning justify-content-center d-flex" font size ="2px">P{{$item->price}}</p>
                                             <p class="bg-danger justify-content-center d-flex" font size ="2px">Stock: {{$item->stocks}}</p>
                                         </div>
@@ -47,19 +47,19 @@
                     </div>
                 </div>
             </div>
-            <div class="card border-3 mt-2" id="chicken" data-aos="fade-right"  data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
+            <div class="card border-3" id="combo-meals" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
-                    <h6> Chicken </h6>
+                    <h6> Rice Meals</h6>
                 </div>
                 <div class="card-body text-dark">
                     <div class="row">
                         @foreach ($data as $item)
-                            @if($item->category == "chicken")
+                            @if($item->category == "rice-meals")
                                 <div class="col-lg-2">
                                     <div class="card no-border m-relative p-auto justify-content-end">
                                         <div class="page-content text-center">
                                             <img class = ""src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
-                                            <p class="justify-content d-flex" font size ="2px">{{$item->name}}</p>
+                                            <p class="justify-content" font size ="2px">{{$item->name}}</p>
                                             <p class="bg-warning justify-content-center d-flex" font size ="2px">P{{$item->price}}</p>
                                             <p class="bg-danger justify-content-center d-flex" font size ="2px">Stock: {{$item->stocks}}</p>
                                         </div>
@@ -70,19 +70,19 @@
                     </div>
                 </div>
             </div>
-            <div class="card border-3" id="ulam" data-aos="fade-left"  data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
+            <div class="card border-3" id="combo-meals" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
-                    <h6> Combo Meals </h6>
+                    <h6> Soup </h6>
                 </div>
                 <div class="card-body text-dark">
                     <div class="row">
                         @foreach ($data as $item)
-                            @if($item->category == "combo-meal")
+                            @if($item->category == "soup")
                                 <div class="col-lg-2">
                                     <div class="card no-border m-relative p-auto justify-content-end">
                                         <div class="page-content text-center">
                                             <img class = ""src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
-                                            <p class="justify-content d-flex" font size ="2px">{{$item->name}}</p>
+                                            <p class="justify-content" font size ="2px">{{$item->name}}</p>
                                             <p class="bg-warning justify-content-center d-flex" font size ="2px">P{{$item->price}}</p>
                                             <p class="bg-danger justify-content-center d-flex" font size ="2px">Stock: {{$item->stocks}}</p>
                                         </div>
@@ -93,19 +93,19 @@
                     </div>
                 </div>
             </div>
-            <div class="card border-3 mt-2" data-aos="fade-right" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
+            <div class="card border-3" id="combo-meals" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
-                    <h6> Chicken </h6>
+                    <h6> Rice </h6>
                 </div>
                 <div class="card-body text-dark">
                     <div class="row">
                         @foreach ($data as $item)
-                            @if($item->category == "chicken")
+                            @if($item->category == "rice")
                                 <div class="col-lg-2">
                                     <div class="card no-border m-relative p-auto justify-content-end">
                                         <div class="page-content text-center">
                                             <img class = ""src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
-                                            <p class="justify-content d-flex" font size ="2px">{{$item->name}}</p>
+                                            <p class="justify-content" font size ="2px">{{$item->name}}</p>
                                             <p class="bg-warning justify-content-center d-flex" font size ="2px">P{{$item->price}}</p>
                                             <p class="bg-danger justify-content-center d-flex" font size ="2px">Stock: {{$item->stocks}}</p>
                                         </div>
@@ -116,19 +116,19 @@
                     </div>
                 </div>
             </div>
-            <div class="card border-3" data-aos="fade-left"  data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
+            <div class="card border-3" id="combo-meals" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
-                    <h6> Combo Meals </h6>
+                    <h6> Other Specialties </h6>
                 </div>
                 <div class="card-body text-dark">
                     <div class="row">
                         @foreach ($data as $item)
-                            @if($item->category == "combo-meal")
+                            @if($item->category == "other-specialties")
                                 <div class="col-lg-2">
                                     <div class="card no-border m-relative p-auto justify-content-end">
                                         <div class="page-content text-center">
                                             <img class = ""src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
-                                            <p class="justify-content d-flex" font size ="2px">{{$item->name}}</p>
+                                            <p class="justify-content" font size ="2px">{{$item->name}}</p>
                                             <p class="bg-warning justify-content-center d-flex" font size ="2px">P{{$item->price}}</p>
                                             <p class="bg-danger justify-content-center d-flex" font size ="2px">Stock: {{$item->stocks}}</p>
                                         </div>
@@ -139,29 +139,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card border-3 mt-2" data-aos="fade-right"  data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
-                <div class="card-header text-gray bg-danger">
-                    <h6> Chicken </h6>
-                </div>
-                <div class="card-body text-dark">
-                    <div class="row">
-                        @foreach ($data as $item)
-                            @if($item->category == "chicken")
-                                <div class="col-lg-2">
-                                    <div class="card no-border m-relative p-auto justify-content-end">
-                                        <div class="page-content text-center">
-                                            <img class = ""src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
-                                            <p class="justify-content d-flex" font size ="2px">{{$item->name}}</p>
-                                            <p class="bg-warning justify-content-center d-flex" font size ="2px">P{{$item->price}}</p>
-                                            <p class="bg-danger justify-content-center d-flex" font size ="2px">Stock: {{$item->stocks}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 </div>

@@ -43,12 +43,12 @@
         <div class="col p-5 m-relative" id="combo-meals" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
             <div class="card border-3">
                 <div class="card-header text-gray bg-danger">
-                    <h6> Combo Meals </h6>
+                    <h6> Fried Chicken </h6>
                 </div>
                 <div class="card-body text-dark">
                     <div class="row">
                         @foreach ($data as $item)
-                            @if($item->category == "combo-meal")
+                            @if($item->category == "fried-chicken")
                                 <div class="col-lg-2">
                                     <div class="card no-border m-relative p-auto">
                                         <div class="page-content justify-content">
@@ -65,12 +65,12 @@
             </div>
             <div class="card border-3 mt-2" id="chicken" data-aos="fade-right" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
-                    <h6> Chicken </h6>
+                    <h6> Rice Meals </h6>
                 </div>
                 <div class="card-body text-dark">
                     <div class="row">
                         @foreach ($data as $item)
-                            @if($item->category == "chicken")
+                            @if($item->category == "rice-meals")
                                 <div class="col-lg-2">
                                     <div class="card no-border m-relative p-auto">
                                         <div class="page-content justify-content">
@@ -87,12 +87,12 @@
             </div>
             <div class="card border-3 mt-2" id="ulam" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
-                    <h6> Ulam </h6>
+                    <h6> Soup </h6>
                 </div>
                 <div class="card-body text-dark">
                     <div class="row">
                         @foreach ($data as $item)
-                            @if($item->category == "ulam")
+                            @if($item->category == "soup")
                                 <div class="col-lg-2">
                                     <div class="card no-border m-relative p-auto">
                                         <div class="page-content justify-content">
@@ -109,12 +109,12 @@
             </div>
             <div class="card border-3 mt-2" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
-                    <h6> Pork </h6>
+                    <h6> Rice </h6>
                 </div>
                 <div class="card-body text-dark">
                     <div class="row">
                         @foreach ($data as $item)
-                            @if($item->category == "pork")
+                            @if($item->category == "rice")
                                 <div class="col-lg-2">
                                     <div class="card no-border m-relative p-auto">
                                         <div class="page-content justify-content">
@@ -131,12 +131,12 @@
             </div>
             <div class="card border-3 mt-2" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
-                    <h6> Drinks </h6>
+                    <h6> Other Specialties </h6>
                 </div>
                 <div class="card-body text-dark">
                     <div class="row">
                         @foreach ($data as $item)
-                            @if($item->category == "drinks")
+                            @if($item->category == "other-specialties")
                                 <div class="col-lg-2">
                                     <div class="card no-border m-relative p-auto">
                                         <div class="page-content justify-content">
