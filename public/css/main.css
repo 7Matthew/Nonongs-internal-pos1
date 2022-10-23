@@ -11,6 +11,13 @@ a{
   color:black;
 }
 
+.hover-transform:hover{
+  transform:scale(1.1);
+}
+.hover-transform{
+  transition:all .2s ease-in-out;
+}
+
 a:hover{
   color:grey;
 }

@@ -148,7 +148,7 @@
             
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item">
+          <li class="nav-item hover-transform">
             <a class="nav-link" href="{{ route('admin-dashboard') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dashboard">
               <i class="fa-solid fa-chart-line fa-lg mr-auto"></i>  
               <p>
@@ -156,7 +156,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item hover-transform">
             <a class="nav-link" href="{{ route('order_history') }}"data-bs-toggle="tooltip" data-bs-placement="bottom" title="Order History">
                 <i class="fa-solid fa-table fa-lg mr-auto"></i> 
               <p>
@@ -164,7 +164,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item hover-transform">
             <a class="nav-link" href="{{ route('food-item.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Food Menu">
               <i class="fas fa-hamburger fa-lg mr-auto"></i>  
               <p>
@@ -172,11 +172,35 @@
               </p>
             </a>
           </li> 
-          <li class="nav-item">
+          <li class="nav-item hover-transform">
             <a class="nav-link" href="{{ route('forecasting') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sales Forecast And CRM">
               <i class="fas fa-tachometer-alt fa-lg mr-auto"></i>  
               <p>
                 Sales Forecast
+              </p>
+            </a>
+          </li> 
+          <li class="nav-item hover-transform">
+            <a class="nav-link" href="{{ route('manage-users') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sales Forecast And CRM">
+              <i class="fa-solid fa-user fa-lg mr-auto"></i>  
+              <p>
+                Users
+              </p>
+            </a>
+          </li> 
+          <li class="nav-item hover-transform">
+            <a class="nav-link" href="{{ url('/menu') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sales Forecast And CRM">
+              <i class="fa-solid fa-mobile-retro fa-lg mr-auto"></i>
+              <p>
+                POS
+              </p>
+            </a>
+          </li> 
+          <li class="nav-item hover-transform">
+            <a class="nav-link" href="{{ route('forecasting') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sales Forecast And CRM">
+              <i class="fa-solid fa-chart-simple fa-lg"></i>
+              <p>
+                Reports 
               </p>
             </a>
           </li> 

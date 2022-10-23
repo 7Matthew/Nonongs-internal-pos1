@@ -34,7 +34,10 @@ Route::middleware(['auth','isAdmin'])->group(function(){
   Route::get('/admin-dashboard', [App\Http\Controllers\AdminController::class, 'index'])->name('admin-dashboard');
   Route::get('/contact', [App\Http\Controllers\AdminController::class, 'contact']);
   Route::get('/forecasting',  [App\Http\Controllers\AdminController::class, 'forecasting'])->name('forecasting');
-  Route::get('/order_history',  [App\Http\Controllers\AdminController::class, 'order_history'])->name('order_history'); 
+  Route::get('/order_history',  [App\Http\Controllers\AdminController::class, 'order_history'])->name('order_history');
+  Route::get('/manage-users', function(){
+    return view('admin/manage-users')->name('manage-users');
+  });
   /**ROUTE FOR FOOD MENU CRUD */
   Route::resource("/food-item", FoodItemController::class);
 });
