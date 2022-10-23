@@ -181,7 +181,7 @@
             </a>
           </li> 
           <li class="nav-item hover-transform">
-            <a class="nav-link" href="{{ route('manage-users') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sales Forecast And CRM">
+            <a class="nav-link" href="{{ route('forecasting') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sales Forecast And CRM">
               <i class="fa-solid fa-user fa-lg mr-auto"></i>  
               <p>
                 Users
