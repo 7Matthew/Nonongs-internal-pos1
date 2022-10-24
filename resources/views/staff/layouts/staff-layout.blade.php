@@ -89,7 +89,7 @@
           </form>
         </div>
       </li>
-
+      @yield('topnav-items')
       <div class ="dropdown me-3">
         <a class = "btn dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true"data-bs-placement="bottom" title="Account"><i class="fa-solid fa-user 100 fa-lg m-2">
         </i></a>
@@ -105,6 +105,7 @@
             </li>
         </ul>
       </div>
+      
     </ul>
   </nav>
   <!-- /.navbar -->

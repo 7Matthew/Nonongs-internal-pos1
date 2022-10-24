@@ -1,30 +1,29 @@
 @extends('staff.layouts.staff-layout')
 
-@section('title','Food Menu')
-@section('content')
-
-
-<body>
-    <div class="foodtext">
-    <h2>FOOD MENU</h2>
+@section('topnav-items')
         <div class="row">
             <div class="col">
                 <div class="col mt-2" data-aos="fade-in"  data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                     <nav class = "navbar-nav" id="categories">
                         <li class="nav-item justify-content-end">
-                            <a class="ml-4 fs-5" href="#combo-meals">COMBO MEALS</a>
-                            <a class="ml-4 fs-5" href="#chicken">CHICKEN</a>
-                            <a class="ml-4 fs-5" href="#ulam">OTHER SPECIALTIES</a>
+                            <a class="ml-4 fs-5" href="#fried-chicken">Fried Chicken</a>
+                            <a class="ml-4 fs-5" href="#rice-meals">Rice Meals</a>
+                            <a class="ml-4 fs-5" href="#soup">Soup</a>
+                            <a class="ml-4 fs-5" href="#rice">Rice</a>
+                            <a class="ml-4 fs-5" href="#others">Others</a>
                         </li>
                     </nav> 
                 </div>
             </div>
         </div> 
-    </div>
+@endsection
+
+@section('title','Food Menu')
+@section('content')    
 <div class="container-fluid" data-bs-smooth-scroll="true" data-bs-spy="scroll" data-bs-target="#categories">
     <div class="row">
         <div class="col p-5 text-dark m-relative">
-            <div class="card border-3" id="combo-meals" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
+            <div class="card border-3" id="fried-chicken" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
                     <h6> Fried Chicken </h6>
                 </div>
@@ -47,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card border-3" id="combo-meals" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
+            <div class="card border-3" id="rice-meals" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
                     <h6> Rice Meals</h6>
                 </div>
@@ -70,7 +69,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card border-3" id="combo-meals" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
+            <div class="card border-3" id="soup" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
                     <h6> Soup </h6>
                 </div>
@@ -93,7 +92,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card border-3" id="combo-meals" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
+            <div class="card border-3" id="rice" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
                     <h6> Rice </h6>
                 </div>
@@ -116,7 +115,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card border-3" id="combo-meals" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
+            <div class="card border-3" id="others" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
                     <h6> Other Specialties </h6>
                 </div>
