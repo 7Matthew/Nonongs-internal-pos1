@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FoodItemController;
 use App\Http\Controllers\GuitarController;
-use Illuminate\Support\Facades\Auth;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,9 +28,9 @@ Route::get('/admin-login',function(){
 Route::get('/staff-login',function(){
   return view('admin/admin-login');
 })->name('staff-login');
-Route::get('/manage-users', function(){
-  return view('admin/manage-users')->name('manage-users');
-});
+Route::get('create-new-user', function(){
+  return view('auth/register');
+})->name('create-new-user');
 
 //Authenticated Admin
 Route::middleware(['auth','isAdmin'])->group(function(){
@@ -37,8 +38,16 @@ Route::middleware(['auth','isAdmin'])->group(function(){
   Route::get('/contact', [App\Http\Controllers\AdminController::class, 'contact']);
   Route::get('/forecasting',  [App\Http\Controllers\AdminController::class, 'forecasting'])->name('forecasting');
   Route::get('/order_history',  [App\Http\Controllers\AdminController::class, 'order_history'])->name('order_history');
+  
   /**ROUTE FOR FOOD MENU CRUD */
   Route::resource("/food-item", FoodItemController::class);
+
+  // users
+  Route::get('/manage-users',function(){
+    return view('admin/manage_users',[
+      'user'=> Auth::user()->all()
+    ]);
+  })->name('manage-users');
 });
 
 //Authenticated staff
@@ -51,4 +60,3 @@ Auth::routes();
 
 /* LARAVEL LESSON */
 Route::resource('/guitars', GuitarController::class);
-

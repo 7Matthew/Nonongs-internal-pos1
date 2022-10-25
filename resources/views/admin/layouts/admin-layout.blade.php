@@ -90,7 +90,7 @@
           </form>
         </div>
       </li>
-
+      @yield('topnav-items')
       <div class ="dropdown me-3">
         <a class = "btn dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true"data-bs-placement="bottom" title="Account"><i class="fa-solid fa-user 100 fa-lg m-2">
         </i></a>
@@ -181,7 +181,7 @@
             </a>
           </li> 
           <li class="nav-item hover-transform">
-            <a class="nav-link" href="{{ route('forecasting') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sales Forecast And CRM">
+            <a class="nav-link" href="{{ route('manage-users') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Manage Users Account">
               <i class="fa-solid fa-user fa-lg mr-auto"></i>  
               <p>
                 Users
@@ -189,7 +189,7 @@
             </a>
           </li> 
           <li class="nav-item hover-transform">
-            <a class="nav-link" href="{{ url('/menu') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sales Forecast And CRM">
+            <a class="nav-link" href="{{ url('/menu') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Point Of Sales">
               <i class="fa-solid fa-mobile-retro fa-lg mr-auto"></i>
               <p>
                 POS
@@ -197,10 +197,18 @@
             </a>
           </li> 
           <li class="nav-item hover-transform">
-            <a class="nav-link" href="{{ route('forecasting') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sales Forecast And CRM">
+            <a class="nav-link" href="{{ route('forecasting') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Generate Reports">
               <i class="fa-solid fa-chart-simple fa-lg"></i>
               <p>
                 Reports 
+              </p>
+            </a>
+          </li> 
+          <li class="nav-item hover-transform">
+            <a class="nav-link" href="{{ route('food-item.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Manage Inventory">
+              <i class="fa-solid fa-warehouse fa-lg"></i>
+              <p>
+                Inventory 
               </p>
             </a>
           </li> 
