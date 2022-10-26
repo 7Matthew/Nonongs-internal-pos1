@@ -45,10 +45,25 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body class="hold-transition sidebar-mini">
-  
+
+{{-- ANIMATE ON SCROLL --}}
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
   AOS.init();
+</script>
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+
+{{-- CHART JS --}}
+<script src="path/to/chartjs/dist/chart.js"></script>
+<script>
+    const myChart = new Chart(ctx, {...});
 </script>
 
 <div class="wrapper">
@@ -181,7 +196,7 @@
             </a>
           </li> 
           <li class="nav-item hover-transform">
-            <a class="nav-link" href="{{ route('manage-users') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Manage Users Account">
+            <a class="nav-link" href="{{ route('manage-users.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Manage Users Account">
               <i class="fa-solid fa-user fa-lg mr-auto"></i>  
               <p>
                 Users
@@ -239,14 +254,5 @@
 
   
 <!-- ./wrapper -->
-
-<!-- REQUIRED SCRIPTS -->
-
-<!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FoodItemController;
 use App\Http\Controllers\GuitarController;
-
+use App\Http\Controllers\ManageUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,11 +43,7 @@ Route::middleware(['auth','isAdmin'])->group(function(){
   Route::resource("/food-item", FoodItemController::class);
 
   // users
-  Route::get('/manage-users',function(){
-    return view('admin/manage_users',[
-      'user'=> Auth::user()->all()
-    ]);
-  })->name('manage-users');
+  Route::resource('/manage-users', ManageUserController::class);
 });
 
 //Authenticated staff
