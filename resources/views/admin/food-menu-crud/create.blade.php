@@ -4,7 +4,7 @@
 @section('content')
 
 <body>
-  <div class="card" style="width:50em; margin-top:3em; margin-left:14em;">
+  <div class="card mt-5 ml-5 mr-5" >
     <div class="card-header">New Item</div>
     <div class="card-body">
        

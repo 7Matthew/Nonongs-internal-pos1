@@ -43,6 +43,8 @@
   <link href="/fontawesome/css/solid.css" rel="stylesheet">
   {{-- Animate on Scroll --}}
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  {{-- JQUERY --}}
+  <script src="js/jquery.min.js"></script>
 </head>
 <body class="hold-transition sidebar-mini">
   
