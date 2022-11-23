@@ -4,13 +4,14 @@
         <div class="row">
             <div class="col">
                 <div class="col mt-2" data-aos="fade-in"  data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
-                    <nav class = "navbar-nav" id="categories">
+                    <nav class = "navbar-nav" id="page-content">
                         <li class="nav-item justify-content-end">
                             <a class="ml-4 fs-5" href="#fried-chicken">Fried Chicken</a>
                             <a class="ml-4 fs-5" href="#rice-meals">Rice Meals</a>
                             <a class="ml-4 fs-5" href="#soup">Soup</a>
                             <a class="ml-4 fs-5" href="#rice">Rice</a>
                             <a class="ml-4 fs-5" href="#others">Others</a>
+                            <a class="ml-4 fs-5" href="#cart">Cart</a>
                         </li>
                     </nav> 
                 </div>
@@ -21,25 +22,33 @@
 @section('title','Food Menu')
 @section('content')   
 <script src="js/jqueryFunctions.js"> </script>
-<div class="container-fluid" data-bs-smooth-scroll="true" data-bs-spy="scroll" data-bs-target="#categories">
-    <div class="row">
-        <div class="col p-5 m-relative">
-            <div class="card">
-                <div class="card-header">
-                    Form
+<div aria-live="polite" aria-atomic="true" class="position-relative">
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        @foreach ($data as $item)
+            <div class="toast align-items-center text-bg-success border-0" id={{"addToCart".$item->id}} role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                <div class="toast-body">
+                    <i class="fa-solid fa-bell fa-lg"></i> {{$item->name}} added to cart!
                 </div>
-                <div class="card-body">
-                    <form action="" class="form-group" enctype="multipart/form-data">
-                        Select Food <select class="form-control" name="order-item" id="order-item">
-                            @foreach ($data as $item)
-                                <option value={{$item->name}}>{{$item->name}}</option>  
-                            @endforeach
-                        </select>
-                    </form>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
             </div>
-        </div>
+            <div class="toast align-items-center text-bg-danger border-0" id={{"removeToCart".$item->id}} role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                <div class="toast-body">
+                    <i class="fa-solid fa-bell fa-lg"></i> {{$item->name}} Removed to cart!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        @endforeach
     </div>
+</div>
+
+
+
+
+<div class="container-fluid" data-bs-smooth-scroll="true" data-bs-spy="scroll" data-bs-target="#page-content">    
     <div class="row">
         <div class="col p-5 text-dark m-relative">
             <div class="card border-3" id="fried-chicken" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
@@ -62,6 +71,7 @@
                                         </button>
                                     </div>
                                 </div>
+                                {{-- TOAST --}}
                             @endif
                         @endforeach
                     </div>
@@ -167,72 +177,92 @@
                     </div>
                 </div>
             </div>
-            
+            {{-- This will be the cart --}}
+            <div class="container-fluid" id="cart">
+                <div class="row">
+                    <div class="col p-5 text-dark m-relative">
+                        <div class="card" data-aos="fade-left"  data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
+                            <div class="card-header text-muted">Cart Items</div>
+                            <div class="card-body text-dark">
+                                {{-- FORM --}}
+                                <form action="" class="form" enctype="multipart/form-data">
+                                    @csrf
+                                    <table class="table">
+                                        <thead class="bg-warning text-center">
+                                            <th>Food</th>
+                                            <th>Qty</th>
+                                            <th>Price</th>
+                                        </thead>
+                                        <tbody>
+                                            {{-- CART CONTENT --}}
+                                            @foreach ($data as $item)
+                                                <tr id={{'hide'.$item->id}} style="display:none;">
+                                                <td>
+                                                    <button type="button" class="btn btn-light btn-sm p-1" title="Remove to cart" id={{'remove'.$item->id}}><i class="text-danger fa-solid fa-trash-can fa-lg "></i></button>{{$item->name}}
+                                                </td>
+                                                <td class="text-center">
+                                                        <button type="button"    class="btn btn-danger btn-sm mr-1" id={{"decrement".$item->id}}>-</button>
+                                                        <input type="number" min="0" max="200" name="quantity" id={{"input_quantity".$item->id}} width="10px" value="0" class="col-lg-2 col-md-4 col-sm-6">
+                                                        <button type="button"    class="btn btn-success btn-sm ml-1" id={{"increment".$item->id}}>+</button>
+                                                </td>
+                                                <td>
+                                                        <p id={{"cart_item_price".$item->id}}>{{$item->price}}</p>
+                                                </td>
+                                                </tr>
+                                            @endforeach
+                                                <tr class="text-end table-secondary">
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td colspan="3">
+                                                        <div class="row md-2">
+                                                            <div class="col-lg-4">
+                                                                Total: 
+                                                            </div>
+                                                            <div class="col-lg-8 text-left">
+                                                               <h5 id={{"total".$item->id}}>
+                                                                    0
+                                                               </h5>  
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="offset-sm-5">
+                                        
+                                    </div>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#submitOrder">
+                                        Submit 
+                                    </button>
+                                      <!-- Modal -->    
+                                    <div class="modal fade" id="submitOrder" tabindex="-1" aria-labelledby="modal-confirm-order" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                          <div class="modal-content">
+                                            <div class="modal-header bg-alert">
+                                              <h1 class="modal-title fs-4" id="modal-confirm-order">Confirm Order?</h1>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Confirm Order?
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Confirm</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
         </div>
     </div>
 </div>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col p-5 text-dark m-relative">
-            <div class="card" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
-                <div class="card-header">Order</div>
-                <div class="card-body text-dark">
-                    <table class="table table-bordered">
-                        <tr class="bg-warning text-center">
-                            <th>Food</th>
-                            <th>Qty</th>
-                            <th>Stocks</th>
-                            <th>Price</th>
-                        </tr>
-                        <form action="" class="form" enctype="multipart/form-data">
-                            <tbody>
-                                @foreach ($data as $item)
-                                    <tr id={{'hide'.$item->id}} style="display:none;">
-                                    <td>
-                                        <button type="button" class="btn btn-light btn-sm p-1" title="remove" id={{'remove'.$item->id}}><i class="fa-regular fa-circle-xmark fa-lg mr-1"></i></button>{{$item->name}}
-                                    </td>
-                                    <td>
-                                            <button type="button" class="btn btn-danger btn-sm mr-1" id={{'increment'.$item->id}}>-</button>
-                                            <input type="number" name="quantity" width="10px">
-                                            <button type="button" class="btn btn-success btn-sm ml-1" id={{'decrement'.$item->id}}>+</button>
-                                    </td>
-                                    <td>
-                                            {{$item->stocks}}
-                                    </td>
-                                    <td>
-                                            {{$item->price}}
-                                    </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </form>
-                    </table>
-                    <br>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Submit 
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="modal-confirm-order" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header bg-alert">
-          <h1 class="modal-title fs-4" id="modal-confirm-order">Confirm Order?</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Confirm</button>
-        </div>
-      </div>
-    </div>
-  </div>
+
+
+
 @endsection
