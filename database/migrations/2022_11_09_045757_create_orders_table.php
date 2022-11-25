@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->string('description');
-            $table->integer('total-price');
+            $table->integer('total_price');
             $table->timestamps();
         });
     }

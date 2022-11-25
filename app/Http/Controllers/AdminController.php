@@ -22,11 +22,6 @@ class AdminController extends Controller
     {
         return view('admin/admin-dashboard');
     }
-
-    public function contact()
-    {
-        return '<h1>sample contacts page</h1>';
-    }
     
     public function foodMenu()
     {

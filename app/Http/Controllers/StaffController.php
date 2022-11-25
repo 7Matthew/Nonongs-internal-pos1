@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Orders;
 use App\Models\FoodMenu;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StaffController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Display a listing of the resource.
@@ -25,9 +27,18 @@ class StaffController extends Controller
         ]);
     }
 
+    public function index()
+    {
+        return view('staff/menu',[
+            'data' => FoodMenu::all()
+        ]);
+    }
+
     public function orders()
     {   
-        return view('staff/orders');
+        return view('staff/orders',[
+            'data' => Orders::all()
+        ]);
     }
 
     /**
@@ -38,6 +49,7 @@ class StaffController extends Controller
     public function create()
     {
         //
+        return view('staff.menu');
     }
 
     /**
@@ -49,6 +61,19 @@ class StaffController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'description' => 'string',
+            'total-price'=> 'int'
+        ]);
+        
+        $order = new Orders();
+        $user = Auth::user('id');
+        $order->user_id = $user->id;
+        $order->description = $request->input('description');
+        $order->total_price = $request->input('total_price');
+        $order->save();
+
+        return redirect()->route('make_order.index')->with('success','item added successfully!');
     }
 
     /**

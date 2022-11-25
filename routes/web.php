@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\FoodItemController;
+use App\Http\Controllers\StaffController;
 use App\Http\Controllers\GuitarController;
+use App\Http\Controllers\FoodItemController;
+use App\Http\Controllers\MakeOrderController;
 use App\Http\Controllers\ManageUserController;
 
 /*
@@ -42,14 +44,17 @@ Route::middleware(['auth','isAdmin'])->group(function(){
   /**ROUTE FOR FOOD MENU CRUD */
   Route::resource("/food-item", FoodItemController::class);
 
-  // users
+  // user management by admin
   Route::resource('/manage-users', ManageUserController::class);
+ 
 });
 
 //Authenticated staff
 Route::middleware('auth')->group(function(){
   Route::get('/menu', [App\Http\Controllers\StaffController::class, 'menu'])->name('menu');
   Route::get('/orders', [App\Http\Controllers\StaffController::class, 'orders'])->name('orders');
+
+  Route::resource('/make_order', StaffController::class);
 });
 
 Auth::routes();

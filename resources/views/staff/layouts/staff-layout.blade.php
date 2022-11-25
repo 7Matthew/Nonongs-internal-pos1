@@ -150,7 +150,7 @@
             
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item">
+          <li class="nav-item hover-transform">
             <a class="nav-link" href="{{ route('menu') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dashboard">
               <i class="fa-solid fa-chart-line fa-lg mr-auto"></i>  
               <p>
@@ -158,7 +158,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item hover-transform">
             <a class="nav-link" href="{{ route('orders') }}"data-bs-toggle="tooltip" data-bs-placement="bottom" title="Order History">
                 <i class="fa-solid fa-table fa-lg mr-auto"></i> 
               <p>

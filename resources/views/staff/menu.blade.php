@@ -22,6 +22,7 @@
 @section('title','Food Menu')
 @section('content')   
 <script src="js/jqueryFunctions.js"> </script>
+
 <div aria-live="polite" aria-atomic="true" class="position-relative">
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         @foreach ($data as $item)
@@ -45,9 +46,6 @@
     </div>
 </div>
 
-
-
-
 <div class="container-fluid" data-bs-smooth-scroll="true" data-bs-spy="scroll" data-bs-target="#page-content">    
     <div class="row">
         <div class="col p-5 text-dark m-relative">
@@ -59,7 +57,7 @@
                     <div class="row">
                         @foreach ($data as $item)
                             @if($item->category == "fried-chicken")
-                                <div class="col-lg-2">
+                                <div class="col-lg-2 col-md-4 col-sm-3">
                                     <div class="card no-border m-relative p-auto justify-content-end" id="{{$item->id}}">
                                         <button class="btn btn-light">
                                             <div class="page-content text-center">
@@ -85,7 +83,7 @@
                     <div class="row">
                         @foreach ($data as $item)
                             @if($item->category == "rice-meals")
-                                <div class="col-lg-2">
+                                <div class="col-lg-2 col-md-4 col-sm-3">
                                     <div class="card no-border m-relative p-auto justify-content-end" id="{{$item->id}}">
                                         <button class="btn btn-light">
                                             <div class="page-content text-center">
@@ -110,7 +108,7 @@
                     <div class="row">
                         @foreach ($data as $item)
                             @if($item->category == "soup")
-                                <div class="col-lg-2">
+                                <div class="col-lg-2 col-md-4 col-sm-3">
                                     <div class="card no-border m-relative p-auto justify-content-end" id="{{$item->id}}">
                                         <button class="btn btn-light">
                                             <div class="page-content text-center">
@@ -135,7 +133,7 @@
                     <div class="row">
                         @foreach ($data as $item)
                             @if($item->category == "rice")
-                                <div class="col-lg-2">
+                                <div class="col-lg-2 col-md-4 col-sm-3">
                                     <div class="card no-border m-relative p-auto justify-content-end" id="{{$item->id}}">
                                         <button class="btn btn-light">
                                             <div class="page-content text-center">
@@ -160,7 +158,7 @@
                     <div class="row">
                         @foreach ($data as $item)
                             @if($item->category == "other-specialties")
-                                <div class="col-lg-2">
+                                <div class="col-lg-2 col-md-4 col-sm-3">
                                     <div class="card no-border m-relative p-auto justify-content-end" id="{{$item->id}}">
                                         <button class="btn btn-light">
                                             <div class="page-content text-center">
@@ -185,24 +183,24 @@
                             <div class="card-header text-muted">Cart Items</div>
                             <div class="card-body text-dark">
                                 {{-- FORM --}}
-                                <form action="" class="form" enctype="multipart/form-data">
+                                <form action="{{ route('make_order.store') }}" method="post" class="form" enctype="multipart/form-data">
                                     @csrf
                                     <table class="table">
-                                        <thead class="bg-warning text-center">
-                                            <th>Food</th>
+                                        <thead class="bg-warning">
+                                            <th class="text-center">Food</th>
                                             <th>Qty</th>
                                             <th>Price</th>
                                         </thead>
                                         <tbody>
                                             {{-- CART CONTENT --}}
                                             @foreach ($data as $item)
-                                                <tr id={{'hide'.$item->id}} style="display:none;">
+                                                <tr id={{'hide'.$item->id}}>
                                                 <td>
-                                                    <button type="button" class="btn btn-light btn-sm p-1" title="Remove to cart" id={{'remove'.$item->id}}><i class="text-danger fa-solid fa-trash-can fa-lg "></i></button>{{$item->name}}
+                                                    <button type="button" class="btn btn-light btn-sm p-1" title="Remove to cart" id={{'remove'.$item->id}}><i class="text-danger fa-solid fa-trash-can fa-lg "></i></button><b id={{"item_name".$item->id}}>{{$item->name}}</b>
                                                 </td>
-                                                <td class="text-center">
-                                                        <button type="button"    class="btn btn-danger btn-sm mr-1" id={{"decrement".$item->id}}>-</button>
-                                                        <input type="number" min="0" max="200" name="quantity" id={{"input_quantity".$item->id}} width="10px" value="0" class="col-lg-2 col-md-4 col-sm-6">
+                                                <td>
+                                                        <button type="button" class="btn btn-danger btn-sm mr-1" id={{"decrement".$item->id}}>-</button>
+                                                        <input type="number" min="0" max="200" name="quantity" id={{"input_quantity".$item->id}} width="5px" value="0" class="col-lg-2 col-md-4 col-sm-6 text-center" @disabled(true)>
                                                         <button type="button"    class="btn btn-success btn-sm ml-1" id={{"increment".$item->id}}>+</button>
                                                 </td>
                                                 <td>
@@ -215,24 +213,23 @@
                                                     <td></td>
                                                     <td colspan="3">
                                                         <div class="row md-2">
-                                                            <div class="col-lg-4">
-                                                                Total: 
-                                                            </div>
-                                                            <div class="col-lg-8 text-left">
-                                                               <h5 id={{"total".$item->id}}>
-                                                                    0
-                                                               </h5>  
-                                                            </div>
+                                                            
                                                         </div>
                                                     </td>
                                                 </tr>
                                         </tbody>
                                     </table>
+                                    <div class="col-lg-4">
+                                        Total: 
+                                    </div>
+                                    <div class="col-lg-8 text-left">
+                                       <input type="number" name="total_price" id={{"total"}} width="5px" class="col-lg-4 col-md-4 col-sm-6 text-center bg-warning" readonly>
+                                    </div>
                                     <div class="offset-sm-5">
-                                        
+
                                     </div>
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#submitOrder">
+                                    <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" id="submit_order" data-bs-target="#submitOrder">
                                         Submit 
                                     </button>
                                       <!-- Modal -->    
@@ -244,11 +241,14 @@
                                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                Confirm Order?
+                                                <p>Order Summary</p> 
+                                                <textarea name="description" id="description" cols="30" rows="10" class="form-control" ></textarea>
+                                                <p>Total Amount Due: </p> 
+                                                <small class="text-muted">{{ strToUpper(date("F j Y")) }}</small>
                                             </div>
                                             <div class="modal-footer">
                                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Confirm</button>
+                                              <button type="submit" class="btn btn-primary">Confirm</button>
                                             </div>
                                           </div>
                                         </div>
