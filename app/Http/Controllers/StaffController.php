@@ -33,7 +33,7 @@ class StaffController extends Controller
             'data' => FoodMenu::all()
         ]);
     }
-
+    
     public function orders()
     {   
         return view('staff/orders',[
@@ -62,15 +62,21 @@ class StaffController extends Controller
     {
         //
         $request->validate([
-            'description' => 'string',
-            'total-price'=> 'int'
+            'description' => 'string|max:999999',
+            'total-price'=> 'int',
+            'payment' => ['required','int'],
+            'payment_change' => 'int'
         ]);
-        
+
         $order = new Orders();
         $user = Auth::user('id');
         $order->user_id = $user->id;
         $order->description = $request->input('description');
         $order->total_price = $request->input('total_price');
+        $order->payment = $request->input('payment');
+        if(($request->input('payment') - $request->input('total_price') == 0)){
+            $order->payment_change = 0;
+        }else $order->payment_change = ($request->input('payment') - $request->input('total_price'));
         $order->save();
 
         return redirect()->route('make_order.index')->with('success','item added successfully!');

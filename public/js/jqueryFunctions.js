@@ -3,8 +3,7 @@ var total = 0;
 var cart_item_price = []; // from database
 var order_price_container = []; // a container for the price of a clicked/selected item
 const date = new Date();
-var order_description_arr = [];
-
+var order_description = [];
 
 $(document).ready(function(){
     
@@ -33,7 +32,7 @@ $(document).ready(function(){
                 total = total - parseInt($("#cart_item_price"+counter).text());
                 console.log(total);
             }    
-
+            
             input_quantity = $("#input_quantity"+counter).val(0);
             total_item_price = (cart_item_price[counter] * input_quantity);  
 
@@ -66,10 +65,22 @@ $(document).ready(function(){
             }
         });
 
-        $("#submit_order").click(function(){
-        //    $("#description").text("order-summary \t\t\t\t\t\t" + date.getMonth()+"/" + date.getDate() + "/" + date.getFullYear() 
-        //    + "\n\n Item Name \t\t\t Qty \t\t\t Price");
-            $("#description").text();
+        
+       //once na ma click ang submit, dapat lahat nung item na nakasulat ay marerecord dapat sa order summary
+        $("#record_to_summary"+counter).click(function(){   
+            $("#description").val($("#item_name"+counter).val());
+            console.log($("#item_name"+counter).text() + "----------------" + $("#cart_item_price"+counter).text());
+        });
+
+         $("#submit_order").click(function(){
+            if(parseInt($("#total").val()) > parseInt($("#payment").val()))
+            {
+                console.log("Insufficient Payment!");
+            }
+            else
+            {
+                $("#description").val($("#item_name"+counter).html() + "----------------" + $("#cart_item_price"+counter).html() + "\n");
+            }
         });
 
         //fix this part may bug pa

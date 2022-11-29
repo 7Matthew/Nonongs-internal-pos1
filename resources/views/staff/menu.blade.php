@@ -196,11 +196,12 @@
                                             @foreach ($data as $item)
                                                 <tr id={{'hide'.$item->id}}>
                                                 <td>
+                                                    <button type="button" class="btn btn-light btn-sm p-1" title="Add to Order Summary" id={{"record_to_summary".$item->id}}><i class="fa-solid fa-circle-plus text-success"></i></button>
                                                     <button type="button" class="btn btn-light btn-sm p-1" title="Remove to cart" id={{'remove'.$item->id}}><i class="text-danger fa-solid fa-trash-can fa-lg "></i></button><b id={{"item_name".$item->id}}>{{$item->name}}</b>
                                                 </td>
                                                 <td>
                                                         <button type="button" class="btn btn-danger btn-sm mr-1" id={{"decrement".$item->id}}>-</button>
-                                                        <input type="number" min="0" max="200" name="quantity" id={{"input_quantity".$item->id}} width="5px" value="0" class="col-lg-2 col-md-4 col-sm-6 text-center" @disabled(true)>
+                                                        <input type="number" min="0" max="200" name="quantity" id={{"input_quantity".$item->id}} width="5px" value="0" class="col-lg-2 col-md-4 col-sm-6 text-center" readonly>
                                                         <button type="button"    class="btn btn-success btn-sm ml-1" id={{"increment".$item->id}}>+</button>
                                                 </td>
                                                 <td>
@@ -220,10 +221,21 @@
                                         </tbody>
                                     </table>
                                     <div class="col-lg-4">
-                                        Total: 
+                                        <label for="total_price" class="form-text">Total price: </label>
                                     </div>
                                     <div class="col-lg-8 text-left">
-                                       <input type="number" name="total_price" id={{"total"}} width="5px" class="col-lg-4 col-md-4 col-sm-6 text-center bg-warning" readonly>
+                                       <input type="number" name="total_price" id={{"total"}} width="5px" class="form-control col-lg-4 col-md-4 col-sm-6 text-center bg-warning" readonly>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label for="payment" class="form-text">Payment: </label>
+                                    </div>
+                                    <div class="col-lg-8 text-left">
+                                       <input type="number" name="payment" id="payment" width="5px" class="form-control col-lg-4 col-md-4 col-sm-6 text-center bg-success">
+                                            @error('payment')
+                                                <div class="alert alert-danger" role="alert">
+                                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                                                </div>
+                                            @enderror
                                     </div>
                                     <div class="offset-sm-5">
 
@@ -243,12 +255,11 @@
                                             <div class="modal-body">
                                                 <p>Order Summary</p> 
                                                 <textarea name="description" id="description" cols="30" rows="10" class="form-control" ></textarea>
-                                                <p>Total Amount Due: </p> 
                                                 <small class="text-muted">{{ strToUpper(date("F j Y")) }}</small>
                                             </div>
                                             <div class="modal-footer">
                                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                              <button type="submit" class="btn btn-primary">Confirm</button>
+                                              <button type="submit" class="btn btn-success">Confirm</button>
                                             </div>
                                           </div>
                                         </div>

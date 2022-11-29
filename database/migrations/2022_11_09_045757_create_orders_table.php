@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->string('description');
             $table->integer('total_price');
+            $table->integer('payment');
+            $table->integer('payment_change');  
             $table->timestamps();
         });
     }

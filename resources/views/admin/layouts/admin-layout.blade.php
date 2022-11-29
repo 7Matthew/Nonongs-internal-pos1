@@ -63,9 +63,9 @@
 <script src="dist/js/adminlte.min.js"></script>
 
 {{-- CHART JS --}}
-<script src="path/to/chartjs/dist/chart.js"></script>
+{{-- <script src="path/to/chartjs/dist/chart.js"></script> --}}
 <script>
-    const myChart = new Chart(ctx, {...});
+    // const myChart = new Chart(ctx, {...});
 </script>
 
 <div class="wrapper">

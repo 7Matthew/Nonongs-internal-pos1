@@ -20,29 +20,29 @@
   	<div class = "container-fluid">
         <ul class="nav justify-content-end bg-warning fixed-top">
           <a class = "navbar-brand" href="{{ url('/') }}"> <img class="m-2"src="images/logo.jpg" alt="logo" width ="30px" height ="30px"></a>
-          @auth
-              <a href="{{ url('/admin-dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
-              <div class ="dropdown me-3">
-                <a class = "btn dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true"data-bs-placement="bottom" title="Account"><i class="fa-solid fa-user 100 fa-lg m-2">
-                </i></a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
-                                            {{ __('Log-out') }}
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                            @csrf
-                                </form>
-                    </li>
-                </ul>
-              </div>
-              @php
-                 return redirect('/admin-dashboard');
-              @endphp
-          @else
-              <a class ="text-sm text-gray-700 dark:text-gray-500 underline" href="{{ route('admin-login') }}">Log-in</a>
-          @endif
+            @auth
+                <a href="{{ url('/admin-dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
+                <div class ="dropdown me-3">
+                    <a class = "btn dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true"data-bs-placement="bottom" title="Account"><i class="fa-solid fa-user 100 fa-lg m-2">
+                    </i></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                            document.getElementById('logout-form').submit();">
+                                                {{ __('Log-out') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                        </li>
+                    </ul>
+                </div>
+                @php
+                    return redirect()->route('admin-dashboard');
+                @endphp
+            @else
+                <a class ="text-sm text-gray-700 dark:text-gray-500 underline" href="{{ route('admin-login') }}">Log-in</a>
+            @endif
         </ul>
   		<div class = "col-md-13 text-center " id = "header">
   			<h1><font color = "red"><b>Nonong's</b></font></h1>
