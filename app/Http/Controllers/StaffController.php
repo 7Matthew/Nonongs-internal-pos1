@@ -69,8 +69,7 @@ class StaffController extends Controller
         ]);
 
         $order = new Orders();
-        $user = Auth::user('id');
-        $order->user_id = $user->id;
+        $order->user_id = auth()->id();
         $order->description = $request->input('description');
         $order->total_price = $request->input('total_price');
         $order->payment = $request->input('payment');

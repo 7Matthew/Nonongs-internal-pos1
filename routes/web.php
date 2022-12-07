@@ -40,20 +40,16 @@ Route::middleware(['auth','isAdmin'])->group(function(){
   Route::get('/contact', [App\Http\Controllers\AdminController::class, 'contact']);
   Route::get('/forecasting',  [App\Http\Controllers\AdminController::class, 'forecasting'])->name('forecasting');
   Route::get('/order_history',  [App\Http\Controllers\AdminController::class, 'order_history'])->name('order_history');
-  
   /**ROUTE FOR FOOD MENU CRUD */
   Route::resource("/food-item", FoodItemController::class);
-
   // user management by admin
   Route::resource('/manage-users', ManageUserController::class);
- 
 });
 
 //Authenticated staff
 Route::middleware('auth')->group(function(){
   Route::get('/menu', [App\Http\Controllers\StaffController::class, 'menu'])->name('menu');
   Route::get('/orders', [App\Http\Controllers\StaffController::class, 'orders'])->name('orders');
-
   Route::resource('/make_order', StaffController::class);
 });
 

@@ -51,7 +51,7 @@ $(document).ready(function(){
             $("#total").val(total);
         }); 
 
-
+        
         
         $("#decrement"+counter).click(function(){
             if(input_quantity != -1){
@@ -64,23 +64,24 @@ $(document).ready(function(){
                 $("#total").val(total);
             }
         });
-
+        
+        $("#record_to_summary"+counter).click(function(){   
+            $("#description").append($("#item_name"+counter).text() +" - " + "PhP" +  $("#cart_item_price"+counter).text() + " \n");
+            order_description.push($("#item_name"+counter).text() + " -- "  + $("#cart_item_price"+counter).text());
+        });
         
        //once na ma click ang submit, dapat lahat nung item na nakasulat ay marerecord dapat sa order summary
-        $("#record_to_summary"+counter).click(function(){   
-            $("#description").val($("#item_name"+counter).val());
-            console.log($("#item_name"+counter).text() + "----------------" + $("#cart_item_price"+counter).text());
-        });
-
-         $("#submit_order").click(function(){
+        
+        $("#submit_order").click(function(){
             if(parseInt($("#total").val()) > parseInt($("#payment").val()))
             {
                 console.log("Insufficient Payment!");
             }
-            else
-            {
-                $("#description").val($("#item_name"+counter).html() + "----------------" + $("#cart_item_price"+counter).html() + "\n");
-            }
+            
+            let change = parseInt($("#payment").val()) - parseInt($("#total").val())
+            $("#summary_total").text("Amount Due: PhP " + parseInt($("#total").val()));
+            $("#summary_change").text("Change: PhP " + change);
+            
         });
 
         //fix this part may bug pa

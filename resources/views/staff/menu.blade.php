@@ -255,6 +255,8 @@
                                             <div class="modal-body">
                                                 <p>Order Summary</p> 
                                                 <textarea name="description" id="description" cols="30" rows="10" class="form-control" ></textarea>
+                                                <p id="summary_total"></p>
+                                                <p id="summary_change"></p>
                                                 <small class="text-muted">{{ strToUpper(date("F j Y")) }}</small>
                                             </div>
                                             <div class="modal-footer">

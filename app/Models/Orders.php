@@ -11,4 +11,9 @@ class Orders extends Model
 
     protected $table='orders';
     protected $primaryKey='id';
+
+    //relationship to user
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
