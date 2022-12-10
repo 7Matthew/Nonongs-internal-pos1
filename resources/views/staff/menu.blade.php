@@ -21,7 +21,7 @@
 
 @section('title','Food Menu')
 @section('content')   
-<script src="js/jqueryFunctions.js"> </script>
+<script src="js/jqueryFunctions.js"></script>
 
 <div aria-live="polite" aria-atomic="true" class="position-relative">
     <div class="toast-container position-fixed bottom-0 end-0 p-3">

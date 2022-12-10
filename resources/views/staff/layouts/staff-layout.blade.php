@@ -45,6 +45,10 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   {{-- JQUERY --}}
   <script src="js/jquery.min.js"></script>
+  {{-- DataTables --}}
+  <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+  <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
+  
 </head>
 <body class="hold-transition sidebar-mini">
   
@@ -70,27 +74,7 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item">
-        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-          <i class="fas fa-search"></i>
-        </a>
-        <div class="navbar-search-block">
-          <form class="form-inline">
-            <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                  <i class="fas fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </li>
+      
       @yield('topnav-items')
       <div class ="dropdown me-3">
         <a class = "btn dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true"data-bs-placement="bottom" title="Account"><i class="fa-solid fa-user 100 fa-lg m-2">
@@ -125,22 +109,10 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex p-auto">
         <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="images/logo.jpg" class="img-circle elevation-2" alt={{ Auth::user()->username}}>
         </div>
         <div class="info">
-          <a href="{{ route('admin-dashboard') }}" class="d-block text-light">{{ Auth::user()->username}} </a>
-        </div>
-      </div>
-  
-      <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
+          <a href="{{ route('admin-dashboard') }}" class="d-block text-light">{{ Auth::user()->username}}</a>
         </div>
       </div>
 
@@ -195,10 +167,10 @@
 
 <!-- REQUIRED SCRIPTS -->
 
-<!-- jQuery -->
+{{-- <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script> --}}
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 </body>

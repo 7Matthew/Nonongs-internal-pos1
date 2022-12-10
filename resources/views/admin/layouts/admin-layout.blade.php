@@ -45,6 +45,11 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   {{-- JQUERY --}}
   <script src="js/jquery.min.js"></script>
+
+  {{-- DataTables --}}
+  <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+  <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
+  
 </head>
 <body class="hold-transition sidebar-mini">
 
@@ -174,7 +179,7 @@
             </a>
           </li>
           <li class="nav-item hover-transform">
-            <a class="nav-link" href="{{ route('order_history') }}"data-bs-toggle="tooltip" data-bs-placement="bottom" title="Order History">
+            <a class="nav-link" href="{{ route('orders') }}"data-bs-toggle="tooltip" data-bs-placement="bottom" title="Order History">
                 <i class="fa-solid fa-table fa-lg mr-auto"></i> 
               <p>
                 Order History

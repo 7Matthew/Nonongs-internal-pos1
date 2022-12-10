@@ -5,6 +5,7 @@ var order_price_container = []; // a container for the price of a clicked/select
 const date = new Date();
 var order_description = [];
 
+// Required for DataTables Plugin 
 $(document).ready(function(){
     
     for (let counter = 0; counter < 100; counter++) {
