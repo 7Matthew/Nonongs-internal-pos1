@@ -69,6 +69,7 @@ $(document).ready(function(){
         $("#record_to_summary"+counter).click(function(){   
             $("#description").append($("#item_name"+counter).text() +" - " + "PhP" +  $("#cart_item_price"+counter).text() + " \n");
             order_description.push($("#item_name"+counter).text() + " -- "  + $("#cart_item_price"+counter).text());
+            $("#toast_record_summary"+counter).toast("show","autohide:false").fadeIn(100);
         });
         
        //once na ma click ang submit, dapat lahat nung item na nakasulat ay marerecord dapat sa order summary

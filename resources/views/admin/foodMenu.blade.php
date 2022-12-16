@@ -4,13 +4,14 @@
     <div class="row">
         <div class="col">
             <div class="col mt-2" data-aos="fade-in"  data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
-                <nav class = "navbar-nav" id="categories">
+                <nav class = "navbar-nav" id="categs">
                     <li class="nav-item justify-content-end">
-                        <a class="ml-4 fs-5" href="#fried-chicken">Fried Chicken</a>
-                        <a class="ml-4 fs-5" href="#rice-meals">Rice Meals</a>
-                        <a class="ml-4 fs-5" href="#soup">Soup</a>
-                        <a class="ml-4 fs-5" href="#rice">Rice</a>
-                        <a class="ml-4 fs-5" href="#others">Others</a>          
+                        @php
+                            $categories = \App\Models\Category::get()->all();
+                        @endphp        
+                        @foreach ($categories as $category)
+                            <a href={{"#".$category->name}}> {{$category->name}} </a>
+                        @endforeach
                     </li>
                 </nav> 
             </div>
@@ -23,7 +24,7 @@
 
 
 
-<div class="container-fluid mt-5" data-bs-smooth-scroll="true" data-bs-spy="scroll" data-bs-target="#categories">
+<div class="container-fluid mt-5" data-bs-smooth-scroll="true" data-bs-spy="scroll" data-bs-target="#categs">
     @if(Session::has('success'))
     <div class="toast-show alert alert-success text-dark mt-4 p-auto" data-aos="fade-in" delay="500" duration="700" data-bs-dismiss="alert" aria-label="Close" role="alert">
         {{ 'Item Added Successfully!' }}
@@ -39,22 +40,32 @@
             {{ 'Item Deleted Successfully!' }}
         </div>
     @endif
-    <div class="col-lg-4 col-md-8 col-sm-12">
-        <button class="btn btn-success btn-md ml-5" title="Add Menu" data-bs-toggle="modal" data-bs-target="#modal-create-food-item">
-            <i class="fa-solid fa-square-plus fa-lg mr-3"></i>Add new Item
-        </button>
-    </div>
     <div class="row">
-        <div class="col p-5 m-relative" id="fried-chicken" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
-            <div class="card border-3">
+        <div class="col-lg-4 col-md-8 col-sm-12">
+            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                <button class="btn btn-success btn-sm ml-5" title="Add Menu" data-bs-toggle="modal" data-bs-target="#modal-create-food-item">
+                    <i class="fa-solid fa-square-plus fa-lg mr-3"></i>Add new Item
+                </button>
+                <button class="btn btn-warning btn-sm" title="Add Menu" data-bs-toggle="modal" data-bs-target="#modal-create-new-category">
+                    <i class="fa-solid fa-square-plus fa-lg mr-3"></i>Add new Category
+                </button>
+            </div>
+            
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col p-5 m-relative"> 
+            @foreach ($categories as $category)
+            <div class="card border-3 mt-2" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out" id={{$category->name}}>
                 <div class="card-header text-gray bg-danger">
-                    <h6> Fried Chicken </h6>
+                    <h6> {{$category->name}} </h6>
                 </div>
                 <div class="card-body text-dark">
                     <div class="row">
                         @foreach ($data as $item)
-                            @if($item->category == "fried-chicken")
-                                <div class="col-lg-2">
+                            @if($item->category_id == $category->id)
+                                <div class="col-lg-2 col-md-4 col-sm-6" >
                                     <div class="card no-border m-relative p-auto">
                                         <div class="page-content justify-content">
                                             <img src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
@@ -62,6 +73,7 @@
                                             
                                             <button type="button" class="btn btn-info btn-sm mt-2" title="View Item" data-bs-toggle="modal" data-bs-target="{{"#modal-show-food-item".$item->id}}"><i class="fa-solid fa-eye"></i></button>
                                             <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target={{"#modal-edit-food-item".$item->id}} title="Edit Item"><i class="fa-regular fa-pen-to-square"></i></button>
+
                                             <form method="POST" action="{{ route('food-item.destroy', $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 @method('DELETE')
                                                 @csrf
@@ -89,178 +101,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card border-3 mt-2" id="rice-meals" data-aos="fade-right" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
-                <div class="card-header text-gray bg-danger">
-                    <h6> Rice Meals </h6>
-                </div>
-                <div class="card-body text-dark">
-                    <div class="row">
-                        @foreach ($data as $item)
-                            @if($item->category == "rice-meals")
-                                <div class="col-lg-2">
-                                    <div class="card no-border m-relative p-auto">
-                                        <div class="page-content justify-content">
-                                            <img src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
-                                            <p class ="justify-content d-flex"font size ="2px">{{$item->name}}</p>
-                                            
-                                            <button type="button" class="btn btn-info btn-sm mt-2" title="View Item" data-bs-toggle="modal" data-bs-target="{{"#modal-show-food-item".$item->id}}"><i class="fa-solid fa-eye"></i></button>
-                                            <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target={{"#modal-edit-food-item".$item->id}} title="Edit Item"><i class="fa-regular fa-pen-to-square"></i></button>
-                                            <form method="POST" action="{{ route('food-item.destroy', $item->id) }}" accept-charset="UTF-8" style="display:inline">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="button" class="btn btn-danger btn-sm mt-2" title="Delete item" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-trash"></i></button>
-                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="modal-confirm-order" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered">
-                                                      <div class="modal-content">
-                                                        <div class="modal-header d-flex pb-5">
-                                                          <h1 class="modal-title fs-5" id="modal-confirm-order">Confirm Deletion of {{ $item->name }}?</h1>
-                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                          <button type="submit" class="btn btn-primary">Confirm</button>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-            <div class="card border-3 mt-2" id="soup" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
-                <div class="card-header text-gray bg-danger">
-                    <h6> Soup </h6>
-                </div>
-                <div class="card-body text-dark">
-                    <div class="row">
-                        @foreach ($data as $item)
-                            @if($item->category == "soup")
-                                <div class="col-lg-2">
-                                    <div class="card no-border m-relative p-auto">
-                                        <div class="page-content justify-content">
-                                            <img src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
-                                            <p class ="justify-content d-flex"font size ="2px">{{$item->name}}</p>
-                                            
-                                            <button type="button" class="btn btn-info btn-sm mt-2" title="View Item" data-bs-toggle="modal" data-bs-target="{{"#modal-show-food-item".$item->id}}"><i class="fa-solid fa-eye"></i></button>
-                                            <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target={{"#modal-edit-food-item".$item->id}} title="Edit Item"><i class="fa-regular fa-pen-to-square"></i></button>
-                                            <form method="POST" action="{{ route('food-item.destroy', $item->id) }}" accept-charset="UTF-8" style="display:inline">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="button" class="btn btn-danger btn-sm mt-2" title="Delete item" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-trash"></i></button>
-                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="modal-confirm-order" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered">
-                                                      <div class="modal-content">
-                                                        <div class="modal-header d-flex pb-5">
-                                                          <h1 class="modal-title fs-5" id="modal-confirm-order">Confirm Deletion of {{ $item->name }}?</h1>
-                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                          <button type="submit" class="btn btn-primary">Confirm</button>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-            <div class="card border-3 mt-2" id="rice" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
-                <div class="card-header text-gray bg-danger">
-                    <h6> Rice </h6>
-                </div>
-                <div class="card-body text-dark">
-                    <div class="row">
-                        @foreach ($data as $item)
-                            @if($item->category == "rice")
-                                <div class="col-lg-2">
-                                    <div class="card no-border m-relative p-auto">
-                                        <div class="page-content justify-content">
-                                            <img src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
-                                            <p class ="justify-content d-flex"font size ="2px">{{$item->name}}</p>
-                                            
-                                            <button type="button" class="btn btn-info btn-sm mt-2" title="View Item" data-bs-toggle="modal" data-bs-target="{{"#modal-show-food-item".$item->id}}"><i class="fa-solid fa-eye"></i></button>
-                                            <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target={{"#modal-edit-food-item".$item->id}} title="Edit Item"><i class="fa-regular fa-pen-to-square"></i></button>
-                                            <form method="POST" action="{{ route('food-item.destroy', $item->id) }}" accept-charset="UTF-8" style="display:inline">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="button" class="btn btn-danger btn-sm mt-2" title="Delete item" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-trash"></i></button>
-                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="modal-confirm-order" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered">
-                                                      <div class="modal-content">
-                                                        <div class="modal-header d-flex pb-5">
-                                                          <h1 class="modal-title fs-5" id="modal-confirm-order">Confirm Deletion of {{ $item->name }}?</h1>
-                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                          <button type="submit" class="btn btn-primary">Confirm</button>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-            <div class="card border-3 mt-2" id="others" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
-                <div class="card-header text-gray bg-danger">
-                    <h6> Other Specialties </h6>
-                </div>
-                <div class="card-body text-dark">
-                    <div class="row">
-                        @foreach ($data as $item)
-                            @if($item->category == "other-specialties")
-                                <div class="col-lg-2">
-                                    <div class="card no-border m-relative p-auto">
-                                        <div class="page-content justify-content">
-                                            <img src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
-                                            <p class ="justify-content d-flex"font size ="2px">{{$item->name}}</p>
-                                            
-                                            <button type="button" class="btn btn-info btn-sm mt-2" title="View Item" data-bs-toggle="modal" data-bs-target="{{"#modal-show-food-item".$item->id}}"><i class="fa-solid fa-eye"></i></button>
-                                            <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target={{"#modal-edit-food-item".$item->id}} title="Edit Item"><i class="fa-regular fa-pen-to-square"></i></button>
-                                            <form method="POST" action="{{ route('food-item.destroy', $item->id) }}" accept-charset="UTF-8" style="display:inline">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="button" class="btn btn-danger btn-sm mt-2" title="Delete item" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-trash"></i></button>
-                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="modal-confirm-order" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered">
-                                                      <div class="modal-content">
-                                                        <div class="modal-header d-flex pb-5">
-                                                          <h1 class="modal-title fs-5" id="modal-confirm-order">Confirm Deletion of {{ $item->name }}?</h1>
-                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                          <button type="submit" class="btn btn-primary">Confirm</button>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>
@@ -284,15 +125,12 @@
                         <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
                       </div>
                     @enderror
-                    <label for="category">Category</label></br>
-                    <select name ="category" id="category" class="form-control" value ="{{old('category')}}">
+                    <label for="category" class="form-label">Category</label></br>
+                    <select name ="category_id" id="category" class="form-control" value ="{{old('category_id')}}">
                         <option></option>
-                        <option value="fried-chicken">Fried Chicken</option>
-                        <option value="rice-meals">Rice Meals</option>
-                        <option value="soup"> Soup </option>
-                        <option value="rice"> Rice </option>
-                        <option value="other-specialties"> Other Specialties </option>
-                        <option value="drinks"> Drinks </option>
+                        @foreach ($categories as $category)
+                            <option value={{$category->id}}>{{$category->name}}</option>
+                        @endforeach
                     </select>
                     </br>
                     @error('category')
@@ -322,6 +160,39 @@
         </div>
     </div>
 </div>  
+
+{{-- create new category --}}
+<div class="modal fade" id="modal-create-new-category" tabindex="-1" aria-labelledby="modal-create-food-item" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-alert bg-warning">
+                <h1 class="modal-title fs-4" id="modal-confirm-order">Create New Category</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('food-item.store') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <label for="name">Name</label></br>
+                    <input type="text" name="name" id="name" class="form-control" value ="{{old('name')}}"></br>
+                    @error('name')
+                      <div class="alert alert-danger" role="alert">
+                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                      </div>
+                    @enderror
+                    <label for="label">Label</label></br>
+                    <input type="text" name="label" id="label" class="form-control" value ="{{old('label')}}"></br>
+                    @error('label')
+                      <div class="alert alert-danger" role="alert">
+                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                      </div>
+                    @enderror
+                    <input type="submit" value="Save" class="btn btn-success mt-2"></br>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>  
+
 {{-- MODAL Edit and show --}}
 @foreach ($data as $item)
     <div class="modal fade" id={{"modal-edit-food-item".$item->id}} tabindex="-1" aria-labelledby="modal-edit-food-item" aria-hidden="true">

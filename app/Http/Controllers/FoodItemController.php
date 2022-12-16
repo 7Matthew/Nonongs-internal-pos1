@@ -45,14 +45,14 @@ class FoodItemController extends Controller
     {
         $request->validate([
             'name'=> 'required',
-            'category'=> 'required',
+            'category_id'=> 'int',
             'price'=> 'required|int',
             'stocks'=> 'required|int'
         ]);
         $food = new FoodMenu();
         $food->name = strip_tags($request->input('name'));
+        $food->category_id = $request->input('category_id');
         $food->price = strip_tags($request->input('price'));
-        $food->category = strip_tags($request->input('category'));
         $food->stocks = strip_tags($request->input('stocks'));
         if ($request->hasFile('image')) {
             $food->image = $request->file('image')->store('uploads','public');

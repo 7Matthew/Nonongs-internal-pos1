@@ -6,11 +6,12 @@
                 <div class="col mt-2" data-aos="fade-in"  data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                     <nav class = "navbar-nav" id="page-content">
                         <li class="nav-item justify-content-end">
-                            <a class="ml-4 fs-5" href="#fried-chicken">Fried Chicken</a>
-                            <a class="ml-4 fs-5" href="#rice-meals">Rice Meals</a>
-                            <a class="ml-4 fs-5" href="#soup">Soup</a>
-                            <a class="ml-4 fs-5" href="#rice">Rice</a>
-                            <a class="ml-4 fs-5" href="#others">Others</a>
+                            @php
+                                $categories = \App\Models\Category::all();
+                            @endphp
+                            @foreach ($categories as $category)
+                                <a class="ml-4 fs-5" href={{"#".$category->name}}>{{$category->name}}</a>
+                            @endforeach
                             <a class="ml-4 fs-5" href="#cart">Cart</a>
                         </li>
                     </nav> 
@@ -42,6 +43,14 @@
                 <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
             </div>
+            <div class="toast align-items-center text-bg-success border-0" id={{"toast_record_summary".$item->id}} role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                <div class="toast-body">
+                    <i class="fa-solid fa-bell fa-lg"></i> {{$item->name}} Added to order Summary!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
         @endforeach
     </div>
 </div>
@@ -49,41 +58,19 @@
 <div class="container-fluid" data-bs-smooth-scroll="true" data-bs-spy="scroll" data-bs-target="#page-content">    
     <div class="row">
         <div class="col p-5 text-dark m-relative">
-            <div class="card border-3" id="fried-chicken" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
+            @php
+                $categories = \App\Models\Category::all();
+            @endphp
+            @foreach ($categories as $category)
+            <div class="card border-3 mt-2" id={{$category->name}} data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">
-                    <h6> Fried Chicken </h6>
+                    <h6> {{$category->name}} </h6>
                 </div>
                 <div class="card-body text-dark">
                     <div class="row">
                         @foreach ($data as $item)
-                            @if($item->category == "fried-chicken")
-                                <div class="col-lg-2 col-md-4 col-sm-3">
-                                    <div class="card no-border m-relative p-auto justify-content-end" id="{{$item->id}}">
-                                        <button class="btn btn-light">
-                                            <div class="page-content text-center">
-                                                <img class = ""src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
-                                                <p class="justify-content" font size ="2px">{{$item->name}}</p>
-                                                <p class="bg-warning justify-content-center d-flex" font size ="2px">P{{$item->price}}</p>
-                                                <p class="bg-danger justify-content-center d-flex" font size ="2px">Stock: {{$item->stocks}}</p>
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
-                                {{-- TOAST --}}
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-            <div class="card border-3" id="rice-meals" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
-                <div class="card-header text-gray bg-danger">
-                    <h6> Rice Meals</h6>
-                </div>
-                <div class="card-body text-dark">
-                    <div class="row">
-                        @foreach ($data as $item)
-                            @if($item->category == "rice-meals")
-                                <div class="col-lg-2 col-md-4 col-sm-3">
+                            @if($item->category_id == $category->id)
+                                <div class="col-lg-2 col-md-4 col-sm-6">
                                     <div class="card no-border m-relative p-auto justify-content-end" id="{{$item->id}}">
                                         <button class="btn btn-light">
                                             <div class="page-content text-center">
@@ -100,81 +87,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card border-3" id="soup" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
-                <div class="card-header text-gray bg-danger">
-                    <h6> Soup </h6>
-                </div>
-                <div class="card-body text-dark">
-                    <div class="row">
-                        @foreach ($data as $item)
-                            @if($item->category == "soup")
-                                <div class="col-lg-2 col-md-4 col-sm-3">
-                                    <div class="card no-border m-relative p-auto justify-content-end" id="{{$item->id}}">
-                                        <button class="btn btn-light">
-                                            <div class="page-content text-center">
-                                                <img class = ""src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
-                                                <p class="justify-content" font size ="2px">{{$item->name}}</p>
-                                                <p class="bg-warning justify-content-center d-flex" font size ="2px">P{{$item->price}}</p>
-                                                <p class="bg-danger justify-content-center d-flex" font size ="2px">Stock: {{$item->stocks}}</p>
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-            <div class="card border-3" id="rice" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
-                <div class="card-header text-gray bg-danger">
-                    <h6> Rice </h6>
-                </div>
-                <div class="card-body text-dark">
-                    <div class="row">
-                        @foreach ($data as $item)
-                            @if($item->category == "rice")
-                                <div class="col-lg-2 col-md-4 col-sm-3">
-                                    <div class="card no-border m-relative p-auto justify-content-end" id="{{$item->id}}">
-                                        <button class="btn btn-light">
-                                            <div class="page-content text-center">
-                                                <img class = ""src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
-                                                <p class="justify-content" font size ="2px">{{$item->name}}</p>
-                                                <p class="bg-warning justify-content-center d-flex" font size ="2px">P{{$item->price}}</p>
-                                                <p class="bg-danger justify-content-center d-flex" font size ="2px">Stock: {{$item->stocks}}</p>
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-            <div class="card border-3" id="others" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
-                <div class="card-header text-gray bg-danger">
-                    <h6> Other Specialties </h6>
-                </div>
-                <div class="card-body text-dark">
-                    <div class="row">
-                        @foreach ($data as $item)
-                            @if($item->category == "other-specialties")
-                                <div class="col-lg-2 col-md-4 col-sm-3">
-                                    <div class="card no-border m-relative p-auto justify-content-end" id="{{$item->id}}">
-                                        <button class="btn btn-light">
-                                            <div class="page-content text-center">
-                                                <img class = ""src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
-                                                <p class="justify-content" font size ="2px">{{$item->name}}</p>
-                                                <p class="bg-warning justify-content-center d-flex" font size ="2px">P{{$item->price}}</p>
-                                                <p class="bg-danger justify-content-center d-flex" font size ="2px">Stock: {{$item->stocks}}</p>
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-            </div>
+            @endforeach
             {{-- This will be the cart --}}
             <div class="container-fluid" id="cart">
                 <div class="row">
