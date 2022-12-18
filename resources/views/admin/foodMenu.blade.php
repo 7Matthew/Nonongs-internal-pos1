@@ -77,8 +77,8 @@
                                             <form method="POST" action="{{ route('food-item.destroy', $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 @method('DELETE')
                                                 @csrf
-                                                <button type="button" class="btn btn-danger btn-sm mt-2" title="Delete item" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-trash"></i></button>
-                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="modal-confirm-order" aria-hidden="true">
+                                                <button type="button" class="btn btn-danger btn-sm mt-2" title="Delete item" data-bs-toggle="modal" data-bs-target={{"#modal-delete-food-item".$item->id}}><i class="fa-solid fa-trash"></i></button>
+                                                <div class="modal fade" id={{"modal-delete-food-item".$item->id}} tabindex="-1" aria-labelledby="modal-confirm-order" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered">
                                                       <div class="modal-content">
                                                         <div class="modal-header d-flex pb-5">
@@ -258,6 +258,9 @@
                         </h4>
                         <h4>
                             Stocks: {{$item->stocks}}
+                        </h4>
+                        <h4>
+                            Created by: {{\App\Models\FoodItem::find($item->id)->user->name}}
                         </h4>
                     </div>
                 </div>

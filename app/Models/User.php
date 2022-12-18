@@ -49,4 +49,7 @@ class User extends Authenticatable
     public function orders(){
         return $this->hasMany(Orders::class, 'user_id');
     }
+    public function food_item(){
+        return $this->hasMany(FoodItem::class, 'user_id');
+    }
 }

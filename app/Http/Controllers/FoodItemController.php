@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\FoodMenu;
+use Illuminate\Support\Facades\Auth;
 
 class FoodItemController extends Controller
 {
@@ -52,6 +53,7 @@ class FoodItemController extends Controller
         $food = new FoodMenu();
         $food->name = strip_tags($request->input('name'));
         $food->category_id = $request->input('category_id');
+        $food->user_id = auth()->id();
         $food->price = strip_tags($request->input('price'));
         $food->stocks = strip_tags($request->input('stocks'));
         if ($request->hasFile('image')) {
