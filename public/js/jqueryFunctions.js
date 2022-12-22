@@ -77,13 +77,13 @@ $(document).ready(function(){
         $("#submit_order").click(function(){
             if(parseInt($("#total").val()) > parseInt($("#payment").val()))
             {
-                console.log("Insufficient Payment!");
+                console.log("insufficient payment!");
             }
-            
-            let change = parseInt($("#payment").val()) - parseInt($("#total").val())
-            $("#summary_total").text("Amount Due: PhP " + parseInt($("#total").val()));
-            $("#summary_change").text("Change: PhP " + change);
-            
+            else{
+                let change = parseInt($("#payment").val()) - parseInt($("#total").val())
+                $("#summary_total").text("Amount Due: PhP " + parseInt($("#total").val()));
+                $("#summary_change").text("Change: PhP " + change);
+            } 
         });
 
         //fix this part may bug pa

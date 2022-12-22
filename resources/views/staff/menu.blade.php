@@ -25,7 +25,7 @@
 <script src="js/jqueryFunctions.js"></script>
 
 <div aria-live="polite" aria-atomic="true" class="position-relative">
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div class="toast-container position-fixed bottom-0 end-0 p-3"> 
         @foreach ($data as $item)
             <div class="toast align-items-center text-bg-success border-0" id={{"addToCart".$item->id}} role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
@@ -151,7 +151,7 @@
                                             @enderror
                                     </div>
                                     <div class="offset-sm-5">
-
+                                        {{-- Purposefully empty --}}
                                     </div>
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" id="submit_order" data-bs-target="#submitOrder">
@@ -167,7 +167,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <p>Order Summary</p> 
-                                                <textarea name="description" id="description" cols="30" rows="10" class="form-control" ></textarea>
+                                                <textarea name="description" id="description" cols="30" rows="10" class="form-control" readonly></textarea>
                                                 <p id="summary_total"></p>
                                                 <p id="summary_change"></p>
                                                 <small class="text-muted">{{ strToUpper(date("F j Y")) }}</small>
@@ -179,6 +179,24 @@
                                           </div>
                                         </div>
                                       </div>
+                                    </div>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="errormsg" tabindex="-1" aria-labelledby="errormsg" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content bg-danger text-light">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body bg-danger text-light">
+                                                    Insufficient payment!
+                                                </div>
+                                                <div class="modal-footer bg-danger text-light">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
                                 </form>
                             </div>
                         </div>

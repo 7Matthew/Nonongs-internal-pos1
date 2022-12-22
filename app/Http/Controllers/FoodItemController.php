@@ -127,6 +127,6 @@ class FoodItemController extends Controller
     public function destroy($id)
     {
         FoodMenu::destroy($id);
-        return redirect('food-item')->with('delete-success','Item Deleted Successfully!');  
+        return redirect('food-item')->with('success','Item Deleted Successfully!');  
     }
 }

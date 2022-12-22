@@ -45,7 +45,6 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   {{-- JQUERY --}}
   <script src="js/jquery.min.js"></script>
-
   {{-- DataTables --}}
   <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
   <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
@@ -57,20 +56,6 @@
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
   AOS.init();
-</script>
-<!-- REQUIRED SCRIPTS -->
-
-<!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
-
-{{-- CHART JS --}}
-{{-- <script src="path/to/chartjs/dist/chart.js"></script> --}}
-<script>
-    // const myChart = new Chart(ctx, {...});
 </script>
 
 <div class="wrapper">
@@ -193,6 +178,13 @@
                 Food Menu
               </p>
             </a>
+          </li> <li class="nav-item hover-transform">
+            <a class="nav-link" href="{{ route('inventory.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Manage Inventory">
+              <i class="fa-solid fa-warehouse fa-lg"></i>
+              <p>
+                Inventory 
+              </p>
+            </a>
           </li> 
           <li class="nav-item hover-transform">
             <a class="nav-link" href="{{ route('forecasting') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sales Forecast And CRM">
@@ -223,14 +215,6 @@
               <i class="fa-solid fa-chart-simple fa-lg"></i>
               <p>
                 Reports 
-              </p>
-            </a>
-          </li> 
-          <li class="nav-item hover-transform">
-            <a class="nav-link" href="{{ route('food-item.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Manage Inventory">
-              <i class="fa-solid fa-warehouse fa-lg"></i>
-              <p>
-                Inventory 
               </p>
             </a>
           </li> 
@@ -265,5 +249,14 @@
 
   
 <!-- ./wrapper -->
+<!-- REQUIRED SCRIPTS -->
+
+{{-- <!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App --> --}}
+
+<script src="dist/js/adminlte.min.js"></script>
 </body>
 </html>

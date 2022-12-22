@@ -138,6 +138,14 @@
               </p>
             </a>
           </li>
+        </li> <li class="nav-item hover-transform">
+          <a class="nav-link" href="{{ route('inventory.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Manage Inventory">
+            <i class="fa-solid fa-warehouse fa-lg"></i>
+            <p>
+              Inventory 
+            </p>
+          </a>
+        </li> 
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
