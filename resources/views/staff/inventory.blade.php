@@ -1,4 +1,4 @@
-@extends('admin.layouts.admin-layout')
+@extends('staff.layouts.staff-layout')
 
 @section('topnav-items')
     <div class="row">
@@ -42,7 +42,7 @@
             {{ 'Item Deleted Successfully!' }}
         </div>
     @endif
-    <div class="row">
+    <div class="row">   
         <div class="col-lg-4 col-md-8 col-sm-12">
             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                 <button class="btn btn-success btn-sm ml-5" title="Add Menu" data-bs-toggle="modal" data-bs-target="#modal-create-food-item">

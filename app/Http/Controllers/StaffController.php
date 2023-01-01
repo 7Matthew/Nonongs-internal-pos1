@@ -63,19 +63,26 @@ class StaffController extends Controller
         //
         $request->validate([
             'description' => 'string|max:999999',
-            'total-price'=> 'int',
-            'payment' => ['required','int'],
-            'payment_change' => 'int'
+            'total-price'=> 'int'
         ]);
 
         $order = new Orders();
         $order->user_id = auth()->id();
         $order->description = $request->input('description');
         $order->total_price = $request->input('total_price');
-        $order->payment = $request->input('payment');
-        if(($request->input('payment') - $request->input('total_price') == 0)){
-            $order->payment_change = 0;
-        }else $order->payment_change = ($request->input('payment') - $request->input('total_price'));
+        $order->modeOfPayment = $request->input('modeOfPayment');   
+        if ($request->input('payment') >= $order->total_price) {
+            $order->paymentStatus = "Paid";
+            $order->payment = $request->input('payment');
+            if(($request->input('payment') - $order->total_price == 0)){
+                $order->payment_change = 0;
+            }else $order->payment_change = ($request->input('payment') - $order->total_price);
+        }
+        else {
+            $order->paymentStatus = "Not paid";
+            $order->payment = $request->input('payment');
+            $order->payment_change = ($request->input('payment') - $order->total_price);
+        }
         $order->save();
 
         return redirect()->route('make_order.index')->with('success','item added successfully!');
@@ -101,6 +108,7 @@ class StaffController extends Controller
     public function edit($id)
     {
         //
+        
     }
 
     /**
@@ -113,6 +121,24 @@ class StaffController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $order = Orders::findOrFail($id);
+        $order->user_id = auth()->id();
+        if ($request->input('payment') >= $order->total_price) {
+            $order->paymentStatus = "Paid";
+            $order->payment = $request->input('payment');
+            $order->modeOfPayment = $request->input('modeOfPayment');
+            if(($request->input('payment') - $order->total_price == 0)){
+                $order->payment_change = 0;
+            }else $order->payment_change = ($request->input('payment') - $order->total_price);
+        }
+        else {
+            $order->paymentStatus = "Not paid";
+            $order->payment = $request->input('payment');
+            $order->payment_change = ($request->input('payment') - $order->total_price);
+        }
+        $order->update();
+
+        return redirect()->route('orders', $id)->with('edit-success','Item Edited Successfully');
     }
 
     /**

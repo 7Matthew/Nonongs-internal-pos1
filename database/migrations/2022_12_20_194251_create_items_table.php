@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('name');
             $table->integer('cost');
             $table->integer('stocks');
+            $table->dateTime('expiry_date')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });

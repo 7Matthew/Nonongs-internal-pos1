@@ -168,9 +168,20 @@
                                             <div class="modal-body">
                                                 <p>Order Summary</p> 
                                                 <textarea name="description" id="description" cols="30" rows="10" class="form-control" readonly></textarea>
+                                                <div class="row my-3">
+                                                    <div class="col-lg-4">
+                                                        <label for="modeOfPayment" class="form-label">Payment Method</label>
+                                                    </div>
+                                                    <div class="col-lg-8">
+                                                        <select name="modeOfPayment" id="modeOfPayment" class="form-select">
+                                                            <option value="Cash">Cash</option>
+                                                            <option value="GCash">GCash</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                                 <p id="summary_total"></p>
                                                 <p id="summary_change"></p>
-                                                <small class="text-muted">{{ strToUpper(date("F j Y")) }}</small>
+                                                <small class="text-muted">{{ strToUpper(date("F j Y h:i:s")) }}</small>
                                             </div>
                                             <div class="modal-footer">
                                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

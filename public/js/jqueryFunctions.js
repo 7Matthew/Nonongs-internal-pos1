@@ -75,15 +75,15 @@ $(document).ready(function(){
        //once na ma click ang submit, dapat lahat nung item na nakasulat ay marerecord dapat sa order summary
         
         $("#submit_order").click(function(){
-            if(parseInt($("#total").val()) > parseInt($("#payment").val()))
-            {
-                console.log("insufficient payment!");
-            }
-            else{
+            // if(parseInt($("#total").val()) > parseInt($("#payment").val()))
+            // {
+            //     console.log("insufficient payment!");
+            // }
+            // else{
                 let change = parseInt($("#payment").val()) - parseInt($("#total").val())
                 $("#summary_total").text("Amount Due: PhP " + parseInt($("#total").val()));
                 $("#summary_change").text("Change: PhP " + change);
-            } 
+    
         });
 
         //fix this part may bug pa

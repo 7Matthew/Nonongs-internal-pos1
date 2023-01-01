@@ -18,8 +18,10 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('description');
             $table->integer('total_price');
-            $table->integer('payment');
-            $table->integer('payment_change');  
+            $table->text('paymentStatus')->nullable();
+            $table->text('modeOfPayment')->nullable();
+            $table->integer('payment')->default('0');
+            $table->integer('payment_change')->default('0');  
             $table->timestamps();
         });
     }

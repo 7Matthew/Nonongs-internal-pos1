@@ -138,6 +138,13 @@
                         <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
                       </div>
                     @enderror
+                    <label for="description" class="form-label">Description</label></br>
+                    <input type="text" name="description" id="description" class="form-control" value ="{{old('description')}}"></br>
+                    @error('description')
+                      <div class="alert alert-danger" role="alert">
+                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                      </div>
+                    @enderror
                     <label for="price">Price</label></br>
                     <input type="number" name="price" id="price" class="form-control" value ="{{old('price')}}"></br>
                     @error('price')
@@ -209,6 +216,13 @@
                         <label>Name</label></br>
                         <input type="text" name="name" id="name" class="form-control" value ="{{$item->name}}"></br>
                         @error('name')
+                        <div class="alert alert-danger" role="alert">
+                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                        </div>
+                        @enderror
+                        <label for="description" class="form-label">Description</label></br>
+                        <input type="text" name="description" id="description" class="form-control" value ="{{$item->description}}"></br>
+                        @error('description')
                         <div class="alert alert-danger" role="alert">
                             <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
                         </div>
