@@ -154,11 +154,30 @@
           </div>
         </div>    
       </div>
+      <div class="row">
+        <div class="overflow-auto col-lg-4 col-md-4 col-sm-6 col-xs-12">
+          <div class="card">
+            <div class="card-header bg-danger">
+                <p class="card-title"><i class="fa-solid fa-triangle-exclamation"></i> Low stock Foods</p>
+            </div>
+            <div class="card-body">
+              
+            </div>
+          </div>
+        </div>
+        <div class="overflow-auto col-lg-4 col-md-4 col-sm-6 col-xs-12">
+          <div class="card">
+            <div class="card-header bg-danger">
+                <p class="card-title"><i class="fa-solid fa-triangle-exclamation"></i> Expired Items</p>
+            </div>
+            <div class="card-body">
+  
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
   </section>
-  <div class="row">
-        
-  </div>
+  
 </div>
 @endsection

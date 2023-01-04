@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StaffController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\GuitarController;
 use App\Http\Controllers\FoodItemController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\MakeOrderController;
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ManageUserController;
 
 /*
@@ -43,6 +45,7 @@ Route::middleware(['auth','isAdmin'])->group(function(){
   Route::get('/order_history',  [App\Http\Controllers\AdminController::class, 'order_history'])->name('order_history');
   /**ROUTE FOR FOOD MENU CRUD */
   Route::resource("/food-item", FoodItemController::class);
+  Route::resource("/categories", CategoriesController::class);
   // user management by admin
   Route::resource('/manage-users', ManageUserController::class);
 });

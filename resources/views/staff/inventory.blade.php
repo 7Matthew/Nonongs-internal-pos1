@@ -344,7 +344,4 @@
         </div>
     </div>
 @endforeach
-
-
-
 @endsection

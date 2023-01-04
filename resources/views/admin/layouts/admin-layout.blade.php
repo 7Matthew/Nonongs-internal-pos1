@@ -172,20 +172,21 @@
             </a>
           </li>
           <li class="nav-item hover-transform">
+            <a class="nav-link" href="{{ route('categories.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Food Menu">
+              <i class="fa-solid fa-sort fa-lg mr-auto"></i>
+              <p>
+                Categories
+              </p>
+            </a>
+          </li>
+          <li class="nav-item hover-transform">
             <a class="nav-link" href="{{ route('food-item.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Food Menu">
               <i class="fas fa-hamburger fa-lg mr-auto"></i>  
               <p>
                 Food Menu
               </p>
             </a>
-          </li> <li class="nav-item hover-transform">
-            <a class="nav-link" href="{{ route('inventory.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Manage Inventory">
-              <i class="fa-solid fa-warehouse fa-lg"></i>
-              <p>
-                Inventory 
-              </p>
-            </a>
-          </li> 
+          </li>
           <li class="nav-item hover-transform">
             <a class="nav-link" href="{{ route('forecasting') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sales Forecast And CRM">
               <i class="fas fa-tachometer-alt fa-lg mr-auto"></i>  

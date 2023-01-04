@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class CategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,9 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        return view('admin.foodMenu'); 
+        return view('admin.categories',[
+            'categories' => Category::all()   
+        ]); 
     }
 
     /**
@@ -26,7 +28,6 @@ class CategoryController extends Controller
     public function create()
     {
         //
-        return view('admin.foodMenu'); 
     }
 
     /**
@@ -37,6 +38,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        //
         $request->validate([
             'name'=> 'required|string',
             'label'=> 'required|string'
@@ -46,16 +48,16 @@ class CategoryController extends Controller
         $category->label = strip_tags($request->input('label'));
         $category->save();
 
-        return redirect()->route('food-item.index')->with('success','Category added successfully!');
+        return redirect()->route('categories.index')->with('success','Category added successfully!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
         //
     }
@@ -63,10 +65,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
         //
     }
@@ -75,22 +77,30 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
         //
+        $category = Category::findOrFail($id);
+        $category->name = strip_tags($request->input('name'));
+        $category->label = strip_tags($request->input('label'));
+        $category->update();
+
+        return redirect()->route('categories.index', $id)->with('edit-success','Item Edited Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
         //
+        Category::destroy($id);
+        return redirect('categories')->with('success','Item Deleted Successfully!');  
     }
 }

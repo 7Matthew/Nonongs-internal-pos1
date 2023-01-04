@@ -20,7 +20,10 @@ $(document).ready(function(){
             $("#hide"+counter).show(300);//show the specific element and set its visibility property to visible
             $("#addToCart"+counter).toast("show","autohide:false").fadeIn(100);
             input_quantity = $("#input_quantity"+counter).val();// initialize input quantity
+            $("#input_quantity"+counter).val(++input_quantity);
+            total_item_price = (cart_item_price[counter] * input_quantity);
 
+            $("#cart_item_price"+counter).text(total_item_price);
             total = parseInt(cart_item_price[counter]) + total;
             $("#total").val(total);
 

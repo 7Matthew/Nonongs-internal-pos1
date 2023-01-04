@@ -72,7 +72,7 @@
                                         <button class="btn btn-light">
                                             <div class="page-content text-center">
                                                 <img class = ""src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
-                                                <p class="justify-content" font size ="2px">{{$item->name}}</p>
+                                                <p class="justify-content" font size ="2px">{{$item->name . ' '. $item->description}}</p>
                                                 <p class="bg-warning justify-content-center d-flex" font size ="2px">P{{$item->price}}</p>
                                                 <p class="bg-danger justify-content-center d-flex" font size ="2px">Stock: {{$item->stocks}}</p>
                                             </div>
@@ -111,7 +111,7 @@
                                                 </td>
                                                 <td>
                                                         <button type="button" class="btn btn-danger btn-sm mr-1" id={{"decrement".$item->id}}>-</button>
-                                                        <input type="number" min=0 max="200" name="quantity" id={{"input_quantity".$item->id}} width="5px" value="1" class="col-lg-2 col-md-4 col-sm-6 text-center" readonly>
+                                                        <input type="number" min=0 max="200" name="quantity" id={{"input_quantity".$item->id}} width="5px" value="0" class="col-lg-2 col-md-4 col-sm-6 text-center" readonly>
                                                         <button type="button" class="btn btn-success btn-sm ml-1" id={{"increment".$item->id}}>+</button>
                                                 </td>
                                                 <td>

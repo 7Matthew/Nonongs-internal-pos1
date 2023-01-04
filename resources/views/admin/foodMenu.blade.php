@@ -50,7 +50,6 @@
                     <i class="fa-solid fa-square-plus fa-lg mr-3"></i>Add new Category
                 </button>
             </div>
-            
         </div>
     </div>
     
@@ -168,37 +167,6 @@
     </div>
 </div>  
 
-{{-- create new category --}}
-<div class="modal fade" id="modal-create-new-category" tabindex="-1" aria-labelledby="modal-create-food-item" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-alert bg-warning">
-                <h1 class="modal-title fs-4" id="modal-confirm-order">Create New Category</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('food-item.store') }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <label for="name">Name</label></br>
-                    <input type="text" name="name" id="name" class="form-control" value ="{{old('name')}}"></br>
-                    @error('name')
-                      <div class="alert alert-danger" role="alert">
-                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                      </div>
-                    @enderror
-                    <label for="label">Label</label></br>
-                    <input type="text" name="label" id="label" class="form-control" value ="{{old('label')}}"></br>
-                    @error('label')
-                      <div class="alert alert-danger" role="alert">
-                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                      </div>
-                    @enderror
-                    <input type="submit" value="Save" class="btn btn-success mt-2"></br>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>  
 
 {{-- MODAL Edit and show --}}
 @foreach ($data as $item)
