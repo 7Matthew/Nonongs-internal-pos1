@@ -7,33 +7,121 @@
     <section class="content">
         <div class="container-fluid mt-3">
             <div class="row">
-                <div class="col-lg-3 col-6">
-                  <!-- small box -->
-                  <div class="small-box bg-info">
-                    <div class="inner">
-                      <h3>150</h3>
-      
-                      <p>New Orders</p>
-                    </div>
-                    <div class="icon">
-                      <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                  </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
                   <!-- small box -->
                   <div class="small-box bg-success">
                     <div class="inner">
-                      <h3>53<sup style="font-size: 20px">%</sup></h3>
-      
-                      <p>Bounce Rate</p>
+                      <h6 class="mb-3">{{date('F Y')}}</h6>
+                      @php
+                        $today_sales = DB::table('orders')->whereDate('created_at', date('Y-m-d'))->get()->where('paymentStatus', '==', 'Paid');
+                        $month_sales = DB::table('orders')->whereMonth('created_at', date('m'))->get()->where('paymentStatus', '==', 'Paid');
+                        $today_total = 0;
+                        $month_total = 0;
+                      @endphp
+                      @php
+                        foreach($month_sales as $sales)
+                        {
+                          $month_total = (int)$sales->total_price + $month_total;
+                        }
+                      @endphp
+                      <h2>&#8369 {{$month_total}}</h2>
                     </div>
                     <div class="icon">
                       <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <div class="small-box-footer">
+                      Total Monthly Sales
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                  <!-- small box -->
+                  <div class="small-box bg-info">
+                    <div class="inner">
+                      <h6 class="mb-3">{{date('M d Y, D ')}}</h6>
+                      @foreach ($today_sales as $sales)
+                        @php
+                            $today_total = (int)$sales->total_price + $today_total;
+                        @endphp
+                      @endforeach
+                      <h2> &#8369 {{$today_total}}</h2>
+                    </div>
+                    <div class="icon">
+                      <i class="ion ion-bag"></i>
+                    </div>
+                    <div class="small-box-footer">
+                      Today's total Sales
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                  <!-- small box -->
+                  <div class="small-box bg-success">
+                    <div class="inner">
+                      <h6 class="mb-3">{{date('M d Y, D ')}}</h6>
+
+                      <h2>{{count($today_sales)}} Orders</h2>
+                    </div>
+                    <div class="icon">
+                      <i class="fa-solid fa-drumstick-bite"></i>
+                    </div>
+                    <div class="small-box-footer">
+                      Today's Orders
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                  <!-- small box -->
+                  <div class="small-box bg-warning">
+                    <div class="inner">
+                      <h6 class="mb-3">{{date('F Y')}}</h6>
+                      @php
+                          $staff = DB::table('users')->get()->where('role','==','1');
+                      @endphp
+                      <h2>{{count($staff)}}</h2>
+                    </div>
+                    <div class="icon">
+                      <i class="fa fa-user"></i>
+                    </div>
+                    <div class="small-box-footer">
+                      Staff
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                  <!-- small box -->
+                  <div class="small-box bg-secondary">
+                    <div class="inner">
+                      <h6 class="mb-3">{{date('F Y')}}</h6>
+                      @php
+                      $admin = DB::table('users')->get()->where('role','==','0');
+                      @endphp
+                    <h2>{{count($admin)}}</h2>
+                    </div>
+                    <div class="icon">
+                      <i class="fa fa-user"></i>
+                    </div>
+                    <div class="small-box-footer">
+                      Admin 
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                  <!-- small box -->
+                  <div class="small-box bg-dark">
+                    <div class="inner">
+                      <h6 class="mb-3">{{date('F Y')}}</h6>
+                      @php
+                          $staff = DB::table('users')->get()->where('role','==','1');
+                      @endphp
+                      <h2>{{count($staff)}}</h2>
+                    </div>
+                    <div class="icon">
+                      <i class="fa fa-user text-light"></i>
+                    </div>
+                    <div class="small-box-footer">
+                      Staff
+                    </div>
                   </div>
                 </div>
                 <!-- ./col -->
@@ -41,14 +129,15 @@
                   <!-- small box -->
                   <div class="small-box bg-warning">
                     <div class="inner">
-                      <h3>44</h3>
-      
-                      <p>User Registrations</p>
+                      <h6 class="mb-3">{{date('M d Y, D ')}}</h6>
+                      <h2>44</h2>
                     </div>
                     <div class="icon">
                       <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <div class="small-box-footer">
+                      User Registration
+                    </div>
                   </div>
                 </div>
                 <!-- ./col -->
@@ -56,14 +145,15 @@
                   <!-- small box -->
                   <div class="small-box bg-danger">
                     <div class="inner">
-                      <h3>65</h3>
-      
-                      <p>Unique Visitors</p>
+                      <h6 class="mb-3">{{date('M d Y, D ')}}</h6>
+                      <h2>44</h2>
                     </div>
                     <div class="icon">
                       <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <div class="small-box-footer">
+                      Unique Visitors
+                    </div>
                   </div>
                 </div>
                 <!-- ./col -->
@@ -111,18 +201,5 @@
                 </div>
               </div>
             </div>
-
-    <div class="row">
-        <div class="col-lg-8 p-5 text-dark m-relative">
-            <div class="card">
-                <div class="card-header text-dark"id="shadowed-text">
-                    THIS IS THE DASHBOARD
-                </div>
-                <div class="card-body text-dark">
-                    <p>SAMPLE CONTENT NI DASHBOARD Lorem ipsum dolor sit amet, consectetur adipisicing elit. In, voluptate possimus nemo, aliquam repudiandae impedit error, ad facere labore eaque corrupti eveniet praesentium molestiae quia atque expedita facilis aut nulla.</p>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 @endsection

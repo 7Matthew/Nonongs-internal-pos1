@@ -20,7 +20,11 @@ $(document).ready(function(){
             $("#hide"+counter).show(300);//show the specific element and set its visibility property to visible
             $("#addToCart"+counter).toast("show","autohide:false").fadeIn(100);
             input_quantity = $("#input_quantity"+counter).val();// initialize input quantity
-            console.log("price: " + cart_item_price[counter]);
+
+            total = parseInt(cart_item_price[counter]) + total;
+            $("#total").val(total);
+
+            console.log("hatdog: " + cart_item_price[counter]);
         });
 
         $("#remove"+counter).click(function(){

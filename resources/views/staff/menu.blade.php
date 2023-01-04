@@ -114,7 +114,7 @@
                                                 </td>
                                                 <td>
                                                         <button type="button" class="btn btn-danger btn-sm mr-1" id={{"decrement".$item->id}}>-</button>
-                                                        <input type="number" min="0" max="200" name="quantity" id={{"input_quantity".$item->id}} width="5px" value="0" class="col-lg-2 col-md-4 col-sm-6 text-center" readonly>
+                                                        <input type="number" min=0 max="200" name="quantity" id={{"input_quantity".$item->id}} width="5px" value="1" class="col-lg-2 col-md-4 col-sm-6 text-center" readonly>
                                                         <button type="button" class="btn btn-success btn-sm ml-1" id={{"increment".$item->id}}>+</button>
                                                 </td>
                                                 <td>

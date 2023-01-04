@@ -268,6 +268,9 @@
                             ID: {{$item->id}}
                         </h4>
                         <h4>
+                            Description: {{ $item->description }}
+                        </h4>
+                        <h4>
                             Price: {{$item->price}}
                         </h4>
                         <h4>

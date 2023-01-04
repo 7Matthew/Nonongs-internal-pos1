@@ -80,7 +80,10 @@ class StaffController extends Controller
         }
         else {
             $order->paymentStatus = "Not paid";
-            $order->payment = $request->input('payment');
+            if($request->input('payment') != null)
+            {
+                $order->payment = $request->input('payment'); 
+            }
             $order->payment_change = ($request->input('payment') - $order->total_price);
         }
         $order->save();
