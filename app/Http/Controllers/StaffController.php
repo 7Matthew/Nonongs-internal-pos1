@@ -6,6 +6,7 @@ use App\Models\Orders;
 use App\Models\FoodMenu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class StaffController extends Controller
 {
@@ -14,6 +15,15 @@ class StaffController extends Controller
     // {
     //     $this->middleware('auth');
     // }
+
+    public function transaction_report()
+    {
+        $pdf = PDF::loadView('pdf.transaction_report',[
+            'data'=>Orders::all()
+        ]); 
+        
+        return $pdf->stream();
+    }
 
     /**
      * Display a listing of the resource.

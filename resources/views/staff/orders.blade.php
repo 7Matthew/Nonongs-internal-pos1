@@ -19,6 +19,7 @@
         });
     </script>
     <div class="container-fluid">
+        <a href="{{route('transaction_report')}}" target="__blank" class="btn btn-success">Export as PDF</a>
         <div class="row">
             <div class="col-lg-13 p-3 text-dark m-relative">
             <div class="card">
