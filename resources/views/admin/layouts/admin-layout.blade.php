@@ -188,14 +188,6 @@
             </a>
           </li>
           <li class="nav-item hover-transform">
-            <a class="nav-link" href="{{ route('forecasting') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sales Forecast And CRM">
-              <i class="fas fa-tachometer-alt fa-lg mr-auto"></i>  
-              <p>
-                Sales Forecast
-              </p>
-            </a>
-          </li> 
-          <li class="nav-item hover-transform">
             <a class="nav-link" href="{{ route('manage-users.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Manage Users Account">
               <i class="fa-solid fa-user fa-lg mr-auto"></i>  
               <p>
