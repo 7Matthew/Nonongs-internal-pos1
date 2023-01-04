@@ -7,13 +7,10 @@
                 <nav class = "navbar-nav" id="categs">
                     <li class="nav-item justify-content-end">
                         @php
-                            $categories = \App\Models\Category::get()->all();
+                            $categories = \App\Models\Category::get()->where('label', '==','ingredients');
                             $data = \App\Models\Item::get()->all();
                             $suppliers = \App\Models\Supplier::get()->all();
                         @endphp        
-                        @foreach ($categories as $category)
-                            <a href={{"#".$category->name}}> {{$category->name}} </a>
-                        @endforeach
                     </li>
                 </nav> 
             </div>
@@ -67,11 +64,13 @@
             <table id="order_history" class="table table-striped aos-init aos-animate" data-aos="fade-right" data-aos-delay="500" data-aos-duration="700">
                 <thead>
                     <th>Name</th>
+                    <th>Quantity</th>
                     <th>Supplier</th>
                     <th>Category</th>
                     <th>Created by</th>
                     <th>Cost</th>
                     <th>Stock</th>
+                    <th>Expiry</th>
                     <th>Action</th>
                 </thead>
                 <tbody>
@@ -80,11 +79,13 @@
                         <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                             <img src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="10%" height="10%"> {{$item->name}}
                         </td>
+                        <td>{{$item->quantity . ' ' . $item->measuring_unit}}</td>
                         <td>{{$item->supplier->name}}</td>
                         <td>{{$item->category->name}}</td>
                         <td>{{$item->user->name}}</td>
                         <td>{{$item->cost}}</td>
                         <td>{{$item->stocks}}</td>
+                        <td>{{$item->expiry_date}}</td>
                         <td>
                             <button type="button" class="btn btn-info btn-sm mt-2" title="View Item" data-bs-toggle="modal" data-bs-target="{{"#modal-show-food-item".$item->id}}"><i class="fa-solid fa-eye"></i></button>
                             <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target={{"#modal-edit-food-item".$item->id}} title="Edit Item"><i class="fa-regular fa-pen-to-square"></i></button>
@@ -136,6 +137,20 @@
                         <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
                       </div>
                     @enderror
+                    <label for="quantity">quantity</label></br>
+                    <input type="number" name="quantity" id="quantity" placeholder="0.00" class="form-control" value ="{{old('quantity')}}"></br>
+                    @error('quantity')
+                      <div class="alert alert-danger" role="alert">
+                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                      </div>
+                    @enderror
+                    <label for="measuring_unit">Measurement(ex. Kg, Pcs, g, etc)</label></br>
+                    <input type="text" name="measuring_unit" id="measuring_unit" class="form-control" value ="{{old('measuring_unit')}}"></br>
+                    @error('measuring_unit')
+                      <div class="alert alert-danger" role="alert">
+                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                      </div>
+                    @enderror
                     <label for="supplier_id" class="form-label">Supplier</label></br>
                     <select name ="supplier_id" id="supplier_id" class="form-control" value ="{{old('supplier_id')}}">
                         <option></option>
@@ -172,6 +187,13 @@
                     <label for="stocks">Stocks</label></br>
                     <input type="number" name="stocks" id="stocks" class="form-control" value ="{{old('stocks')}}"></br>
                     @error('stocks')
+                      <div class="alert alert-danger" role="alert">
+                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                      </div>
+                    @enderror
+                    <label for="expiry_date">Expiry</label></br>
+                    <input type="date" name="expiry_date" id="expiry_date" class="form-control" value ="{{old('expiry_date')}}"></br>
+                    @error('expiry_date')
                       <div class="alert alert-danger" role="alert">
                         <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
                       </div>
@@ -308,7 +330,7 @@
                             Supplier: {{$item->supplier->name}}
                         </h4>
                         <h4>
-                            Price: {{$item->cost}}
+                            Cost: {{$item->cost}}
                         </h4>
                         <h4>
                             Stocks: {{$item->stocks}}

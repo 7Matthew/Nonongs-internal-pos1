@@ -7,7 +7,7 @@
                 <nav class = "navbar-nav" id="categs">
                     <li class="nav-item justify-content-end">
                         @php
-                            $categories = \App\Models\Category::get()->all();
+                            $categories = \App\Models\Category::where('label', '!=', 'ingredients')->get();
                         @endphp        
                         @foreach ($categories as $category)
                             <a href={{"#".$category->name}}> {{$category->name}} </a>

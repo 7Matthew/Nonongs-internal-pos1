@@ -7,7 +7,7 @@
                     <nav class = "navbar-nav" id="page-content">
                         <li class="nav-item justify-content-end">
                             @php
-                                $categories = \App\Models\Category::all();
+                                $categories = \App\Models\Category::where('label', '!=', 'ingredients')->get();;
                             @endphp
                             @foreach ($categories as $category)
                                 <a class="ml-4 fs-5" href={{"#".$category->name}}>{{$category->name}}</a>
@@ -58,9 +58,6 @@
 <div class="container-fluid" data-bs-smooth-scroll="true" data-bs-spy="scroll" data-bs-target="#page-content">    
     <div class="row">
         <div class="col p-5 text-dark m-relative">
-            @php
-                $categories = \App\Models\Category::all();
-            @endphp
             @foreach ($categories as $category)
             <div class="card border-3 mt-2" id={{$category->name}} data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-gray bg-danger">

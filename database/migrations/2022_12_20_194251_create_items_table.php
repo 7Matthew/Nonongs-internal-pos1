@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('categories')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->text('name');
+            $table->decimal('quantity', 11,1);
+            $talbe->text('measuring_unit');
             $table->integer('cost');
             $table->integer('stocks');
             $table->dateTime('expiry_date')->nullable();

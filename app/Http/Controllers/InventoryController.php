@@ -52,11 +52,14 @@ class InventoryController extends Controller
         ]);
         $item = new Item();
         $item->name = strip_tags($request->input('name'));
+        $item->quantity = $request->input('quantity');
+        $item->measuring_unit = strip_tags($request->input('measuring_unit'));
         $item->supplier_id = $request->input('supplier_id');
         $item->category_id = $request->input('category_id');         
         $item->user_id = auth()->id();
         $item->cost = strip_tags($request->input('cost'));
         $item->stocks = strip_tags($request->input('stocks'));
+        $item->expiry_date = $request->input('expiry_date');
         if ($request->hasFile('image')) {
             $item->image = $request->file('image')->store('uploads','public');
         }
