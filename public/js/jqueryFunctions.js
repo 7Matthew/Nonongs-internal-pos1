@@ -27,6 +27,8 @@ $(document).ready(function(){
             total = parseInt(cart_item_price[counter]) + total;
             $("#total").val(total);
 
+            //$('#description').append($('#item_name'+counter).text() + '----' + $('#input_quantity'+counter).val() + '------' + $('#cart_item_price'+counter).text() +"\n");
+0
             console.log("hatdog: " + cart_item_price[counter]);
         });
 

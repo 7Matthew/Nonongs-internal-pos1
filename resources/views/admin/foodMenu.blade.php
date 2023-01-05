@@ -46,9 +46,6 @@
                 <button class="btn btn-success btn-sm ml-5" title="Add Menu" data-bs-toggle="modal" data-bs-target="#modal-create-food-item">
                     <i class="fa-solid fa-square-plus fa-lg mr-3"></i>Add new Item
                 </button>
-                <button class="btn btn-warning btn-sm" title="Add Menu" data-bs-toggle="modal" data-bs-target="#modal-create-new-category">
-                    <i class="fa-solid fa-square-plus fa-lg mr-3"></i>Add new Category
-                </button>
             </div>
         </div>
     </div>

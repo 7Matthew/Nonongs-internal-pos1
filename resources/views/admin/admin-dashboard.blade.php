@@ -6,7 +6,7 @@
   <section class="content">
     <div class="container-fluid mt-3">
       <div class="row">
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
@@ -33,7 +33,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
@@ -51,7 +51,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
@@ -71,7 +71,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
@@ -87,7 +87,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
@@ -105,7 +105,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-secondary">
             <div class="inner">
@@ -123,38 +123,6 @@
             </div>
           </div>
         </div>  
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-warning">
-            <div class="inner">
-              <h6 class="mb-3">{{date('M d Y, D ')}}</h6>
-              <h2>44</h2>
-            </div>
-            <div class="icon">
-              <i class="ion ion-person-add"></i>
-            </div>
-            <div class="small-box-footer">
-              User Registration
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-danger">
-            <div class="inner">
-              <h6 class="mb-3">{{date('M d Y, D ')}}</h6>
-              <h2>44</h2>
-            </div>
-            <div class="icon">
-              <i class="ion ion-pie-graph"></i>
-            </div>
-            <div class="small-box-footer">
-              Unique Visitors
-            </div>
-          </div>
-        </div>    
-      </div>
-      <div class="row">
         <div class="overflow-auto col-lg-4 col-md-4 col-sm-6 col-xs-12">
           <div class="card">
             <div class="card-header bg-danger">
@@ -185,6 +153,8 @@
             </div>
           </div>
         </div>
+      <div class="row">
+        
       </div>
     </div>
   </section>
