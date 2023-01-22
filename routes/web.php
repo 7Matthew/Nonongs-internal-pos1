@@ -41,7 +41,7 @@ Route::get('create-new-user', function(){
 Route::middleware(['auth','isAdmin'])->group(function(){
   Route::get('/admin-dashboard', [App\Http\Controllers\AdminController::class, 'index'])->name('admin-dashboard');
   Route::get('/contact', [App\Http\Controllers\AdminController::class, 'contact']);
-  Route::get('/forecasting',  [App\Http\Controllers\AdminController::class, 'forecasting'])->name('forecasting');
+  Route::get('/generate-reports',  [App\Http\Controllers\AdminController::class, 'reports'])->name('reports');
   Route::get('/order_history',  [App\Http\Controllers\AdminController::class, 'order_history'])->name('order_history');
   Route::get('/transaction_report',  [App\Http\Controllers\StaffController::class, 'transaction_report'])->name('transaction_report');
   /**ROUTE FOR FOOD MENU CRUD */

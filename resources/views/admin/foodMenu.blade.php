@@ -61,12 +61,13 @@
                     <div class="row">
                         @foreach ($data as $item)
                             @if($item->category_id == $category->id)
-                                <div class="col-lg-2 col-md-4 col-sm-6" >
+                                <div class="col-lg-2 col-md-4 col-sm-7 col-xs-7" >
                                     <div class="card no-border m-relative p-auto">
                                         <div class="page-content justify-content">
                                             <img src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
-                                            <p class ="justify-content d-flex"font size ="2px">{{$item->name}}</p>
-                                            
+                                            <section class="overflow-hidden" style="height:50px;">
+                                                <p class="text-left" font size ="2px">{{$item->name . ' '. $item->description}}</p>
+                                            </section>
                                             <button type="button" class="btn btn-info btn-sm mt-2" title="View Item" data-bs-toggle="modal" data-bs-target="{{"#modal-show-food-item".$item->id}}"><i class="fa-solid fa-eye"></i></button>
                                             <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target={{"#modal-edit-food-item".$item->id}} title="Edit Item"><i class="fa-regular fa-pen-to-square"></i></button>
 

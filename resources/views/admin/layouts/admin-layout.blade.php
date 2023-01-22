@@ -66,7 +66,7 @@
   </div>
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="main-header navbar navbar-expand-lg navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -76,32 +76,11 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item">
-        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-          <i class="fas fa-search"></i>
-        </a>
-        <div class="navbar-search-block">
-          <form class="form-inline">
-            <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                  <i class="fas fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </li>
       @yield('topnav-items')
       <div class ="dropdown me-3">
         <a class = "btn dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true"data-bs-placement="bottom" title="Account"><i class="fa-solid fa-user 100 fa-lg m-2">
         </i></a>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu w-25">
             <li><a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
@@ -212,7 +191,7 @@
             </a>
           </li> 
           <li class="nav-item hover-transform">
-            <a class="nav-link" href="{{ route('forecasting') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Generate Reports">
+            <a class="nav-link" href="{{ route('reports') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Generate Reports">
               <i class="fa-solid fa-chart-simple fa-lg"></i>
               <p>
                 Reports 

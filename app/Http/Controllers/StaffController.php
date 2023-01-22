@@ -16,13 +16,18 @@ class StaffController extends Controller
     //     $this->middleware('auth');
     // }
 
-    public function transaction_report()
+    public function transaction_report(Request $request)
     {
+        $from = $request->input('from');
+        $to = $request->input('to');
+    
         $pdf = PDF::loadView('pdf.transaction_report',[
-            'data'=>Orders::all()
+            'data'=>Orders::whereBetween('created_at', [$from, $to])->get(),
+            'from' => $from,
+            'to'=> $to
         ]); 
         
-        return $pdf->stream();
+        return $pdf->stream('transaction_report_from_'.date('F d Y', strToTime($from)).'_to_'.date('F d Y', strToTime($to)).'.pdf');
     }
 
     /**

@@ -34,9 +34,9 @@ class AdminController extends Controller
     {
         return view('admin/order_history');
     }
-    public function forecasting()
+    public function reports()
     {
-        return view('admin/forecasting');
+        return view('admin/reports');
     }
     
    

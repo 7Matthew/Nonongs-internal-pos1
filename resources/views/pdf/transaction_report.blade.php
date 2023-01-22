@@ -27,16 +27,16 @@
             margin: 20px 30px 40px 50px; 
         }
     </style>
-</head>
+</head> 
 <body>
     <div id="footer">
         <p class="page">Page </p>
     </div> 
     <center>
         <img src="images/logo.jpg" width="10%">
-       <h3>Nonong's Fried Chicken</h3>
-       <h4>P9-04 3rd 6th, Pasay City, Philippines</h4>
-       <h4>From: ____ To: _____ </h4> 
+       <h4>Nonong's Fried Chicken</h4>
+       <p>P9-04 3rd 6th, Pasay City, Philippines</p>
+       From: {{date('F d Y', strToTime($from))}} To: {{date('F d Y', strToTime($to))}}
     </center>
 
     <p>Date Generated:  {{date('F d Y, D')}}</p>
