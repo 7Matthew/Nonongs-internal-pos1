@@ -1,95 +1,111 @@
 /*LANDING PAGE*/
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: #F8F4E7;
-    font-family: 'Roboto Serif', serif;
-    overflow: hidden;
+@media all and (max-width:1230px){
+  .imgBx{
+    display:none;
   }
-  section{
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    display: flex;
+  .img{
+    display:none;
   }
-  section .imgBx{
-    position: relative;
-    width: 50%;
-    height: 100%;
-  }
-  section .imgBx img{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  section .contentBx{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    height: 100%;
-  }
-  section .contentBx button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40%;
-    height: 100%;
-    margin-top: 15px;
-    margin-left: 7.5em;
-  }
-  section .contentBx .cont h1{
-    color:#737068;
-    font-weight: 600;
-    font-size: 2.0em;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    border-bottom: 4px solid #E0B215;
-    display: inline-block;
-    letter-spacing: 1px;
-  }
-  section .contentBx .cont p{
-    color:#737068;
-    font-size: 1.5em;
-    margin-bottom: 20px;
-    display: inline-block;
-    letter-spacing: 1px;
-  }
-  .btn-1{
-    width: 300px;
-    height: 100px;
-    border: none;
-    color: white;
-    background-color: rgb(255, 0, 68);
-    border-radius: 4px;
-    box-shadow: inset 0 0 0 0 #CFC03C;
-    transition: ease-out 0.3s;
-    font-size: 28px;
-    outline: none;
-  }
-  .btn-1:hover{
-    box-shadow: inset 300px 0 0 0 #f9e506;
-    cursor: pointer;
-    color: #000;
-  }
-  .btn-2{
-    width: 300px;
-    height: 100px;
-    border: none;
-    color: white;
-    background-color: rgb(255, 0, 68);
-    border-radius: 4px;
-    box-shadow: inset 0 0 0 0 #CFC03C;
-    transition: ease-out 0.3s;
-    font-size: 28px;
-    outline: none;
-  }
-  .btn-2:hover{
-    box-shadow: inset 300px 0 0 0 #f9e506;
-    cursor: pointer;
-    color: #000;
-  }
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #F8F4E7;
+  font-family: 'Roboto Serif', serif;
+  overflow: hidden;
+}
+a{
+  text-decoration:none;
+  color:black;
+}
+a:hover{
+  color:grey;
+}
+.imgBx{
+  position: fixed;
+  width: 50%;
+  height: 100%;
+}
+.img{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+section{
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+section .contentBx{
+  display: block;
+  width: 50%;
+  height: 100%;
+}
+.contentBx button{
+  display: block;
+  width: 50%;
+  height: 100%;
+}
+.contentBx .cont h1{
+  color:#737068;
+  font-weight: 600;
+  font-size: 2.0em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  border-bottom: 4px solid #E0B215;
+  display: inline-block;
+  letter-spacing: 1px;
+}
+.contentBx .cont p{
+  color:#737068;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  display: inline-block;
+  letter-spacing: 1px;
+}
+.btn-1{
+  width: 300px;
+  height: 100px;
+  border: none;
+  color: white;
+  background-color: rgb(255, 0, 68);
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 0 #CFC03C;
+  transition: ease-out 0.3s;
+  font-size: 28px;
+  outline: none;
+}
+.btn-1:hover{
+  box-shadow: inset 300px 0 0 0 #f9e506;
+  cursor: pointer;
+  color: #000;
+}
+.btn-2{
+  width: 300px;
+  height: 100px;
+  border: none;
+  color: white;
+  background-color: rgb(255, 0, 68);
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 0 #CFC03C;
+  transition: ease-out 0.3s;
+  font-size: 28px;
+  outline: none;
+}
+.btn-2:hover{
+  box-shadow: inset 300px 0 0 0 #f9e506;
+  cursor: pointer;
+  color: #000;
+}
+
+#header
+{
+  margin-top: 100px;
+  text-shadow: 2px 2px 3px #808080 /*grey shadow*/
+}
