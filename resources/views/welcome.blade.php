@@ -31,7 +31,7 @@
             <img src= "images/chicken.jpg">
           </div>
         </div>
-        <div class="col-lg-7  ">
+        <div class="col-lg-7 position-relative">
           <div class="row text-center">
             <h2 id="header">
               Welcome to Nonong's

@@ -8,6 +8,7 @@
                     <li class="nav-item justify-content-end">
                         @php
                             $categories = \App\Models\Category::where('label', '!=', 'ingredients')->get();
+                            $ingredients = \App\Models\Item::get()->all();
                         @endphp        
                         @foreach ($categories as $category)
                             <a href={{"#".$category->name}}> {{$category->name}} </a>
@@ -68,8 +69,13 @@
                                             <section class="overflow-hidden" style="height:50px;">
                                                 <p class="text-left" font size ="2px">{{$item->name . ' '. $item->description}}</p>
                                             </section>
+                                            {{-- ACTION BUTTONS --}}
+                                            <section class="col-lg-12">
+
+                                            </section>
                                             <button type="button" class="btn btn-info btn-sm mt-2" title="View Item" data-bs-toggle="modal" data-bs-target="{{"#modal-show-food-item".$item->id}}"><i class="fa-solid fa-eye"></i></button>
                                             <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target={{"#modal-edit-food-item".$item->id}} title="Edit Item"><i class="fa-regular fa-pen-to-square"></i></button>
+                                            <button type="button" class="btn btn-warning btn-sm mt-2" title="Add ingredients"><i class="fa-solid fa-kitchen-set" data-bs-toggle="modal" data-bs-target="{{"#modal-add-ingredients" . $item->id}}"></i></button>
 
                                             <form method="POST" action="{{ route('food-item.destroy', $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 @method('DELETE')
@@ -115,48 +121,62 @@
             <div class="modal-body">
                 <form action="{{ route('food-item.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <label for="name">Name</label></br>
-                    <input type="text" name="name" id="name" class="form-control" value ="{{old('name')}}"></br>
-                    @error('name')
-                      <div class="alert alert-danger" role="alert">
-                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                      </div>
-                    @enderror
-                    <label for="category" class="form-label">Category</label></br>
-                    <select name ="category_id" id="category" class="form-control" value ="{{old('category_id')}}">
-                        <option></option>
-                        @foreach ($categories as $category)
-                            <option value={{$category->id}}>{{$category->name}}</option>
-                        @endforeach
-                    </select>
-                    </br>
-                    @error('category')
-                      <div class="alert alert-danger" role="alert">
-                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                      </div>
-                    @enderror
-                    <label for="description" class="form-label">Description</label></br>
-                    <input type="text" name="description" id="description" class="form-control" value ="{{old('description')}}"></br>
-                    @error('description')
-                      <div class="alert alert-danger" role="alert">
-                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                      </div>
-                    @enderror
-                    <label for="price">Price</label></br>
-                    <input type="number" name="price" id="price" class="form-control" value ="{{old('price')}}"></br>
-                    @error('price')
-                      <div class="alert alert-danger" role="alert">
-                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                      </div>
-                    @enderror
-                    <label for="stocks">Stocks</label></br>
-                    <input type="number" name="stocks" id="stocks" class="form-control" value ="{{old('stocks')}}"></br>
-                    @error('stocks')
-                      <div class="alert alert-danger" role="alert">
-                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                      </div>
-                    @enderror
-                    <label for="image">Food image</label></br>
+                    <div class="row mb-1">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label class="form-label" for="name">Name</label></br>
+                            <input type="text" name="name" id="name" class="form-control" value ="{{old('name')}}"></br>
+                            @error('name')
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label class="form-label" for="category" class="form-label">Category</label></br>
+                            <select name ="category_id" id="category" class="form-control" value ="{{old('category_id')}}">
+                                <option></option>
+                                @foreach ($categories as $category)
+                                    <option value={{$category->id}}>{{$category->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('category')
+                                <div class="alert alert-danger" role="alert">
+                                    <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label class="form-label" for="description" class="form-label">Description</label></br>
+                            <input type="text" name="description" id="description" class="form-control" value ="{{old('description')}}"></br>
+                            @error('description')
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                            <label class="form-label" for="price">Price</label></br>
+                            <input type="number" name="price" id="price" class="form-control" value ="{{old('price')}}"></br>
+                            @error('price')
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                            <label class="form-label" for="stocks">Stocks</label></br>
+                            <input type="number" name="stocks" id="stocks" class="form-control" value ="{{old('stocks')}}"></br>
+                            @error('stocks')
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                    
+                    <label class="form-label" for="image">Food image</label></br>
                     <input type="file" name="image" class="form-control" accept="image/png, image/gif, image/jpeg" value ={{old('image')}}></br>
                     <input type="submit" value="Save" class="btn btn-success mt-2"></br>
                 </form>
@@ -166,8 +186,47 @@
 </div>  
 
 
-{{-- MODAL Edit and show --}}
+
+
 @foreach ($data as $item)
+    
+    {{-- Modal Add Ingredients --}}
+    <div class="modal fade" id="{{"modal-add-ingredients" . $item->id}}" tabindex="-1" aria-labelledby="modal-add-ingredients" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-alert bg-warning">
+                    <h1 class="modal-title fs-4" id="modal-confirm-order">Add ingredients for {{$item->name}}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('food-item.store') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row mb-2" id="ingredients">
+                            <div class="col-lg-6">
+                                <label class="form-label" for="item">Ingredients</label></br>
+                                <select name ="item_id" id="item" class="form-select" value ="{{old('item_id')}}">
+                                    <option></option>
+                                    @foreach ($ingredients as $ingredient)
+                                        <option value={{$ingredient->id}}>{{$ingredient->name}}</option>
+                                    @endforeach
+                                </select>    
+                                 {{--error condition  --}}
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="form-label" for="ingredient_quantity">Quantity of the used ingredient</label></br>
+                                <input type="number" class="form-control" name="ingredient_quantity" id="ingredient_quantity" value="{{old('ingredient_quantity')}}">  
+                                {{-- Error condition --}}
+                            </div>
+                        </div>
+                        {{-- submit --}}
+                        <input type="submit" value="Save" class="btn btn-success mt-2"></br>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>  
+
+    {{-- MODAL Edit and show --}}
     <div class="modal fade" id={{"modal-edit-food-item".$item->id}} tabindex="-1" aria-labelledby="modal-edit-food-item" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -186,7 +245,7 @@
                             <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
                         </div>
                         @enderror
-                        <label for="description" class="form-label">Description</label></br>
+                        <label class="form-label" for="description" class="form-label">Description</label></br>
                         <input type="text" name="description" id="description" class="form-control" value ="{{$item->description}}"></br>
                         @error('description')
                         <div class="alert alert-danger" role="alert">
@@ -207,7 +266,9 @@
                             <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
                         </div>
                         @enderror
-                        <label for="image">Food image</label></br>
+                        
+
+                        <label class="form-label" for="image">Food image</label></br>
                         <input type="file" name="image" class="form-control" accept="image/png, image/gif, image/jpeg" value ={{$item['image']}}></br>
                         <input type="submit" value="Save" class="btn btn-success"> 
                         <a href="{{ route('food-item.index') }}" class="btn btn-primary">Cancel</a>
@@ -216,6 +277,8 @@
             </div>
         </div>
     </div>
+
+    
 
     <div class="modal fade" id={{"modal-show-food-item".$item->id}} tabindex="-1" aria-labelledby="modal-show-food-item" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">

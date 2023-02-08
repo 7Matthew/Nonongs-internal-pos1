@@ -109,3 +109,7 @@ div .foodtext h3{
     display: inline-block;
     letter-spacing: 1px;
 }
+
+.modal-dialog{
+  max-width: 45%;
+}
