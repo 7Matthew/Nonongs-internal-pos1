@@ -10,6 +10,7 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\MakeOrderController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ManageUserController;
+use App\Http\Controllers\FoodItem_IngredientsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,7 @@ Route::middleware('auth')->group(function(){
   Route::get('/orders', [App\Http\Controllers\StaffController::class, 'orders'])->name('orders');
   Route::resource('/make_order', StaffController::class);
   Route::resource('/inventory', InventoryController::class);
+  Route::resource('/foodItem_ingredients', FoodItem_IngredientsController::class);
 });
 
 Auth::routes();

@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('food_item_ingredients', function (Blueprint $table) {
+        Schema::create('food_item_item', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('food_id')->constrained('food_items')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('ingredient_id')->constrained('items')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('food_item_id')->constrained('food_items')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('item_id')->constrained('items')->onUpdate('cascade')->onDelete('cascade');
+            $table->decimal('quantity', 11,2)->unsigned();
+            $table->timestamps();
         });
     }
 
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('food_item_ingredients');
+        Schema::dropIfExists('food_item_item');
     }
 };

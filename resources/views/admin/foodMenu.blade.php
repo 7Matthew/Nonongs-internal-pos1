@@ -23,8 +23,6 @@
 @section('title','Food Menu')
 @section('content')
 
-
-
 <div class="container-fluid mt-5" data-bs-smooth-scroll="true" data-bs-spy="scroll" data-bs-target="#categs">
     @if(Session::has('success'))
     <div class="toast-show alert alert-success text-dark mt-4 p-auto" data-aos="fade-in" delay="500" duration="700" data-bs-dismiss="alert" aria-label="Close" role="alert">
@@ -199,12 +197,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('food-item.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('foodItem_ingredients.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-2" id="ingredients">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <label class="form-label" for="item">Ingredients</label></br>
-                                <select name ="item_id" id="item" class="form-select" value ="{{old('item_id')}}">
+                                <select name ="item_id" id="item_id" class="form-select" value ="{{old('item_id')}}">
                                     <option></option>
                                     @foreach ($ingredients as $ingredient)
                                         <option value={{$ingredient->id}}>{{$ingredient->name}}</option>
@@ -212,9 +210,14 @@
                                 </select>    
                                  {{--error condition  --}}
                             </div>
-                            <div class="col-lg-6">
-                                <label class="form-label" for="ingredient_quantity">Quantity of the used ingredient</label></br>
-                                <input type="number" class="form-control" name="ingredient_quantity" id="ingredient_quantity" value="{{old('ingredient_quantity')}}">  
+                            <div class="col-lg-4">
+                                <label class="form-label" for="quantity">Quantity</label></br>
+                                <input type="number" class="form-control" name="quantity" id="quantity" value="{{old('quantity')}}" step=".01">  
+                                {{-- Error condition --}}
+                            </div>
+                            <div class="col-lg-4">
+                                <label class="form-label" for="food_item_id">Food ID</label></br>
+                                <input type="number" class="form-control" name="food_item_id" id="food_item_id" value="{{$item->id}}" readonly>  
                                 {{-- Error condition --}}
                             </div>
                         </div>
@@ -298,6 +301,15 @@
                         </h4>
                         <h4>
                             Description: {{ $item->description }}
+                        </h4>
+                        <h4>
+                            Ingredients:
+                            @php
+                                $ingredient = \App\Models\FoodItem::find($item->id);
+                            @endphp
+                            @foreach ($ingredient->item as $data)
+                                {{$data->name . ", "}}
+                            @endforeach
                         </h4>
                         <h4>
                             Price: {{$item->price}}

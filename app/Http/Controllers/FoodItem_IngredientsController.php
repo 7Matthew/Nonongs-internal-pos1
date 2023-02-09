@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\FoodItem_ingredients;
+use App\Models\FoodMenu;
 
 class FoodItem_IngredientsController extends Controller
 {
@@ -14,7 +16,9 @@ class FoodItem_IngredientsController extends Controller
     public function index()
     {
         //
-        return view('admin.foodMenu'); 
+        return view('admin.foodMenu',[
+            'data'=>FoodMenu::all(), // eto yung $guitars sa foreach($data as $item)
+        ]); 
     }
 
     /**
@@ -25,6 +29,7 @@ class FoodItem_IngredientsController extends Controller
     public function create()
     {
         //
+        
     }
 
     /**
@@ -36,6 +41,19 @@ class FoodItem_IngredientsController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'item_id'=> ['required','string'],
+            'quantity'=> ['required','numeric']
+        ]);
+
+        $food_ingredient = new FoodItem_ingredients();
+        $food_ingredient->food_item_id = $request->input('food_item_id');
+        $food_ingredient->item_id = $request->input('item_id');
+        $food_ingredient->quantity = $request->input('quantity');
+        $food_ingredient->save();
+
+        return redirect()->route('food-item.index')->with('success','Ingredient Added!');
+        
     }
 
     /**

@@ -130,74 +130,106 @@
             <div class="modal-body">
                 <form action="{{ route('inventory.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <label for="name">Name</label></br>
-                    <input type="text" name="name" id="name" class="form-control" value ="{{old('name')}}"></br>
-                    @error('name')
-                      <div class="alert alert-danger" role="alert">
-                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                      </div>
-                    @enderror
-                    <label for="quantity">quantity</label></br>
-                    <input type="number" name="quantity" id="quantity" placeholder="0.00" class="form-control" value ="{{old('quantity')}}"></br>
-                    @error('quantity')
-                      <div class="alert alert-danger" role="alert">
-                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                      </div>
-                    @enderror
-                    <label for="measuring_unit">Measurement(ex. Kg, Pcs, g, etc)</label></br>
-                    <input type="text" name="measuring_unit" id="measuring_unit" class="form-control" value ="{{old('measuring_unit')}}"></br>
-                    @error('measuring_unit')
-                      <div class="alert alert-danger" role="alert">
-                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                      </div>
-                    @enderror
-                    <label for="supplier_id" class="form-label">Supplier</label></br>
-                    <select name ="supplier_id" id="supplier_id" class="form-control" value ="{{old('supplier_id')}}">
-                        <option></option>
-                        @foreach ($suppliers as $supplier)
-                            <option value={{$supplier->id}}>{{$supplier->name}}</option>
-                        @endforeach
-                    </select>
-                    </br>
-                    @error('supplier_id')
-                      <div class="alert alert-danger" role="alert">
-                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                      </div>
-                    @enderror
-                    <label for="category" class="form-label">Category</label></br>
-                    <select name ="category_id" id="category" class="form-control" value ="{{old('category_id')}}">
-                        <option></option>
-                        @foreach ($categories as $category)
-                            <option value={{$category->id}}>{{$category->name}}</option>
-                        @endforeach
-                    </select>
-                    </br>
-                    @error('category')
-                      <div class="alert alert-danger" role="alert">
-                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                      </div>
-                    @enderror
-                    <label for="cost">Cost</label></br>
-                    <input type="number" name="cost" id="cost" class="form-control" value ="{{old('cost')}}"></br>
-                    @error('cost')
-                      <div class="alert alert-danger" role="alert">
-                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                      </div>
-                    @enderror
-                    <label for="stocks">Stocks</label></br>
-                    <input type="number" name="stocks" id="stocks" class="form-control" value ="{{old('stocks')}}"></br>
-                    @error('stocks')
-                      <div class="alert alert-danger" role="alert">
-                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                      </div>
-                    @enderror
-                    <label for="expiry_date">Expiry</label></br>
-                    <input type="date" name="expiry_date" id="expiry_date" class="form-control" value ="{{old('expiry_date')}}"></br>
-                    @error('expiry_date')
-                      <div class="alert alert-danger" role="alert">
-                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                      </div>
-                    @enderror
+                    <div class="row mb-2">
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                            <label for="name">Name</label></br>
+                            <input type="text" name="name" id="name" class="form-control" value ="{{old('name')}}"></br>
+                            @error('name')
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                            <label for="quantity">quantity</label></br>
+                            <input type="number" name="quantity" id="quantity" placeholder="0.00" class="form-control" value ="{{old('quantity')}}"></br>
+                            @error('quantity')
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                            <label for="measuring_unit">Measurement</label></br>
+                            
+                            <select name="measuring_unit" id="measuring_unit" class="form-select" value="{{old('measuring_unit')}}">
+                                <option value=""></option>
+                                <option value="L">Liter</option>
+                                <option value="Oz">Ounce</option>
+                                <option value="g">grams</option>
+                                <option value="Kg">Kilograms</option>
+                                <option value="Pcs">Pieces</option>
+                                <option value="Pack">Pack</option>
+                                <option value="Bundle">Bundle</option>
+                            </select>
+                            @error('measuring_unit')
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                            <label for="supplier_id" class="form-label">Supplier</label></br>
+                            <select name ="supplier_id" id="supplier_id" class="form-control" value ="{{old('supplier_id')}}">
+                                <option></option>
+                                @foreach ($suppliers as $supplier)
+                                    <option value={{$supplier->id}}>{{$supplier->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('supplier_id')
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                            <label for="category" class="form-label">Category</label></br>
+                            <select name ="category_id" id="category" class="form-control" value ="{{old('category_id')}}">
+                                <option></option>
+                                @foreach ($categories as $category)
+                                    <option value={{$category->id}}>{{$category->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('category')
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                            <label for="cost">Cost</label></br>
+                            <input type="number" name="cost" id="cost" class="form-control" value ="{{old('cost')}}"></br>
+                            @error('cost')
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label for="stocks">Stocks</label></br>
+                            <input type="number" name="stocks" id="stocks" class="form-control" value ="{{old('stocks')}}"></br>
+                            @error('stocks')
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label for="expiry_date">Expiry</label></br>
+                            <input type="date" name="expiry_date" id="expiry_date" class="form-control" value ="{{old('expiry_date')}}"></br>
+                            @error('expiry_date')
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                    
                     <label for="image">Food image</label></br>
                     <input type="file" name="image" class="form-control" accept="image/png, image/gif, image/jpeg" value ={{old('image')}}></br>
                     <button type="submit" class="btn btn-success mt-2"> Submit </button></br>
