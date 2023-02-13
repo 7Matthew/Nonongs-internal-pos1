@@ -20,8 +20,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->text('name');
             $table->decimal('quantity', 11,3);
-            $talbe->text('measuring_unit');
-            $table->integer('cost');
+            $table->text('measuring_unit');
+            $table->decimal('cost', 11,3);
             $table->dateTime('expiry_date')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();

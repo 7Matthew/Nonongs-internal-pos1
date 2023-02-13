@@ -47,8 +47,7 @@ class InventoryController extends Controller
             'supplier_id'=> 'int',
             'category_id'=> 'int',
             'user_id'=> 'int',
-            'cost'=> 'required|int',
-            'stocks'=> 'required|int'
+            'cost'=> 'required|int'
         ]);
         $item = new Item();
         $item->name = strip_tags($request->input('name'));
@@ -58,7 +57,6 @@ class InventoryController extends Controller
         $item->category_id = $request->input('category_id');         
         $item->user_id = auth()->id();
         $item->cost = strip_tags($request->input('cost'));
-        $item->stocks = strip_tags($request->input('stocks'));
         $item->expiry_date = $request->input('expiry_date');
         if ($request->hasFile('image')) {
             $item->image = $request->file('image')->store('uploads','public');
@@ -102,8 +100,7 @@ class InventoryController extends Controller
         //
         $request->validate([
             'name'=> 'required',
-            'cost'=> 'required|int',
-            'stocks'=> 'required|int'
+            'cost'=> 'required'
         ]);
         $item = Item::findOrFail($id);
         $item->name = strip_tags($request->input('name'));
@@ -111,7 +108,7 @@ class InventoryController extends Controller
         $item->category_id = $request->input('category_id');        
         $item->user_id = auth()->id();
         $item->cost = strip_tags($request->input('cost'));
-        $item->stocks = strip_tags($request->input('stocks'));
+        $item->quantity = strip_tags($request->input('quantity'));
         if ($request->hasFile('image')) {
             $item->image = $request->file('image')->store('uploads','public');
         }

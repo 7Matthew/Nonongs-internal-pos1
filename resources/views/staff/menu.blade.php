@@ -74,15 +74,14 @@
                             @foreach ($data as $item)
                                 @if($item->category_id == $category->id)
                                     <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                        <div class="card no-border m-relative justify-content-end" id="{{$item->id}}">
-                                            <button class="btn btn-light" tooltip="{{$item->name . ' ' . $item->description}}">
+                                        <div class="card no-border m-relative justify-content-end">
+                                            <button class="btn btn-light" id="{{$item->id}}" tooltip="{{$item->name . ' ' . $item->description}}">
                                                 <div class="page-content text-center">
-                                                    <img class = ""src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
+                                                    <img class = ""src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name . " $item->description"}}"alt="item" width="50%" height="50%">
                                                     <section class="overflow-hidden" style="height:50px;">
                                                         <p class="text-center" font size ="2px">{{$item->name . ' '. $item->description}}</p>
                                                     </section>
                                                     <p class="bg-warning justify-content-center d-flex" font size ="2px">P{{$item->price}}</p>
-                                                    <p class="bg-danger justify-content-center d-flex" font size ="2px">Stock: {{$item->stocks}}</p>
                                                 </div>
                                             </button>
                                         </div>
@@ -105,6 +104,8 @@
                         @csrf
                         <table class="table">
                             <thead class="bg-warning">
+                                <th>Action</th>
+                                <th>ID</th>
                                 <th class="text-center">Food</th>
                                 <th>Qty</th>
                                 <th>Price</th>
@@ -113,18 +114,24 @@
                                 {{-- CART CONTENT --}}
                                 @foreach ($data as $item)
                                     <tr id={{'hide'.$item->id}}>
-                                    <td>
-                                        <button type="button" class="btn btn-light btn-sm p-1" title="Add to Order Summary" id={{"record_to_summary".$item->id}}><i class="fa-solid fa-circle-plus text-success"></i></button>
-                                        <button type="button" class="btn btn-light btn-sm p-1" title="Remove to cart" id={{'remove'.$item->id}}><i class="text-danger fa-solid fa-trash-can fa-lg "></i></button><b id={{"item_name".$item->id}}>{{$item->name}}</b>
-                                    </td>
-                                    <td>
-                                            <button type="button" class="btn btn-danger btn-sm mr-1" id={{"decrement".$item->id}}>-</button>
-                                            <input type="number" min=0 max="200" name="quantity" id={{"input_quantity".$item->id}} width="5px" value="0" class="col-lg-2 col-md-4 col-sm-6 text-center" readonly>
-                                            <button type="button" class="btn btn-success btn-sm ml-1" id={{"increment".$item->id}}>+</button>
-                                    </td>
-                                    <td>
-                                            <p id={{"cart_item_price".$item->id}}>{{$item->price}}</p>
-                                    </td>
+                                        <td>
+                                            <button type="button" class="btn btn-light btn-sm p-1" title="Add to Order Summary" id={{"record_to_summary".$item->id}}><i class="fa-solid fa-circle-plus text-success"></i></button>
+                                            <button type="button" class="btn btn-light btn-sm p-1" title="Remove to cart" id={{'remove'.$item->id}}><i class="text-danger fa-solid fa-trash-can fa-lg "></i></button>
+                                        </td>
+                                        <td>
+                                            <input type="text" name="food_item_id[]" readonly class="col-lg-2 col-md-2 col-sm-12 form-control" value="{{$item->id}}"> 
+                                        </td> 
+                                        <td>
+                                            <b id={{"item_name".$item->id}}>{{$item->name}}</b>
+                                        </td>
+                                        <td>
+                                                <button type="button" class="btn btn-danger btn-sm mr-1" id={{"decrement".$item->id}}>-</button>
+                                                <input type="number" min=0 max="200" name="quantity" id={{"input_quantity".$item->id}} width="5px" value="0" class="col-lg-2 col-md-4 col-sm-6 text-center" readonly>
+                                                <button type="button" class="btn btn-success btn-sm ml-1" id={{"increment".$item->id}}>+</button>
+                                        </td>
+                                        <td>
+                                                <p id={{"cart_item_price".$item->id}}>{{$item->price}}</p>
+                                        </td>
                                     </tr>
                                 @endforeach
                                     <tr class="text-end table-secondary">
@@ -209,39 +216,5 @@
             </div>
         </div>
     </div>
-    {{-- <div class="row">
-        <div class="col p-5 text-dark m-relative" data-bs-smooth-scroll="true" data-bs-spy="scroll" data-bs-target="#page-content">
-            @foreach ($categories as $category)
-            <div class="card border-3 mt-2" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out" >
-                <div class="card-header text-gray bg-danger">
-                    <h6 id={{$category->name}}> {{$category->name}} </h6>
-                </div>
-                <div class="card-body text-dark">
-                    <div class="row">
-                        @foreach ($data as $item)
-                            @if($item->category_id == $category->id)
-                                <div class="col-lg-2 col-md-4 col-sm-6 w-25">
-                                    <div class="card no-border m-relative p-auto justify-content-end" id="{{$item->id}}">
-                                        <button class="btn btn-light">
-                                            <div class="page-content text-center">
-                                                <img class = ""src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
-                                                <p class="overflow-hidden justify-content" font size ="2px">{{$item->name . ' '. $item->description}}</p>
-                                                <p class="bg-warning justify-content-center d-flex" font size ="2px">P{{$item->price}}</p>
-                                                <p class="bg-danger justify-content-center d-flex" font size ="2px">Stock: {{$item->stocks}}</p>
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div> --}}
 </div>
-
-
-
 @endsection

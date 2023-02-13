@@ -20,8 +20,8 @@ return new class extends Migration
             $table->text('name');
             $table->text('description')->nullable();
             $table->integer('price');
-            $table->integer('stocks');
             $table->string('image')->nullable();
+            $table->integer('isAvailable')->default(1);
             $table->timestamps();
         });
     }

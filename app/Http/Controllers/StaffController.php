@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use App\Models\Orders;
 use App\Models\FoodMenu;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\FoodItem_ingredients;
 use Illuminate\Support\Facades\Auth;
-use PDF;
 
 class StaffController extends Controller
 {
@@ -81,7 +83,14 @@ class StaffController extends Controller
             'total-price'=> 'int'
         ]);
 
+        $food_item_id = $request->food_item_id;
+        $datasave = [
+            'food_item_id' => $food_item_id
+        ];
+        dd($datasave); // need i-edit ang shit ng cart. it has to be appended every click ng item from the menuuuuuuuuuuu!!!! 
+
         $order = new Orders();
+        $ingredients = new FoodItem_ingredients();
         $order->user_id = auth()->id();
         $order->description = $request->input('description');
         $order->total_price = $request->input('total_price');
@@ -93,7 +102,7 @@ class StaffController extends Controller
                 $order->payment_change = 0;
             }else $order->payment_change = ($request->input('payment') - $order->total_price);
         }
-        else {
+        else { 
             $order->paymentStatus = "Not paid";
             if($request->input('payment') != null)
             {

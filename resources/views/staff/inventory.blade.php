@@ -23,6 +23,7 @@
 
 
 
+
 <div class="container-fluid mt-5" data-bs-smooth-scroll="true" data-bs-spy="scroll" data-bs-target="#categs">
     @if(Session::has('success'))
     <div class="toast-show alert alert-success text-dark mt-4 p-auto" data-aos="fade-in" delay="500" duration="700" data-bs-dismiss="alert" aria-label="Close" role="alert">
@@ -69,7 +70,6 @@
                     <th>Category</th>
                     <th>Created by</th>
                     <th>Cost</th>
-                    <th>Stock</th>
                     <th>Expiry</th>
                     <th>Action</th>
                 </thead>
@@ -84,7 +84,6 @@
                         <td>{{$item->category->name}}</td>
                         <td>{{$item->user->name}}</td>
                         <td>{{$item->cost}}</td>
-                        <td>{{$item->stocks}}</td>
                         <td>{{$item->expiry_date}}</td>
                         <td>
                             <button type="button" class="btn btn-info btn-sm mt-2" title="View Item" data-bs-toggle="modal" data-bs-target="{{"#modal-show-food-item".$item->id}}"><i class="fa-solid fa-eye"></i></button>
@@ -142,7 +141,7 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                             <label for="quantity">quantity</label></br>
-                            <input type="number" name="quantity" id="quantity" placeholder="0.00" class="form-control" value ="{{old('quantity')}}"></br>
+                            <input type="number" name="quantity" id="quantity" step=0.01 placeholder="0.00" class="form-control" value ="{{old('quantity')}}"></br>
                             @error('quantity')
                             <div class="alert alert-danger" role="alert">
                                 <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
@@ -211,15 +210,6 @@
                     </div>
                     <div class="row mb-2">
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                            <label for="stocks">Stocks</label></br>
-                            <input type="number" name="stocks" id="stocks" class="form-control" value ="{{old('stocks')}}"></br>
-                            @error('stocks')
-                            <div class="alert alert-danger" role="alert">
-                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <label for="expiry_date">Expiry</label></br>
                             <input type="date" name="expiry_date" id="expiry_date" class="form-control" value ="{{old('expiry_date')}}"></br>
                             @error('expiry_date')
@@ -228,11 +218,14 @@
                             </div>
                             @enderror
                         </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label for="image">Food image</label></br>
+                            <input type="file" name="image" class="form-control" accept="image/png, image/gif, image/jpeg" value ={{old('image')}}></br>
+                        </div>
                     </div>
                     
-                    <label for="image">Food image</label></br>
-                    <input type="file" name="image" class="form-control" accept="image/png, image/gif, image/jpeg" value ={{old('image')}}></br>
-                    <button type="submit" class="btn btn-success mt-2"> Submit </button></br>
+                    
+                    <button type="submit" class="btn btn-success mt-2" id="submit"> Submit </button></br>
                 </form>
             </div>
         </div>
@@ -284,57 +277,79 @@
                     <form action="{{route('inventory.update', ['inventory'=> $item->id])}}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <label>Name</label></br>
-                        <input type="text" name="name" id="name" class="form-control" value ="{{$item->name}}"></br>
-                        @error('name')
-                        <div class="alert alert-danger" role="alert">
-                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <label>Name</label></br>
+                                <input type="text" name="name" id="name" class="form-control" value ="{{$item->name}}"></br>
+                                @error('name')
+                                <div class="alert alert-danger" role="alert">
+                                    <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <label for="supplier_id" class="form-label">Supplier</label></br>
+                                <select name ="supplier_id" id="supplier_id" class="form-control">
+                                    <option></option>
+                                    <option value={{$item->supplier_id}} selected>{{$item->supplier->name}}</option>
+                                    @foreach ($suppliers as $supplier)
+                                        <option value={{$supplier->id}}>{{$supplier->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('supplier_id')
+                                <div class="alert alert-danger" role="alert">
+                                    <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                                </div>
+                                @enderror  
+                            </div>
                         </div>
-                        @enderror
-                        <label for="supplier_id" class="form-label">Supplier</label></br>
-                        <select name ="supplier_id" id="supplier_id" class="form-control">
-                            <option></option>
-                            <option value={{$item->supplier_id}} selected>{{$item->supplier->name}}</option>
-                            @foreach ($suppliers as $supplier)
-                                <option value={{$supplier->id}}>{{$supplier->name}}</option>
-                            @endforeach
-                        </select>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <label for="category" class="form-label">Category</label></br>
+                                <select name ="category_id" id="category" class="form-control" value ="{{old('category_id')}}">
+                                    <option></option>
+                                    <option value={{$item->category_id}} selected>{{$item->category->name}}</option>
+                                    @foreach ($categories as $category)
+                                        <option value={{$category->id}}>{{$category->name}}</option>
+                                    @endforeach
+                                </select>
+                                </br>
+                                @error('category')
+                                <div class="alert alert-danger" role="alert">
+                                    <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <label>Cost</label></br>
+                                <input type="number" step=0.01 name="cost" id="cost" class="form-control" value ="{{$item->cost}}"></br>
+                                @error('cost')
+                                <div class="alert alert-danger" role="alert">
+                                    <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                                </div>
+                                @enderror  
+                            </div>
+                        </div>
                         </br>
-                        @error('supplier_id')
-                        <div class="alert alert-danger" role="alert">
-                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <label for="quantity">Quantity</label></br>
+                            <input type="number" name="quantity" id="quantity" step=0.01 placeholder="0.00" class="form-control" value ="{{$item->quantity}}"></br>
+                            @error('quantity')
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                            </div>
+                            @enderror
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <label for="image">Food image</label></br>
+                                <input type="file" name="image" class="form-control" accept="image/png, image/gif, image/jpeg" value ={{$item['image']}}></br>
+                            </div>
                         </div>
-                        @enderror   
-                        <label for="category" class="form-label">Category</label></br>
-                        <select name ="category_id" id="category" class="form-control" value ="{{old('category_id')}}">
-                            <option></option>
-                            <option value={{$item->category_id}} selected>{{$item->category->name}}</option>
-                            @foreach ($categories as $category)
-                                <option value={{$category->id}}>{{$category->name}}</option>
-                            @endforeach
-                        </select>
-                        </br>
-                        @error('category')
-                        <div class="alert alert-danger" role="alert">
-                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                        </div>
-                        @enderror
-                        <label>Cost</label></br>
-                        <input type="number" name="cost" id="cost" class="form-control" value ="{{$item->cost}}"></br>
-                        @error('cost')
-                        <div class="alert alert-danger" role="alert">
-                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                        </div>
-                        @enderror   
-                        <label>Stocks</label></br>
-                        <input type="number" name="stocks" id="stocks" class="form-control" value ="{{$item->stocks}}"></br>
-                        @error('stocks')
-                        <div class="alert alert-danger" role="alert">
-                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                        </div>
-                        @enderror
-                        <label for="image">Food image</label></br>
-                        <input type="file" name="image" class="form-control" accept="image/png, image/gif, image/jpeg" value ={{$item['image']}}></br>
+
+                            
+                        
+                        
                         <button type="submit" class="btn btn-success">Submit</button>
                     </form>
                 </div>

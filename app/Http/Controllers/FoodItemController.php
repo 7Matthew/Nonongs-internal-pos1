@@ -48,8 +48,7 @@ class FoodItemController extends Controller
             'name'=> 'required',
             'category_id'=> 'int',
             'description' => 'min:0|max:999999',
-            'price'=> 'required|int',
-            'stocks'=> 'required|int'
+            'price'=> 'required|int'
         ]);
         $food = new FoodMenu();
         $food->name = strip_tags($request->input('name'));
@@ -57,7 +56,6 @@ class FoodItemController extends Controller
         $food->user_id = auth()->id();
         $food->description = strip_tags($request->input('description'));
         $food->price = strip_tags($request->input('price'));
-        $food->stocks = strip_tags($request->input('stocks'));
         if ($request->hasFile('image')) {
             $food->image = $request->file('image')->store('uploads','public');
         }
@@ -106,14 +104,12 @@ class FoodItemController extends Controller
         $request->validate([
             'name'=> 'required',
             'price'=> 'required|int',
-            'description' => 'min:0|max:999999',
-            'stocks'=> 'required|int'
+            'description' => 'min:0|max:999999'
         ]);
         $food = FoodMenu::findOrFail($id);
         $food->name = strip_tags($request->input('name'));
         $food->description = strip_tags($request->input('description'));
         $food->price = strip_tags($request->input('price'));
-        $food->stocks = strip_tags($request->input('stocks'));
         if ($request->hasFile('image')) {
             $food->image = $request->file('image')->store('uploads','public');
         }
