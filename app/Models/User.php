@@ -4,7 +4,11 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Item;
+use App\Models\Orders;
+use App\Models\FoodItem;
+use App\Models\Inventory_reports;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Transaction_reports;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -56,5 +60,10 @@ class User extends Authenticatable
     public function item(){
         return $this->hasMany(Item::class, 'user_id');
     }
-
+    public function transaction_report(){
+        return $this->hasMany(Transaction_reports::class, 'user_id');
+    }
+    public function inventory_report(){
+        return $this->hasMany(Inventory_reports::class, 'user_id');
+    }
 }

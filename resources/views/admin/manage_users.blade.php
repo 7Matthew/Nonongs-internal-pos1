@@ -14,7 +14,7 @@
         </div>
         <div class="col-lg-9 mt-5">
             <div class="card p-5">
-                <button type="button" class="col-lg-2 btn btn-success mt-5 mb-3" data-bs-toggle="modal" data-bs-target="#modal-add-user">Add new user</button>
+                <button type="button" class="col-lg-2 btn btn-success mt-1 mb-3" data-bs-toggle="modal" data-bs-target="#modal-add-user">Add new user</button>
                 <table class="table table-bordered mt-2 table-hover" id="user_table">
                     <thead>
                         <th>Name</th>

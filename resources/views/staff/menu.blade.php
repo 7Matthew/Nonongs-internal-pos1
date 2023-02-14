@@ -134,15 +134,6 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                                    <tr class="text-end table-secondary">
-                                        <td></td>
-                                        <td></td>
-                                        <td colspan="3">
-                                            <div class="row md-2">
-                                                
-                                            </div>
-                                        </td>
-                                    </tr>
                             </tbody>
                         </table>
                         <div class="row content-end">

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Transaction Report</title>
+    <title>Inventory Report</title>
 
     <style>
         .page-break {
@@ -15,6 +15,7 @@
           border: 1px solid black;
           border-collapse: collapse;
           margin-bottom:2.75rem;
+          padding:8px;
         }
 
         #footer { 
@@ -34,35 +35,34 @@
     </div> 
     <center>
         <img src="images/logo.jpg" width="10%">
-        <p><br><b>Nonong's Fried Chicken</b></br> P9-04 3rd 6th, Pasay City, Philippines<br><b>Transaction Report</b></br></p>
+       <p><br><b>Nonong's Fried Chicken</b></br> P9-04 3rd 6th, Pasay City, Philippines<br><b>Inventory Report</b></br></p>
        From: {{date('F d Y', strToTime($from))}} To: {{date('F d Y', strToTime($to))}}
+       
     </center>
 
     <p>Date Generated:  {{date('F d Y, D')}}</p>
     <table style="border:1px solid black; border-collapse:collapse; padding:0.2rem;">
         <thead style="font-size:11px; background-color:yellow;">
-            <th>Order ID</th>
-            <th>Date and Time</th>
-            <th>Order description</th>
-            <th>Total price</th>
-            <th>Payment Status</th>
-            <th>Payment Method</th>
-            <th>Payment amount</th>
-            <th>Payment change</th>
-            <th>Processed by</th>                           
+            <th>Item ID</th>
+            <th>Name</th>
+            <th>Supplier</th>
+            <th>Category</th>
+            <th>Added by</th>
+            <th>quantity</th>
+            <th>Cost</th>
+            <th>Expiry</th>                            
         </thead>
         <tbody>
             @foreach ($data as $item)
-                <tr style="text-align:center;">
+                <tr style="text-align:center; padding:10px;">
                     <td>{{$item->id}}</td>
-                    <td>{{$item->created_at}}</td>
-                    <td>{{$item->description}}</td>
-                    <td>{{$item->total_price}}</td>
-                    <td>{{$item->paymentStatus}}</td>
-                    <td>{{$item->modeOfPayment}}</td>
-                    <td>{{$item->payment}}</td>
-                    <td>{{$item->payment_change}}</td>
+                    <td>{{$item->name}}</td>
+                    <td>{{$item->supplier->name}}</td>
+                    <td>{{$item->category->name}}</td>
                     <td>{{$item->user->name}}</td>
+                    <td>{{$item->quantity . " $item->measuring_unit"}}</td>
+                    <td>P{{$item->cost}}</td>
+                    <td>{{$item->expiry_date}}</td>
                 </tr>
             @endforeach
         </tbody>

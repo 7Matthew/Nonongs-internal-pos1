@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use PDF;
+use App\Models\Item;
 use App\Models\Orders;
 use App\Models\FoodMenu;
 use Illuminate\Http\Request;
+use App\Models\Inventory_reports;
+use App\Models\Transaction_reports;
 use App\Http\Controllers\Controller;
 use App\Models\FoodItem_ingredients;
 use Illuminate\Support\Facades\Auth;
@@ -28,8 +31,34 @@ class StaffController extends Controller
             'from' => $from,
             'to'=> $to
         ]); 
+
+        $transaction_report = new Transaction_reports();
+        $transaction_report->user_id = auth()->id();
+        $transaction_report->from = $from;
+        $transaction_report->to = $to;
+        $transaction_report->save();
         
         return $pdf->stream('transaction_report_from_'.date('F d Y', strToTime($from)).'_to_'.date('F d Y', strToTime($to)).'.pdf');
+    }
+
+    public function inventory_report(Request $request)
+    {
+        $from = $request->input('from');
+        $to = $request->input('to');
+    
+        $pdf = PDF::loadView('pdf.inventory_report',[
+            'data'=>Item::whereBetween('created_at', [$from, $to])->get(),
+            'from' => $from,
+            'to'=> $to
+        ]); 
+        
+        $inventory_report = new Inventory_reports();
+        $inventory_report->user_id = auth()->id();
+        $inventory_report->from = $from;
+        $inventory_report->to = $to;
+        $inventory_report->save();
+
+        return $pdf->stream('inventory_report_from_'.date('F d Y', strToTime($from)).'_to_'.date('F d Y', strToTime($to)).'.pdf');
     }
 
     /**
@@ -83,11 +112,9 @@ class StaffController extends Controller
             'total-price'=> 'int'
         ]);
 
-        $food_item_id = $request->food_item_id;
-        $datasave = [
-            'food_item_id' => $food_item_id
-        ];
-        dd($datasave); // need i-edit ang shit ng cart. it has to be appended every click ng item from the menuuuuuuuuuuu!!!! 
+        
+        
+        // need i-edit ang shit ng cart. it has to be appended every click ng item from the menuuuuuuuuuuu!!!! 
 
         $order = new Orders();
         $ingredients = new FoodItem_ingredients();
@@ -111,6 +138,14 @@ class StaffController extends Controller
             $order->payment_change = ($request->input('payment') - $order->total_price);
         }
         $order->save();
+        
+        $food_item_id = $request->food_item_id;
+        $order_id = $order->id;
+        $datasave = [
+            'food_item_id' => $food_item_id,
+            'order_id' => $order_id
+        ];
+        //dd($datasave);
 
         return redirect()->route('make_order.index')->with('success','item added successfully!');
     }

@@ -32,4 +32,8 @@ class FoodItem extends Model
         return $this->belongsToMany(Item::class);
     }
     
+    public function orders()
+    {
+        return $this->belongsToMany(Orders::class);
+    }
 }
