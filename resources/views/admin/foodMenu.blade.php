@@ -6,16 +6,21 @@
             <div class="col mt-2" data-aos="fade-in"  data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <nav class = "navbar-nav" id="categs">
                     <li class="nav-item justify-content-end">
-                        @php
+                        <div class="collapse navbar-collapse" id="navbarCollapse">
+                            @php
                             $categories = \App\Models\Category::where('label', '!=', 'ingredients')->get();
                             $ingredients = \App\Models\Item::get()->all();
-                        @endphp        
-                        @foreach ($categories as $category)
-                            <a href={{"#".$category->name}}> {{$category->name}} </a>
-                        @endforeach
+                            @endphp        
+                            @foreach ($categories as $category)
+                                <button type="button" class="btn btn-transapernt btn-sm border border-1 m-2"><a href={{"#".$category->name}}> {{$category->name}}</a></button>
+                            @endforeach
+                        </div>
                     </li>
                 </nav> 
             </div>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         </div>
     </div>  
 @endsection
@@ -23,7 +28,45 @@
 @section('title','Food Menu')
 @section('content')
 
+
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+        //Get the button
+        let mybutton = document.getElementById("scrollToTop");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20)
+            {
+                $("#scrollToTop").show(200);
+            } 
+            else 
+            {
+                $("#scrollToTop").hide(200);
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        $("#scrollToTop").click(function() {
+            $("html, body").animate({ scrollTop: 0 }, "fast");
+            return false;
+        });
+    }) 
+</script>
+
+
 <div class="container-fluid mt-5" data-bs-smooth-scroll="true" data-bs-spy="scroll" data-bs-target="#categs">
+
+    {{-- SCROLL TO TOP --}}
+    <button class="btn btn-success btn-md" type="button" id="scrollToTop">
+        <i class="fa-solid fa-arrow-up fa-lg"></i>  
+    </button>
+
     @if(Session::has('success'))
     <div class="toast-show alert alert-success text-dark mt-4 p-auto" data-aos="fade-in" delay="500" duration="700" data-bs-dismiss="alert" aria-label="Close" role="alert">
         {{ 'Item Added Successfully!' }}
@@ -41,70 +84,67 @@
     @endif
     <div class="row">
         <div class="col-lg-4 col-md-8 col-sm-12">
-            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                <button class="btn btn-success btn-sm ml-5" title="Add Menu" data-bs-toggle="modal" data-bs-target="#modal-create-food-item">
-                    <i class="fa-solid fa-square-plus fa-lg mr-3"></i>Add new Item
-                </button>
-            </div>
+            <button class="btn btn-success btn-sm" title="Add item" data-bs-toggle="modal" data-bs-target="#modal-create-food-item">
+                <i class="fa-solid fa-square-plus fa-lg mr-3"></i>Add new Item
+            </button>
         </div>
     </div>
+    <section class="content">
+        <div class="row">
+            <div class="col m-relative"> 
+                @foreach ($categories as $category)
+                    <div class="card mt-2" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out" id={{$category->name}}>
+                        <div class="card-header text-gray bg-danger">
+                            <h6> {{$category->name}} </h6>
+                        </div>
+                        <div class="card-body text-dark">
+                            <div class="row">
+                                @foreach ($data as $item)
+                                    @if($item->category_id == $category->id)
+                                        <section class="col-lg-2 col-md-4 col-sm-12 col-xs-12" >
+                                            <div class="card no-border m-relative p-auto">
+                                                <div class="page-content justify-content">
+                                                    <img src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
+                                                    <section class="overflow-hidden" style="height:50px;">
+                                                        <p class="text-left" font size ="2px">{{$item->name . ' '. $item->description}}</p>
+                                                    </section>
+                                                    {{-- ACTION BUTTONS --}}
+                                        
+                                                    <button type="button" class="btn btn-info btn-sm mt-2" title="View Item" data-bs-toggle="modal" data-bs-target="{{"#modal-show-food-item".$item->id}}"><i class="fa-solid fa-eye"></i></button>
+                                                    <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target={{"#modal-edit-food-item".$item->id}} title="Edit Item"><i class="fa-regular fa-pen-to-square"></i></button>
+                                                    <button type="button" class="btn btn-warning btn-sm mt-2" title="Add ingredients"><i class="fa-solid fa-kitchen-set" data-bs-toggle="modal" data-bs-target="{{"#modal-add-ingredients" . $item->id}}"></i></button>
     
-    <div class="row">
-        <div class="col p-5 m-relative"> 
-            @foreach ($categories as $category)
-            <div class="card border-3 mt-2" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out" id={{$category->name}}>
-                <div class="card-header text-gray bg-danger">
-                    <h6> {{$category->name}} </h6>
-                </div>
-                <div class="card-body text-dark">
-                    <div class="row">
-                        @foreach ($data as $item)
-                            @if($item->category_id == $category->id)
-                                <div class="col-lg-2 col-md-4 col-sm-7 col-xs-7" >
-                                    <div class="card no-border m-relative p-auto">
-                                        <div class="page-content justify-content">
-                                            <img src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
-                                            <section class="overflow-hidden" style="height:50px;">
-                                                <p class="text-left" font size ="2px">{{$item->name . ' '. $item->description}}</p>
-                                            </section>
-                                            {{-- ACTION BUTTONS --}}
-                                            <section class="col-lg-12">
-
-                                            </section>
-                                            <button type="button" class="btn btn-info btn-sm mt-2" title="View Item" data-bs-toggle="modal" data-bs-target="{{"#modal-show-food-item".$item->id}}"><i class="fa-solid fa-eye"></i></button>
-                                            <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target={{"#modal-edit-food-item".$item->id}} title="Edit Item"><i class="fa-regular fa-pen-to-square"></i></button>
-                                            <button type="button" class="btn btn-warning btn-sm mt-2" title="Add ingredients"><i class="fa-solid fa-kitchen-set" data-bs-toggle="modal" data-bs-target="{{"#modal-add-ingredients" . $item->id}}"></i></button>
-
-                                            <form method="POST" action="{{ route('food-item.destroy', $item->id) }}" accept-charset="UTF-8" style="display:inline">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="button" class="btn btn-danger btn-sm mt-2" title="Delete item" data-bs-toggle="modal" data-bs-target={{"#modal-delete-food-item".$item->id}}><i class="fa-solid fa-trash"></i></button>
-                                                <div class="modal fade" id={{"modal-delete-food-item".$item->id}} tabindex="-1" aria-labelledby="modal-confirm-order" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered">
-                                                      <div class="modal-content">
-                                                        <div class="modal-header d-flex pb-5">
-                                                          <h1 class="modal-title fs-5" id="modal-confirm-order">Confirm Deletion of {{ $item->name }}?</h1>
-                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    <form method="POST" action="{{ route('food-item.destroy', $item->id) }}" accept-charset="UTF-8" style="display:inline">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button type="button" class="btn btn-danger btn-sm mt-2" title="Delete item" data-bs-toggle="modal" data-bs-target={{"#modal-delete-food-item".$item->id}}><i class="fa-solid fa-trash"></i></button>
+                                                        <div class="modal fade" id={{"modal-delete-food-item".$item->id}} tabindex="-1" aria-labelledby="modal-confirm-order" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header d-flex pb-5">
+                                                                <h1 class="modal-title fs-5" id="modal-confirm-order">Confirm Deletion of {{ $item->name }}?</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                                <button type="submit" class="btn btn-primary">Confirm</button>
+                                                                </div>
+                                                            </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                          <button type="submit" class="btn btn-primary">Confirm</button>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                        @endforeach
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
-                </div>
+                @endforeach
             </div>
-            @endforeach
         </div>
-    </div>
+    </section>
 </div>
 
 {{-- MODAL Create --}}

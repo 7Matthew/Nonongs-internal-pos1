@@ -10,6 +10,8 @@
                             $categories = \App\Models\Category::get()->where('label', '==','ingredients');
                             $data = \App\Models\Item::get()->all();
                             $suppliers = \App\Models\Supplier::get()->all();
+                            $expired_items = \App\Models\Item::where('expiry_date', '<=', date('Y-m-d'))->get()->all(); // query to get the item that has met or exceeded the expiry date
+                            $expired_item = new \App\Models\Expired_items(); // initializing model to input an expired item
                         @endphp        
                     </li>
                 </nav> 
@@ -21,10 +23,42 @@
 @section('title','Food Menu')
 @section('content')
 
+<script type="text/javascript">
+    $(document).ready( function () {
+        $('#order_history').DataTable({
+            order: [[0,'desc']],
+            responsive: true, 
+            "lengthMenu": [ 5, 10, 25, 50, 75, 100 ],
+            "scrollY": "50vh",
+            "scrollCollapse": true,
+            "paging": true
+        });
+        $('#expired_items').DataTable({
+            order: [[0,'desc']],
+            responsive: true,
+            "lengthMenu": [ 5, 10, 25, 50, 75, 100 ],
+            "scrollY": "50vh",
+            "scrollCollapse": true,
+            "paging": true
+        });
+    });
+</script>
 
+@foreach ($expired_items as $item)
+    @php
+        if($expired_item->where('item_id', $item->id)->exists())
+        {
+            break;
+        }
+        else
+        {
+            $expired_item->item_id = $item->id;
+            $expired_item->save();
+        }
+    @endphp
+@endforeach
 
-
-<div class="container-fluid mt-5" data-bs-smooth-scroll="true" data-bs-spy="scroll" data-bs-target="#categs">
+<div class="container-fluid mt-3" data-bs-smooth-scroll="true" data-bs-spy="scroll" data-bs-target="#categs">
     @if(Session::has('success'))
     <div class="toast-show alert alert-success text-dark mt-4 p-auto" data-aos="fade-in" delay="500" duration="700" data-bs-dismiss="alert" aria-label="Close" role="alert">
         {{ 'Item Added Successfully!' }}
@@ -40,79 +74,166 @@
             {{ 'Item Deleted Successfully!' }}
         </div>
     @endif
-    <div class="row">   
-        <div class="col-lg-4 col-md-8 col-sm-12">
-            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                <button class="btn btn-success btn-sm ml-5" title="Add Menu" data-bs-toggle="modal" data-bs-target="#modal-create-food-item">
-                    <i class="fa-solid fa-square-plus fa-lg mr-3"></i>Add new Item
-                </button>
-                <button class="btn btn-warning btn-sm" title="Add Menu" data-bs-toggle="modal" data-bs-target="#modal-create-new-category">
-                    <i class="fa-solid fa-square-plus fa-lg mr-3"></i>Add new Category
-                </button>
+    <div class="row mb-3">
+        <div class="col m-relative">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-text">
+                        <h6>Inventory Items</h6>
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="row">   
+                        <div class="col-lg-4 col-md-8 col-sm-12 col-xs-12">
+                            <button class="btn btn-success btn-sm m-2" title="Add Menu" data-bs-toggle="modal" data-bs-target="#modal-create-food-item">
+                                <i class="fa-solid fa-square-plus fa-lg mr-3"></i>Add new Item
+                            </button>
+                            <button class="btn btn-warning btn-sm m-2" title="Add Menu" data-bs-toggle="modal" data-bs-target="#modal-create-new-category">
+                                <i class="fa-solid fa-square-plus fa-lg mr-3"></i>Add new Category
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col m-relative"> 
+                            <table id="order_history" class="table table-striped aos-init aos-animate" data-aos="fade-right" data-aos-delay="500" data-aos-duration="700">
+                                <thead>
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                    <th>Supplier</th>
+                                    <th>Category</th>
+                                    <th>Created by</th>
+                                    <th>Cost</th>
+                                    <th>Expiry</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    @foreach ($data as $item)
+                                    <tr>
+                                        <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                            <img src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="10%" height="10%"> {{$item->name}}
+                                        </td>
+                                        <td>{{floatval($item->quantity) . ' ' . $item->measuring_unit  }}</td>
+                                        <td>{{$item->supplier->name}}</td>
+                                        <td>{{$item->category->name}}</td>
+                                        <td>{{$item->user->name}}</td>
+                                        <td>{{floatval($item->cost)}}</td>
+                                        <td>
+                                            @php
+                                                $expiry = date_create($item->expiry_date);
+                
+                                                $expiry = date_format($expiry, 'm-d-y'); 
+                                                echo $expiry; 
+                                            @endphp
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-info btn-sm mt-2" title="View Item" data-bs-toggle="modal" data-bs-target="{{"#modal-show-food-item".$item->id}}"><i class="fa-solid fa-eye"></i></button>
+                                            <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target={{"#modal-edit-food-item".$item->id}} title="Edit Item"><i class="fa-regular fa-pen-to-square"></i></button>
+                
+                                            <form method="POST" action="{{ route('inventory.destroy', $item->id) }}" accept-charset="UTF-8" style="display:inline">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="button" class="btn btn-danger btn-sm mt-2" title="Delete item" data-bs-toggle="modal" data-bs-target={{"#modal-delete-food-item".$item->id}}><i class="fa-solid fa-trash"></i></button>
+                                                <div class="modal fade" id={{"modal-delete-food-item".$item->id}} tabindex="-1" aria-labelledby="modal-confirm-order" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                      <div class="modal-content">
+                                                        <div class="modal-header d-flex pb-5">
+                                                          <h1 class="modal-title fs-5" id="modal-confirm-order">Confirm Deletion of {{ $item->name }}?</h1>
+                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                          <button type="submit" class="btn btn-primary">Confirm</button>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
         </div>
     </div>
-    <div class="row">
-        <script>
-            $(document).ready( function () {
-                $('#order_history').DataTable({
-                    order: [[0,'desc']],
-                });
-            });
-        </script>
-        <div class="col p-5 m-relative"> 
-            <table id="order_history" class="table table-striped aos-init aos-animate" data-aos="fade-right" data-aos-delay="500" data-aos-duration="700">
-                <thead>
-                    <th>Name</th>
-                    <th>Quantity</th>
-                    <th>Supplier</th>
-                    <th>Category</th>
-                    <th>Created by</th>
-                    <th>Cost</th>
-                    <th>Expiry</th>
-                    <th>Action</th>
-                </thead>
-                <tbody>
-                    @foreach ($data as $item)
-                    <tr>
-                        <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                            <img src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="10%" height="10%"> {{$item->name}}
-                        </td>
-                        <td>{{$item->quantity . ' ' . $item->measuring_unit}}</td>
-                        <td>{{$item->supplier->name}}</td>
-                        <td>{{$item->category->name}}</td>
-                        <td>{{$item->user->name}}</td>
-                        <td>{{$item->cost}}</td>
-                        <td>{{$item->expiry_date}}</td>
-                        <td>
-                            <button type="button" class="btn btn-info btn-sm mt-2" title="View Item" data-bs-toggle="modal" data-bs-target="{{"#modal-show-food-item".$item->id}}"><i class="fa-solid fa-eye"></i></button>
-                            <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target={{"#modal-edit-food-item".$item->id}} title="Edit Item"><i class="fa-regular fa-pen-to-square"></i></button>
-
-                            <form method="POST" action="{{ route('inventory.destroy', $item->id) }}" accept-charset="UTF-8" style="display:inline">
-                                @method('DELETE')
-                                @csrf
-                                <button type="button" class="btn btn-danger btn-sm mt-2" title="Delete item" data-bs-toggle="modal" data-bs-target={{"#modal-delete-food-item".$item->id}}><i class="fa-solid fa-trash"></i></button>
-                                <div class="modal fade" id={{"modal-delete-food-item".$item->id}} tabindex="-1" aria-labelledby="modal-confirm-order" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                      <div class="modal-content">
-                                        <div class="modal-header d-flex pb-5">
-                                          <h1 class="modal-title fs-5" id="modal-confirm-order">Confirm Deletion of {{ $item->name }}?</h1>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                          <button type="submit" class="btn btn-primary">Confirm</button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+    <div class="row mb-2">
+        <div class="col m-relative">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-text">
+                        <h6>Expired Items</h6>
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col m-relative"> 
+                            <table id="expired_items" class="table table-striped aos-init aos-animate" data-aos="fade-right" data-aos-delay="500" data-aos-duration="700">
+                                <thead>
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                    <th>Supplier</th>
+                                    <th>Category</th>
+                                    <th>Created by</th>
+                                    <th>Cost</th>
+                                    <th>Expiry</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    @forelse ($expired_items as $item)
+                                        <tr>
+                                            <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                <img src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="10%" height="10%"> {{$item->name}}
+                                            </td>
+                                            <td>{{floatval($item->quantity) . ' ' . $item->measuring_unit  }}</td>
+                                            <td>{{$item->supplier->name}}</td>
+                                            <td>{{$item->category->name}}</td>
+                                            <td>{{$item->user->name}}</td>
+                                            <td>{{floatval($item->cost)}}</td>
+                                            <td>
+                                                @php
+                                                    $expiry = date_create($item->expiry_date);
+                
+                                                    $expiry = date_format($expiry, 'm-d-y'); 
+                                                    echo $expiry; 
+                                                @endphp
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-info btn-sm mt-2" title="View Item" data-bs-toggle="modal" data-bs-target="{{"#modal-show-food-item".$item->id}}"><i class="fa-solid fa-eye"></i></button>
+                                                <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target={{"#modal-edit-food-item".$item->id}} title="Edit Item"><i class="fa-regular fa-pen-to-square"></i></button>
+                
+                                                <form method="POST" action="{{ route('inventory.destroy', $item->id) }}" accept-charset="UTF-8" style="display:inline">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button type="button" class="btn btn-danger btn-sm mt-2" title="Delete item" data-bs-toggle="modal" data-bs-target={{"#modal-delete-food-item".$item->id}}><i class="fa-solid fa-trash"></i></button>
+                                                    <div class="modal fade" id={{"modal-delete-food-item".$item->id}} tabindex="-1" aria-labelledby="modal-confirm-order" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header d-flex pb-5">
+                                                            <h1 class="modal-title fs-5" id="modal-confirm-order">Confirm Deletion of {{ $item->name }}?</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                            <button type="submit" class="btn btn-primary">Confirm</button>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -152,7 +273,7 @@
                             <label for="measuring_unit">Measurement</label></br>
                             
                             <select name="measuring_unit" id="measuring_unit" class="form-select" value="{{old('measuring_unit')}}">
-                                <option value=""></option>
+                                <option value="">--Select Measurement--</option>
                                 <option value="L">Liter</option>
                                 <option value="Oz">Ounce</option>
                                 <option value="g">grams</option>
@@ -173,7 +294,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                             <label for="supplier_id" class="form-label">Supplier</label></br>
                             <select name ="supplier_id" id="supplier_id" class="form-control" value ="{{old('supplier_id')}}">
-                                <option></option>
+                                <option>--Select Supplier--</option>
                                 @foreach ($suppliers as $supplier)
                                     <option value={{$supplier->id}}>{{$supplier->name}}</option>
                                 @endforeach
@@ -187,7 +308,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                             <label for="category" class="form-label">Category</label></br>
                             <select name ="category_id" id="category" class="form-control" value ="{{old('category_id')}}">
-                                <option></option>
+                                <option>--Select Category--</option>
                                 @foreach ($categories as $category)
                                     <option value={{$category->id}}>{{$category->name}}</option>
                                 @endforeach
@@ -200,7 +321,7 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                             <label for="cost">Cost</label></br>
-                            <input type="number" name="cost" id="cost" class="form-control" value ="{{old('cost')}}"></br>
+                            <input type="number" name="cost" id="cost" class="form-control" value ="{{old('cost')}}" step=0.1 placeholder=&#8369></br>
                             @error('cost')
                             <div class="alert alert-danger" role="alert">
                                 <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
@@ -346,9 +467,6 @@
                                 <input type="file" name="image" class="form-control" accept="image/png, image/gif, image/jpeg" value ={{$item['image']}}></br>
                             </div>
                         </div>
-
-                            
-                        
                         
                         <button type="submit" class="btn btn-success">Submit</button>
                     </form>

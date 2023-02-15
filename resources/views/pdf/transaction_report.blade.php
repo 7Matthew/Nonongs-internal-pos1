@@ -33,7 +33,7 @@
         <p class="page">Page </p>
     </div> 
     <center>
-        <img src="images/logo.jpg" width="10%">
+        <img src="{{asset('images/logo.jpg')}}" width="10%">
         <p><br><b>Nonong's Fried Chicken</b></br> P9-04 3rd 6th, Pasay City, Philippines<br><b>Transaction Report</b></br></p>
        From: {{date('F d Y', strToTime($from))}} To: {{date('F d Y', strToTime($to))}}
     </center>
