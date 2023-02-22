@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin-layout')
 
-@section('title','Forecasting')
+@section('title','Reports')
 @section('content')
 <div class="container-fluid">
     <div class="row mb-3">

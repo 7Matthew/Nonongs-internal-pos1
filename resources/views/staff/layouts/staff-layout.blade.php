@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{csrf_token()}}">
   <title>@yield('title')</title>
   <base href="{{ URL::to('/') }}">
     
@@ -64,35 +65,36 @@
   </div>
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="main-header navbar navbar-expand-lg navbar-expand-md navbar-expand-sm navbar-expand-xs navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
-      <li class="nav-item">
+      <li class="ml-3 nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
+    <div class ="dropdown me-3 ">
+      <a class = "btn dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true" data-bs-placement="bottom" title="Account"><i class="fa-solid fa-user 100 fa-lg m-2">
+      </i></a>
+      <ul class="dropdown-menu" style="width:30vh; margin-right;">
+          <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                              document.getElementById('logout-form').submit();">
+                                  {{ __('Log-out') }}
+                      </a>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                  @csrf
+                      </form>
+          </li>
+          <li>
+            <a href="{{route('change_password')}}" class="dropdown-item">Change password</a>
+          </li>
+          
+      </ul>
+    </div>
 
+    @yield('topnav-items') 
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      
-      @yield('topnav-items')
-      <div class ="dropdown me-3">
-        <a class = "btn dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true"data-bs-placement="bottom" title="Account"><i class="fa-solid fa-user 100 fa-lg m-2">
-        </i></a>
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                    {{ __('Log-out') }}
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                        </form>
-            </li>
-        </ul>
-      </div>
-      
-    </ul>
+
   </nav>
   <!-- /.navbar -->
 

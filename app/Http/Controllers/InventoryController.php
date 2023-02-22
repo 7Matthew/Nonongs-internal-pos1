@@ -47,7 +47,7 @@ class InventoryController extends Controller
             'supplier_id'=> 'int',
             'category_id'=> 'int',
             'user_id'=> 'int',
-            'cost'=> 'required|int'
+            'cost'=> 'required'
         ]);
         $item = new Item();
         $item->name = strip_tags($request->input('name'));

@@ -12,6 +12,8 @@
             <div class="inner">
               <h6 class="mb-3">{{date('F Y')}}</h6>
               @php
+                $expired_items = \App\Models\Item::where('expiry_date', '<=', date('Y-m-d'))->get();
+                $recent_items =  \App\Models\Item::latest()->take(10)->get();
                 $today_sales = DB::table('orders')->whereDate('created_at', date('Y-m-d'))->get()->where('paymentStatus', '==', 'Paid');
                 $month_sales = DB::table('orders')->whereMonth('created_at', date('m'))->get()->where('paymentStatus', '==', 'Paid');
                 $today_total = 0;
@@ -129,7 +131,13 @@
                 <p class="card-title"><i class="fa-solid fa-triangle-exclamation"></i> Low stock Foods</p>
             </div>
             <div class="card-body">
-              
+              <section class="overflow-auto" style="height:100px;">
+                <ol type="1">
+                  @foreach ($expired_items as $item)
+                      <li>{{$item->name}}</li>
+                  @endforeach
+                </ol>
+              </section>
             </div>
           </div>
         </div>
@@ -139,7 +147,14 @@
                 <p class="card-title"><i class="fa-solid fa-triangle-exclamation"></i> Expired Items</p>
             </div>
             <div class="card-body">
-  
+              <section class="overflow-auto" style="height:100px;">
+                <ol type="1">
+                  @foreach ($expired_items as $item)
+                      <li>{{$item->name}}</li>
+                  @endforeach
+                </ol>
+              </section>
+              
             </div>
           </div>
         </div>
@@ -149,7 +164,13 @@
                 <p class="card-title"><i class="fa-solid fa-triangle-exclamation"></i> Recently Added Items</p>
             </div>
             <div class="card-body">
-  
+              <section class="overflow-auto" style="height:100px;">
+                <ol type="1">
+                  @foreach ($recent_items as $item)
+                      <li>{{$item->name}}</li>
+                  @endforeach
+                </ol>
+              </section>
             </div>
           </div>
         </div>
@@ -158,6 +179,5 @@
       </div>
     </div>
   </section>
-  
-</div>
+</div> 
 @endsection

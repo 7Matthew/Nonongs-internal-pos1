@@ -1,54 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>@yield('title')</title>
-  <base href="{{ URL::to('/') }}">
-    
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-  <!-- iCheck -->
-  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- JQVMap -->
-  <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-  <!-- summernote -->
-  <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{csrf_token()}}">
+    <title>@yield('title')</title>
+    <base href="{{ URL::to('/') }}">
+      
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 
-  <!-- Bootstrap -->
-  <link rel="stylesheet" type="text/css"  href="{{ url('css/bootstrap.min.css') }}">
-  <!-- JavaScript -->
-  <script src="{{ url('js/bootstrap.bundle.min.js') }}"></script>
-  <!-- CSS -->
-  <link rel="stylesheet" type="text/css" href="{{ url('css/main.css') }}">
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100;0,8..144,200;0,8..144,300;0,8..144,400;0,8..144,500;0,8..144,600;0,8..144,700;0,8..144,800;0,8..144,900;1,8..144,100;1,8..144,200;1,8..144,300;1,8..144,400;1,8..144,500;1,8..144,600;1,8..144,700;1,8..144,800;1,8..144,900&display=swap" rel="stylesheet">
-  <link rel="shortcut icon" href="images/logo.jpg">
-  <link href="/fontawesome/css/fontawesome.css" rel="stylesheet">
-  <link href="/fontawesome/css/brands.css" rel="stylesheet">
-  <link href="/fontawesome/css/solid.css" rel="stylesheet">
-  {{-- Animate on Scroll --}}
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-  {{-- JQUERY --}}
-  <script src="js/jquery.min.js"></script>
-  {{-- DataTables --}}
-  <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
-  <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
-  
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css"  href="{{ url('css/bootstrap.min.css') }}">
+    <!-- JavaScript -->
+    <script src="{{ url('js/bootstrap.bundle.min.js') }}"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url('css/main.css') }}">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100;0,8..144,200;0,8..144,300;0,8..144,400;0,8..144,500;0,8..144,600;0,8..144,700;0,8..144,800;0,8..144,900;1,8..144,100;1,8..144,200;1,8..144,300;1,8..144,400;1,8..144,500;1,8..144,600;1,8..144,700;1,8..144,800;1,8..144,900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="images/logo.jpg">
+    <link href="/fontawesome/css/fontawesome.css" rel="stylesheet">
+    <link href="/fontawesome/css/brands.css" rel="stylesheet">
+    <link href="/fontawesome/css/solid.css" rel="stylesheet">
+    {{-- Animate on Scroll --}}
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    {{-- JQUERY --}}
+    <script src="js/jquery.min.js"></script>
+    {{-- DataTables --}}
+    <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+    <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 
@@ -66,33 +66,38 @@
   </div>
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand-lg navbar-white navbar-light">
+  <nav class="main-header navbar navbar-expand-lg navbar-expand-md navbar-expand-sm navbar-expand-xs navbar-light ">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="ml-3 nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        
       </li>
     </ul>
 
+    <div class ="dropdown me-3 ">
+      <a class = "btn dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true" data-bs-placement="bottom" title="Account"><i class="fa-solid fa-user 100 fa-lg m-2">
+      </i></a>
+      <ul class="dropdown-menu" style="width:30vh; margin-right;">
+          <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                              document.getElementById('logout-form').submit();">
+                                  {{ __('Log-out') }}
+                      </a>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                  @csrf
+                      </form>
+          </li>
+          <li>
+            <a href="{{route('change_password')}}" class="dropdown-item">Change password</a>
+          </li>
+          
+      </ul>
+    </div>
+    @yield('topnav-items')  
+    
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      @yield('topnav-items')
-      <div class ="dropdown me-3">
-        <a class = "btn dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true"data-bs-placement="bottom" title="Account"><i class="fa-solid fa-user 100 fa-lg m-2">
-        </i></a>
-        <ul class="dropdown-menu w-25">
-            <li><a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                    {{ __('Log-out') }}
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                        </form>
-            </li>
-        </ul>
-      </div>
-    </ul>
+
   </nav>
   <!-- /.navbar -->
 

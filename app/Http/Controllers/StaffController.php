@@ -112,12 +112,7 @@ class StaffController extends Controller
             'total-price'=> 'int'
         ]);
 
-        
-        
-        // need i-edit ang shit ng cart. it has to be appended every click ng item from the menuuuuuuuuuuu!!!! 
-
         $order = new Orders();
-        $ingredients = new FoodItem_ingredients();
         $order->user_id = auth()->id();
         $order->description = $request->input('description');
         $order->total_price = $request->input('total_price');
@@ -138,15 +133,7 @@ class StaffController extends Controller
             $order->payment_change = ($request->input('payment') - $order->total_price);
         }
         $order->save();
-        
-        $food_item_id = $request->food_item_id;
-        $order_id = $order->id;
-        $datasave = [
-            'food_item_id' => $food_item_id,
-            'order_id' => $order_id
-        ];
-        //dd($datasave);
-
+      
         return redirect()->route('make_order.index')->with('success','item added successfully!');
     }
 

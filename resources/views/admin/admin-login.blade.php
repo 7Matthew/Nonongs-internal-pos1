@@ -1,3 +1,11 @@
+@php
+    if(auth()->check())
+    { 
+        header('Location: admin-dashboard');
+        exit();
+    }
+@endphp
+
 <!DOCTYPE html>
 <html>
   <head>

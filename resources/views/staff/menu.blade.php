@@ -10,7 +10,7 @@
 <script src="js/jqueryFunctions.js"></script>
 
 <div aria-live="polite" aria-atomic="true" class="position-relative">
-    <div class="toast-container position-fixed bottom-0 end-0 p-3"> 
+    <div class="toast-container position-fixed top-0 end-0 p-3"> 
         @foreach ($data as $item)
             <div class="toast align-items-center text-bg-success border-0" id={{"addToCart".$item->id}} role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
@@ -41,31 +41,28 @@
 </div>
 
 <div class="container-fluid">
-    <div class="row my-4">
+    <div class="row my-2">
         <div class="col m-relative">
             <div class="card">
                 <div class="card-header">
-                    <div class="row">
-                        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
-                            <p>Nonong's Fried Chicken Menu</p>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 nav justify-content-end">
-                            <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Categories
+                    <div class="row position-relative start-0 my-2">
+                        <div class="col">
+                            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#collapse-category">
+                                <i class="fa-solid fa-bars fa-lg"></i> Nonong's Fried Chicken Menu
                             </button>
-                            <nav class="navbar-nav" id="category">
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        @foreach ($categories as $category)
-                                            <a class="dropdown-item" href="{{"#".$category->name . $category->id}}">{{$category->name}}</a>
-                                        @endforeach
-                                    </li>
-                                </ul>
-                            </nav>
                         </div>
                     </div>
+                    <div class="row collapse show" id="collapse-category">
+                        <nav class = "navbar-nav" id="category">
+                            <li class="nav-item justify-content-end">
+                                @foreach ($categories as $category)
+                                    <button type="button" class="btn btn-transapernt btn-sm border border-1 m-2"><a href={{"#".$category->name . $category->id}}> {{$category->name}}</a></button>
+                                @endforeach 
+                            </li>
+                        </nav> 
+                    </div>
                 </div>
-                <div class="card-body p-3 overflow-auto" style="position:static; height:300px;" data-bs-smooth-scroll="true" data-bs-spy="scroll" data-bs-target="#category" tabindex="0">
+                <div class="card-body p-3 overflow-auto" style="position:static; height:400px;" data-bs-smooth-scroll="true" data-bs-spy="scroll" data-bs-target="#category" tabindex="0">
                     <div class="row">
                         @foreach ($categories as $category)
                             <section class="mt-4" >
@@ -94,7 +91,7 @@
             </div>
         </div>
     </div>
-    <div class="row mt-5">
+    <div class="row mt-2">
         <div class="col text-dark m-relative">
             <div class="card" id="cart" data-aos="fade-left"  data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out">
                 <div class="card-header text-muted">Cart Items</div>
@@ -105,8 +102,8 @@
                         <table class="table">
                             <thead class="bg-warning">
                                 <th>Action</th>
+                                <th>Food</th>
                                 <th>ID</th>
-                                <th class="text-center">Food</th>
                                 <th>Qty</th>
                                 <th>Price</th>
                             </thead>
@@ -119,11 +116,11 @@
                                             <button type="button" class="btn btn-light btn-sm p-1" title="Remove to cart" id={{'remove'.$item->id}}><i class="text-danger fa-solid fa-trash-can fa-lg "></i></button>
                                         </td>
                                         <td>
-                                            <input type="text" name="food_item_id[]" readonly class="col-lg-2 col-md-2 col-sm-12 form-control" value="{{$item->id}}"> 
-                                        </td> 
-                                        <td>
                                             <b id={{"item_name".$item->id}}>{{$item->name}}</b>
                                         </td>
+                                        <td>
+                                            <input type="text" name="food_item_id[]" readonly class="col-lg-3 col-md-3 col-sm-12 form-control" value="{{$item->id}}"> 
+                                        </td> 
                                         <td>
                                                 <button type="button" class="btn btn-danger btn-sm mr-1" id={{"decrement".$item->id}}>-</button>
                                                 <input type="number" min=0 max="200" name="quantity" id={{"input_quantity".$item->id}} width="5px" value="0" class="col-lg-2 col-md-4 col-sm-6 text-center" readonly>
@@ -166,7 +163,7 @@
                         </div>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" id="submit_order" data-bs-target="#submitOrder">
-                            Submit 
+                            Confirm 
                         </button>
                           <!-- Modal -->    
                         <div class="modal fade" id="submitOrder" tabindex="-1" aria-labelledby="modal-confirm-order" aria-hidden="true">
@@ -196,7 +193,7 @@
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                  <button type="submit" class="btn btn-success">Confirm</button>
+                                  <button type="submit" class="btn btn-success">Submit</button>
                                 </div>
                               </div>
                             </div>

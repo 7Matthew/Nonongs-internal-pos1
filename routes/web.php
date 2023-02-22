@@ -29,9 +29,19 @@ Route::get('/', function () {
 
 /*Admin/staff login */
 Route::get('/admin-login',function(){
+  if(auth()->check())
+  { 
+    header('Location: admin-dashboard');
+    exit();
+  }
   return view('admin/admin-login');
 })->name('admin-login');
 Route::get('/staff-login',function(){
+  if(auth()->check())
+  { 
+    header('Location: admin-dashboard');
+    exit();
+  }
   return view('admin/admin-login');
 })->name('staff-login');
 Route::get('create-new-user', function(){
@@ -57,9 +67,12 @@ Route::middleware(['auth','isAdmin'])->group(function(){
 Route::middleware('auth')->group(function(){
   Route::get('/menu', [App\Http\Controllers\StaffController::class, 'menu'])->name('menu');
   Route::get('/orders', [App\Http\Controllers\StaffController::class, 'orders'])->name('orders');
+  Route::get('/change_password', [App\Http\Controllers\ManageUserController::class, 'change_password'])->name('change_password');
+  Route::post('/change_password', [App\Http\Controllers\ManageUserController::class, 'update_password'])->name('update_password');
   Route::resource('/make_order', StaffController::class);
   Route::resource('/inventory', InventoryController::class);
   Route::resource('/foodItem_ingredients', FoodItem_IngredientsController::class);
+  
 });
 
 Auth::routes();

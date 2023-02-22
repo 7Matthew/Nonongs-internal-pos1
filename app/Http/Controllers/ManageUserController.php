@@ -112,6 +112,32 @@ class ManageUserController extends Controller
         return redirect()->route('manage-users.index', $id)->with('success','Edited Successfully');
     }
 
+    public function change_password()
+    {
+        return view('auth/change_password');
+    }
+
+    public function update_password(Request $request)
+    {
+        $request->validate([
+            'old_password' => ['string','required', 'min:8'],
+            'password' => ['min:8', 'string','required','Confirmed']
+        ]);
+
+        $oldPasswordStatus = Hash::check($request->old_password, auth()->user()->password);
+        if($oldPasswordStatus)
+        {
+            $user = Users::findOrFail(Auth::user()->id);
+            $user->password = Hash::make(strip_tags($request->password));
+            $user->update();
+            return redirect()->back()->with('success', 'Password Changed successfully');
+        }
+        else
+        {
+            return redirect()->back()->with('failed', 'Error: Old password don\'t  match');
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *

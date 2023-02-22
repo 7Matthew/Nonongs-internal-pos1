@@ -33,4 +33,9 @@ class Item extends Model
     {
         return $this->belongsToMany(FoodItem::class);
     }
+    public function expiredItem()
+    {
+        return $this->hasOne(ExpiredItem::class);
+    }
 }
+

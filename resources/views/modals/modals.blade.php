@@ -9,8 +9,13 @@
             <form method="POST" action="{{ route('manage-users.store') }}">
                 <div class="modal-body">
                         @csrf
+                        <div class="row mb-2">
+                            <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12 text-md-end text-center form-text text-danger">Required field *</span>
+                        </div>
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                            <label for="name" class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-label text-md-end">
+                                {{ __('Name') }} <span class="text-danger">*</span>
+                            </label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -24,10 +29,12 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-end">
+                                {{ __('Email Address') }} <span class="text-danger">*</span>
+                            </label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="sample@gmail.com">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -38,7 +45,9 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="username" class="col-md-4 col-form-label text-md-end">{{ __('Username') }}</label>
+                            <label for="username" class="col-md-4 col-form-label text-md-end">
+                                {{ __('Username') }} <span class="text-danger">*</span>
+                            </label>
 
                             <div class="col-md-6">
                                 <input id="username" type="username" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username">
@@ -52,7 +61,9 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
+                            <label for="role" class="col-md-4 col-form-label text-md-end">
+                                {{ __('Role') }} <span class="text-danger">*</span>
+                            </label>
                             <select id="role" name="role" class="col-md-6 form">
                                 <option value="0">Admin</option>
                                 <option value="1">Staff</option>
@@ -60,10 +71,12 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-end">
+                                {{ __('Password') }} <span class="text-danger">*</span>
+                            </label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="atleast 8 characters"> 
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -74,10 +87,12 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">
+                                {{ __('Confirm Password') }} <span class="text-danger">*</span>
+                            </label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="atleast 8 characters">
                             </div>
                         </div>
                 </div>
@@ -102,8 +117,13 @@
                 <div class="modal-body">
                         @csrf
                         @method('PUT')
+                        <div class="row mb-2">
+                            <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12 text-md-end text-center form-text text-danger">Required field *</span>
+                        </div>
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-end">
+                                {{ __('Name') }} <span class="text-danger">*</span>
+                            </label>
         
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $item->name }}" required autocomplete="name" autofocus>
@@ -117,7 +137,9 @@
                         </div>
         
                         <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-end">
+                                {{ __('Email Address') }} <span class="text-danger">*</span>
+                            </label>
         
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $item->email }}" required autocomplete="email">
@@ -131,7 +153,9 @@
                         </div>
         
                         <div class="row mb-3">
-                            <label for="username" class="col-md-4 col-form-label text-md-end">{{ __('Username') }}</label>
+                            <label for="username" class="col-md-4 col-form-label text-md-end">
+                                {{ __('Username') }} <span class="text-danger">*</span>
+                            </label>
         
                             <div class="col-md-6">
                                 <input id="username" type="username" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ $item->username }}" required autocomplete="username">
@@ -145,7 +169,9 @@
                         </div>
         
                         <div class="row mb-3">
-                            <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
+                            <label for="role" class="col-md-4 col-form-label text-md-end">
+                                {{ __('Role') }} <span class="text-danger">*</span>
+                            </label>
                             <select id="role" name="role" class="col-md-6 form">
                                 @if ($item->role == 0)
                                     <option value="0">Admin</option>

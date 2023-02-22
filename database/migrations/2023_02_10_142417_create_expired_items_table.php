@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('expired_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('item_id')->constrained('items')->onUpdate('cascade')->onDelete('cascade');
+            $table->date('expiry_date');
             $table->timestamps();
         });
     }
