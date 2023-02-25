@@ -72,7 +72,7 @@
                                 @if($item->category_id == $category->id)
                                     <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
                                         <div class="card no-border m-relative justify-content-end">
-                                            <button class="btn btn-light" id="{{$item->id}}" tooltip="{{$item->name . ' ' . $item->description}}">
+                                            <button class="btn btn-light" id="{{$item->id}}" value="{{$item->id}}" tooltip="{{$item->name . ' ' . $item->description}}">
                                                 <div class="page-content text-center">
                                                     <img class = ""src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name . " $item->description"}}"alt="item" width="50%" height="50%">
                                                     <section class="overflow-hidden" style="height:50px;">
@@ -101,15 +101,15 @@
                         @csrf
                         <table class="table">
                             <thead class="bg-warning">
-                                <th>Action</th>
                                 <th>Food</th>
                                 <th>ID</th>
                                 <th>Qty</th>
                                 <th>Price</th>
                             </thead>
-                            <tbody>
+                            <tbody id="cartContent">
                                 {{-- CART CONTENT --}}
-                                @foreach ($data as $item)
+                                
+                                {{-- @foreach ($data as $item)
                                     <tr id={{'hide'.$item->id}}>
                                         <td>
                                             <button type="button" class="btn btn-light btn-sm p-1" title="Add to Order Summary" id={{"record_to_summary".$item->id}}><i class="fa-solid fa-circle-plus text-success"></i></button>
@@ -123,14 +123,14 @@
                                         </td> 
                                         <td>
                                                 <button type="button" class="btn btn-danger btn-sm mr-1" id={{"decrement".$item->id}}>-</button>
-                                                <input type="number" min=0 max="200" name="quantity" id={{"input_quantity".$item->id}} width="5px" value="0" class="col-lg-2 col-md-4 col-sm-6 text-center" readonly>
+                                                <input type="number" min=0 max="200" name="quantity[]" id={{"input_quantity".$item->id}} width="5px" value="0" class="col-lg-2 col-md-4 col-sm-6 text-center" readonly>
                                                 <button type="button" class="btn btn-success btn-sm ml-1" id={{"increment".$item->id}}>+</button>
                                         </td>
                                         <td>
                                                 <p id={{"cart_item_price".$item->id}}>{{$item->price}}</p>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
                         </table>
                         <div class="row content-end">
@@ -150,11 +150,14 @@
                             </div>
                             <div class="col-lg-8 text-left">
                                <input type="number" name="payment" id="payment" width="5px" class="form-control col-lg-4 col-md-4 col-sm-6 text-center bg-success">
-                                    @error('payment')
-                                        <div class="alert alert-danger" role="alert">
-                                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                                        </div>
-                                    @enderror
+                                @error('payment')
+                                    <div class="alert alert-danger" role="alert">
+                                    <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                                    </div>
+                                @enderror
+                                <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" id="submit_order" data-bs-target="#submitOrder">
+                                    Confirm 
+                                </button>
                             </div>
                         </div>
                         
@@ -162,9 +165,7 @@
                             {{-- Purposefully empty --}}
                         </div>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" id="submit_order" data-bs-target="#submitOrder">
-                            Confirm 
-                        </button>
+                        
                           <!-- Modal -->    
                         <div class="modal fade" id="submitOrder" tabindex="-1" aria-labelledby="modal-confirm-order" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
@@ -175,7 +176,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <p>Order Summary</p> 
-                                    <textarea name="description" id="description" cols="30" rows="10" class="form-control" readonly></textarea>
+                                    <textarea name="description" id="description" readonly cols="30" rows="10" class="form-control"></textarea>
                                     <div class="row my-3">
                                         <div class="col-lg-4">
                                             <label for="modeOfPayment" class="form-label">Payment Method</label>

@@ -11,6 +11,15 @@ class FoodItemController extends Controller
     //
 
     
+    public function fetchFoodItem()
+    {
+        $food = FoodMenu::all();
+
+        return response()->json([
+            'food'=> $food,
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -61,7 +70,7 @@ class FoodItemController extends Controller
         }
         $food->save();
 
-        return redirect()->route('food-item.index')->with('success','item added successfully!');
+        //return redirect()->route('food-item.index')->with('success','item added successfully!');
     }
 
     /**

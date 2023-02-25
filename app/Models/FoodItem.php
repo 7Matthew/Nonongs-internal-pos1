@@ -29,7 +29,7 @@ class FoodItem extends Model
 
     public function item()
     {
-        return $this->belongsToMany(Item::class);
+        return $this->belongsToMany(Item::class)->withPivot('quantity');
     }
     
     public function orders()

@@ -121,3 +121,13 @@ div .foodtext h3{
   right: 30px;
   display: block;
 }
+
+@media (max-width: 600px) {
+  .modal-dialog {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+  .modal-header, .modal-footer {
+    text-align: center;
+  }
+}

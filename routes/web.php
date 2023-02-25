@@ -72,7 +72,7 @@ Route::middleware('auth')->group(function(){
   Route::resource('/make_order', StaffController::class);
   Route::resource('/inventory', InventoryController::class);
   Route::resource('/foodItem_ingredients', FoodItem_IngredientsController::class);
-  
+  Route::get('/fetchFoodItem', [FoodItemController::class, 'fetchFoodItem'])->name('fetchFoodItem');
 });
 
 Auth::routes();

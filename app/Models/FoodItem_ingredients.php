@@ -10,4 +10,5 @@ class FoodItem_ingredients extends Model
     use HasFactory;
 
     protected $table = 'food_item_item';
+    protected $fillable = ['food_item_id','item_id', 'quantity'];
 }

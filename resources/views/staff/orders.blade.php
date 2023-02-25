@@ -111,11 +111,12 @@
             </div>
         </div>
     </div>
-    @foreach ($orders as $item)
+</div>
+@foreach ($orders as $item)
         <div class="modal fade" id={{"modal-edit-order".$item->id}} tabindex="-1" aria-labelledby="modal-edit-food-item" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
                 <div class="modal-content">
-                    <div class="modal-header bg-alert bg-warning">
+                    <div class="modal-header bg-alert bg-warning" >
                         <h1 class="modal-title fs-4" id="modal-confirm-order">Edit Order # {{$item->id}}</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -152,5 +153,4 @@
             </div>
         </div>
     @endforeach
-</div>
 @endsection

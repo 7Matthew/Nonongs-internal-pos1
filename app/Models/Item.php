@@ -14,7 +14,8 @@ class Item extends Model
         'name',
         'price',
         'cost',
-        'image',
+        'image',    
+        'quantity',
     ];
 
     public function category()

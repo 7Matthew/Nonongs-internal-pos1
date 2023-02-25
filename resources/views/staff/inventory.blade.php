@@ -256,8 +256,11 @@
                     <form action="{{ route('inventory.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-2">
+                            <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-text text-danger">Required field *</span>
+                        </div>
+                        <div class="row mb-2">
                             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                <label for="name">Name</label></br>
+                                <label for="name">Name <span class="text-danger">*</span> </label></br>
                                 <input type="text" name="name" id="name" class="form-control" value ="{{old('name')}}"></br>
                                 @error('name')
                                 <div class="alert alert-danger" role="alert">
@@ -266,7 +269,7 @@
                                 @enderror
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                <label for="quantity">quantity</label></br>
+                                <label for="quantity">quantity <span class="text-danger">*</span> </label></br>
                                 <input type="number" name="quantity" id="quantity" step=0.01 placeholder="0.00" class="form-control" value ="{{old('quantity')}}"></br>
                                 @error('quantity')
                                 <div class="alert alert-danger" role="alert">
@@ -275,7 +278,7 @@
                                 @enderror
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                <label for="measuring_unit">Measurement</label></br>
+                                <label for="measuring_unit">Measurement <span class="text-danger">*</span> </label></br>
                                 
                                 <select name="measuring_unit" id="measuring_unit" class="form-select" value="{{old('measuring_unit')}}">
                                     <option value="">--Select Measurement--</option>
@@ -297,7 +300,7 @@
 
                         <div class="row mb-2">
                             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                <label for="supplier_id" class="form-label">Supplier</label></br>
+                                <label for="supplier_id" class="form-label">Supplier <span class="text-danger">*</span> </label></br>
                                 <select name ="supplier_id" id="supplier_id" class="form-control" value ="{{old('supplier_id')}}">
                                     <option>--Select Supplier--</option>
                                     @foreach ($suppliers as $supplier)
@@ -311,7 +314,7 @@
                                 @enderror
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                <label for="category" class="form-label">Category</label></br>
+                                <label for="category" class="form-label">Category <span class="text-danger">*</span> </label></br>
                                 <select name ="category_id" id="category" class="form-control" value ="{{old('category_id')}}">
                                     <option>--Select Category--</option>
                                     @foreach ($categories as $category)
@@ -325,7 +328,7 @@
                                 @enderror
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                <label for="cost">Cost</label></br>
+                                <label for="cost">Cost <span class="text-danger">*</span> </label></br>
                                 <input type="number" name="cost" id="cost" class="form-control" value ="{{old('cost')}}" step=0.1 placeholder=&#8369></br>
                                 @error('cost')
                                 <div class="alert alert-danger" role="alert">
@@ -336,7 +339,7 @@
                         </div>
                         <div class="row mb-2">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <label for="expiry_date">Expiry</label></br>
+                                <label for="expiry_date">Expiry <span class="text-danger">*</span> </label></br>
                                 <input type="date" name="expiry_date" id="expiry_date" class="form-control" value ="{{old('expiry_date')}}"></br>
                                 @error('expiry_date')
                                 <div class="alert alert-danger" role="alert">
@@ -403,9 +406,12 @@
                         <form action="{{route('inventory.update', ['inventory'=> $item->id])}}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
+                            <div class="row mb-2">
+                                <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-text text-danger">Required field *</span>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <label>Name</label></br>
+                                    <label>Name <span class="text-danger">*</span> </label></br>
                                     <input type="text" name="name" id="name" class="form-control" value ="{{$item->name}}"></br>
                                     @error('name')
                                     <div class="alert alert-danger" role="alert">
@@ -414,7 +420,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <label for="supplier_id" class="form-label">Supplier</label></br>
+                                    <label for="supplier_id" class="form-label">Supplier <span class="text-danger">*</span> </label></br>
                                     <select name ="supplier_id" id="supplier_id" class="form-control">
                                         <option></option>
                                         <option value={{$item->supplier_id}} selected>{{$item->supplier->name}}</option>
@@ -431,7 +437,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <label for="category" class="form-label">Category</label></br>
+                                    <label for="category" class="form-label">Category <span class="text-danger">*</span> </label></br>
                                     <select name ="category_id" id="category" class="form-control" value ="{{old('category_id')}}">
                                         <option></option>
                                         <option value={{$item->category_id}} selected>{{$item->category->name}}</option>
@@ -447,7 +453,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <label>Cost</label></br>
+                                    <label>Cost <span class="text-danger">*</span> </label></br>
                                     <input type="number" step=0.01 name="cost" id="cost" class="form-control" value ="{{$item->cost}}"></br>
                                     @error('cost')
                                     <div class="alert alert-danger" role="alert">
@@ -459,7 +465,7 @@
                             </br>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <label for="quantity">Quantity</label></br>
+                                    <label for="quantity">Quantity <span class="text-danger">*</span> </label></br>
                                 <input type="number" name="quantity" id="quantity" step=0.01 placeholder="0.00" class="form-control" value ="{{$item->quantity}}"></br>
                                 @error('quantity')
                                 <div class="alert alert-danger" role="alert">
@@ -468,7 +474,7 @@
                                 @enderror
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <label for="image">Food image</label></br>
+                                    <label for="image">Food image </label></br>
                                     <input type="file" name="image" class="form-control" accept="image/png, image/gif, image/jpeg" value ={{$item['image']}}></br>
                                 </div>
                             </div>
