@@ -29,6 +29,9 @@
     </style>
 </head> 
 <body>
+    @php
+        $total = 0;
+    @endphp
     <div id="footer">
         <p class="page">Page </p>
     </div> 
@@ -53,6 +56,9 @@
         </thead>
         <tbody>
             @foreach ($data as $item)
+                @php
+                    $total = $item->total_price + $total;
+                @endphp
                 <tr style="text-align:center;">
                     <td>{{$item->id}}</td>
                     <td>{{$item->created_at}}</td>
@@ -67,5 +73,8 @@
             @endforeach
         </tbody>
     </table>
+    <section>
+        <h3>Total Sales: P {{$total}}</h3>
+    </section>
 </body>
 </html>

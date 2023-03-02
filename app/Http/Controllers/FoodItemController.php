@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\FoodMenu;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class FoodItemController extends Controller
 {
@@ -57,20 +58,26 @@ class FoodItemController extends Controller
             'name'=> 'required',
             'category_id'=> 'int',
             'description' => 'min:0|max:999999',
-            'price'=> 'required|int'
+            'price'=> 'required|int',
+            'image' => 'mimes:jpg,png,jpeg|max:2021'
         ]);
+
         $food = new FoodMenu();
         $food->name = strip_tags($request->input('name'));
         $food->category_id = $request->input('category_id');
         $food->user_id = auth()->id();
         $food->description = strip_tags($request->input('description'));
         $food->price = strip_tags($request->input('price'));
+
+        $newImageName = '';
         if ($request->hasFile('image')) {
-            $food->image = $request->file('image')->store('uploads','public');
+            $newImageName = time() . "-" . $request->name  . '.' . $request->image->extension();   
+            $request->image->move(public_path('uploads'), $newImageName);
         }
+        $food->image = $newImageName;
         $food->save();
 
-        //return redirect()->route('food-item.index')->with('success','item added successfully!');
+        return redirect()->route('food-item.index')->with('success','item added successfully!');
     }
 
     /**
@@ -119,9 +126,16 @@ class FoodItemController extends Controller
         $food->name = strip_tags($request->input('name'));
         $food->description = strip_tags($request->input('description'));
         $food->price = strip_tags($request->input('price'));
+        $newImageName = '';
         if ($request->hasFile('image')) {
-            $food->image = $request->file('image')->store('uploads','public');
+            $newImageName = time() . "-" . $request->name  . '.' . $request->image->extension();   
+            $request->image->move(public_path('uploads'), $newImageName);
+            $destination = 'uploads/'.$food->image;
+            if (File::exists($destination)) {
+                File::delete($destination);
+            }
         }
+        $food->image = $newImageName;
         $food->update();
 
         return redirect()->route('food-item.index', $id)->with('edit-success','Item Edited Successfully');
@@ -134,7 +148,14 @@ class FoodItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   
+        $food = FoodMenu::find($id);
+        $destination = 'uploads/'.$food->image;
+
+        if (File::exists($destination)) {
+            File::delete($destination);
+        }
+
         FoodMenu::destroy($id);
         return redirect('food-item')->with('success','Item Deleted Successfully!');  
     }

@@ -30,6 +30,9 @@
     </style>
 </head> 
 <body>
+    @php
+        $total = 0;
+    @endphp
     <div id="footer">
         <p class="page">Page </p>
     </div> 
@@ -54,6 +57,9 @@
         </thead>
         <tbody>
             @foreach ($data as $item)
+                @php
+                    $total = $item->cost + $total;
+                @endphp
                 <tr style="text-align:center; padding:10px;">
                     <td>{{$item->id}}</td>
                     <td>{{$item->name}}</td>
@@ -67,5 +73,9 @@
             @endforeach
         </tbody>
     </table>
+
+    <section>
+        <h3>Total Cost: P {{$total}}</h3>
+    </section>
 </body>
 </html>

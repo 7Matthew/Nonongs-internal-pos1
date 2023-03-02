@@ -2,10 +2,12 @@ body {
   /* background-image:url(../images/nonongs-lounge.jpg); */
   background-color:#f4eedb;
   overflow-x: hidden;
-  font-family: 'Open-sans';
+  font-family: 'IBM Plex Sans', sans-serif;
   color: black;
   letter-spacing: 1px;
 }
+
+
 
 a{
   text-decoration:none;

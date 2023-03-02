@@ -32,7 +32,7 @@ $(document).ready(function(){
                                 <td id="itemName'+item.id+'"><button type="button" class="btn btn-light btn-sm p-1" title="Remove to cart" id="remove'+item.id+'"><i class="text-danger fa-solid fa-trash-can fa-lg "></i></button><b>' + item.name + '</b></td>\
                                 <td><input type="text" name="food_item_id[]" readonly class="col-lg-3 col-md-3 col-sm-12 form-control" value="' + item.id + '"></td>\
                                 <td><button type="button" class="btn btn-danger btn-sm mr-1" id="decrement' + item.id + '">-</button>\
-                                <input type="number" min=0 max="200" name="quantity" id="input_quantity' + item.id + '" width="5px" value="0" class="col-lg-2 col-md-4 col-sm-6 text-center" readonly>\
+                                <input type="number" min=0 max="200" name="quantity[]" id="input_quantity' + item.id + '" width="5px" value="0" class="col-lg-2 col-md-4 col-sm-6 text-center" readonly>\
                                 <button type="button" class="btn btn-success btn-sm ml-1" id="increment' + item.id + '">+</button></td>\
                                 <td><input type="number" min=0 max="200" name="item_price[]" id="cart_item_price' + item.id + '"  value="' + item.price + '" class="col-lg-6 col-md-6 col-sm-12 text-center form-control" readonly> </td>\
                             </tr>');

@@ -40,7 +40,6 @@
                                         <th>Total price</th>
                                         <th>Payment amount</th>
                                         <th>Payment change</th>
-                                        <th>Payment Status</th>
                                         <th>Payment Method</th>
                                         <th>Processed by</th>
                                         <th>Action</th>
@@ -68,24 +67,20 @@
                                                 <p>&#8369 {{$order->total_price}}</p>
                                             </td>
                                             <td>
-                                                <p>&#8369 {{$order->payment}}</p>
+                                                @if ($order->paymentStatus == 'Paid')
+                                                   <p class="bg-success"> &#8369  {{$order->payment}}</p> 
+                                                @else   
+                                                    <p class="bg-danger"> &#8369  {{$order->payment}}</p> 
+                                                @endif
                                             </td>
                                             <td>
                                                 <b><i><u> &#8369 {{$order->payment_change}}</u></i><b>
                                             </td>
                                             <td>
                                                 @if ($order->paymentStatus == 'Paid')
-                                                   <p class="bg-success">{{strval($order->paymentStatus)}}</p> 
-                                                @else   
-                                                    <p class="bg-danger">{{strval($order->paymentStatus)}}</p> 
-                                                @endif
-                                                
-                                            </td>
-                                            <td>
-                                                @if ($order->paymentStatus == 'Paid')
                                                     {{$order->modeOfPayment}} 
                                                 @else   
-                                                    
+                                                    {{$order->paymentStatus}}
                                                 @endif
                                             </td>
                                             <td>

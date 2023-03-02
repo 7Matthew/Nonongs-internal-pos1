@@ -93,7 +93,7 @@
             <div class="col m-relative"> 
                 @foreach ($categories as $category)
                     <div class="card mt-2" data-aos="fade-left" data-aos-delay="200" data-aos-duration="500" data-aos-easing="ease-in-out" id={{$category->name}}>
-                        <div class="card-header text-gray bg-danger">
+                        <div class="card-header bg-gradient-danger text-light no-border">
                             <h6> {{$category->name}} </h6>
                         </div>
                         <div class="card-body text-dark">
@@ -103,7 +103,7 @@
                                         <section class="col-lg-2 col-md-4 col-sm-12 col-xs-12" >
                                             <div class="card no-border m-relative p-auto">
                                                 <div class="page-content justify-content">
-                                                    <img src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="50%" height="50%">
+                                                    <img src="{{$item->image ? asset('uploads/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}" alt="item" width="50%" height="50%">
                                                     <section class="overflow-hidden" style="height:50px;">
                                                         <p class="text-left" font size ="2px">{{$item->name . ' '. $item->description}}</p>
                                                     </section>
@@ -238,7 +238,7 @@
                                 <select name ="item_id" id="item_id" class="form-select" value ="{{old('item_id')}}">
                                     <option>--Select Ingredient--</option>
                                     @foreach ($ingredients as $ingredient)
-                                        <option value={{$ingredient->id}}>{{$ingredient->name}}</option>
+                                        <option value={{$ingredient->id}}>{{$ingredient->name . " in $ingredient->measuring_unit"}}</option>
                                     @endforeach
                                 </select>    
                                  {{--error condition  --}}

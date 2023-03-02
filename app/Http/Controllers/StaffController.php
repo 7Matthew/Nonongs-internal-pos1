@@ -152,7 +152,6 @@ class StaffController extends Controller
         for ($i=0; $i < count($request->food_item_id); $i++) { 
             $datasave = [
                 'food_item_id' => $request->food_item_id[$i],
-                'quantity' => $request->quantity[$i],
                 'order_id' => $order->id,
             ];
             FoodItem_orders::create($datasave);

@@ -21,7 +21,7 @@
     </div>  
 @endsection
 
-@section('title','Food Menu')
+@section('title','Inventory')
 @section('content')
 
     <script type="text/javascript">
@@ -119,7 +119,7 @@
                                             <td>{{$item->supplier->name}}</td>
                                             <td>{{$item->category->name}}</td>
                                             <td>{{$item->user->name}}</td>
-                                            <td>{{floatval($item->cost)}}</td>
+                                            <td>&#8369 {{floatval($item->cost)}}</td>
                                             <td>
                                                 @php
                                                     $expiry = date_create($item->expiry_date);
@@ -181,11 +181,10 @@
                                         <th>Category</th>
                                         <th>Created by</th>
                                         <th>Cost</th>
-                                        <th>Expiry</th>
-                                        <th>Action</th>
+                                        <th>Expired On</th>
                                     </thead>
                                     <tbody>
-                                        @forelse ($expired_items as $item)
+                                        @foreach ($expired_items as $item)
                                             <tr>
                                                 <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                                                     <img src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="10%" height="10%"> {{$item->name}}
@@ -194,7 +193,7 @@
                                                 <td>{{$item->supplier->name}}</td>
                                                 <td>{{$item->category->name}}</td>
                                                 <td>{{$item->user->name}}</td>
-                                                <td>{{floatval($item->cost)}}</td>
+                                                <td>&#8369 {{floatval($item->cost)}}</td>
                                                 <td>
                                                     @php
                                                         $expiry = date_create($item->expiry_date);
@@ -203,34 +202,8 @@
                                                         echo $expiry; 
                                                     @endphp
                                                 </td>
-                                                <td>
-                                                    <button type="button" class="btn btn-info btn-sm mt-2" title="View Item" data-bs-toggle="modal" data-bs-target="{{"#modal-show-food-item".$item->id}}"><i class="fa-solid fa-eye"></i></button>
-                                                    <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target={{"#modal-edit-food-item".$item->id}} title="Edit Item"><i class="fa-regular fa-pen-to-square"></i></button>
-                    
-                                                    <form method="POST" action="{{ route('inventory.destroy', $item->id) }}" accept-charset="UTF-8" style="display:inline">
-                                                        @method('DELETE')
-                                                        @csrf
-                                                        <button type="button" class="btn btn-danger btn-sm mt-2" title="Delete item" data-bs-toggle="modal" data-bs-target={{"#modal-delete-food-item".$item->id}}><i class="fa-solid fa-trash"></i></button>
-                                                        <div class="modal fade" id={{"modal-delete-food-item".$item->id}} tabindex="-1" aria-labelledby="modal-confirm-order" aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header d-flex pb-5">
-                                                                <h1 class="modal-title fs-5" id="modal-confirm-order">Confirm Deletion of {{ $item->name }}?</h1>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                                <button type="submit" class="btn btn-primary">Confirm</button>
-                                                                </div>
-                                                            </div>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            
-                                        @endforelse
+                                            </tr>    
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -499,21 +472,49 @@
                                 <img src={{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }} alt={{$item->name}} width="10%" height="10%">
                                 {{$item->name}}
                             </h3>
-                            <h4>
-                                ID: {{$item->id}}
-                            </h4>
-                            <h4>
-                                Supplier: {{$item->supplier->name}}
-                            </h4>
-                            <h4>
-                                Cost: {{$item->cost}}
-                            </h4>
-                            <h4>
-                                Stocks: {{$item->stocks}}
-                            </h4>
-                            <h4>
-                                Created by: {{$item->user->name}}
-                            </h4>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <h4>
+                                        ID: <b>{{$item->id}} </b>
+                                    </h4>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <h4>
+                                        Category: <b>{{ucfirst($item->category->name)}} </b>
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <h4>
+                                        Cost: <b>{{$item->cost}} </b>
+                                    </h4>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <h4>
+                                        Created by: <b>{{$item->user->name}} </b>
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <h4>
+                                        Quantity: <b>{{floatval($item->quantity) . " ". $item->measuring_unit }} </b>
+                                    </h4>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <h4>
+                                        Supplier: <b>{{$item->supplier->name}} </b>
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <h4>
+                                        Expiration: <b>{{$item->expiry_date}} </b>
+                                    </h4>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -526,7 +527,6 @@
                 var userURL = $(this).data('url');
                 $.get('/inventory', function(data){
                     $('#userShowModal').modal('show');
-                    alert("nice");
                 });
             });
             });

@@ -35,11 +35,12 @@
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="{{ url('css/main.css') }}">
   <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100;0,8..144,200;0,8..144,300;0,8..144,400;0,8..144,500;0,8..144,600;0,8..144,700;0,8..144,800;0,8..144,900;1,8..144,100;1,8..144,200;1,8..144,300;1,8..144,400;1,8..144,500;1,8..144,600;1,8..144,700;1,8..144,800;1,8..144,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300&display=swap" rel="stylesheet">
+  {{-- LOGO --}}
   <link rel="shortcut icon" href="images/logo.jpg">
   <link href="/fontawesome/css/fontawesome.css" rel="stylesheet">
+  {{-- FA --}}
   <link href="/fontawesome/css/brands.css" rel="stylesheet">
   <link href="/fontawesome/css/solid.css" rel="stylesheet">
   {{-- Animate on Scroll --}}
@@ -47,9 +48,9 @@
   {{-- JQUERY --}}
   <script src="js/jquery.min.js"></script>
   {{-- DataTables --}}
-  <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
-  <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
-  
+  <link rel="stylesheet" type="text/css" href="{{asset('/DataTables/datatables.css')}}">
+  <script type="text/javascript" charset="utf8" src="{{asset('/DataTables/datatables.js')}}"></script>
+  <script type="text/javascript" charset="utf8" src="{{asset('/DataTables/Responsive-2.4.0/js/dataTables.responsive.js')}}"></script>
 </head>
 <body class="hold-transition sidebar-mini">
   
