@@ -110,7 +110,7 @@
                                         @foreach ($data as $item)
                                         <tr>
                                             <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                                <img src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="10%" height="10%"> {{$item->name}}
+                                                <img src="{{$item->image ? asset('uploads/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="10%" height="10%"> {{$item->name}}
                                             </td>
                                             <td>{{floatval($item->quantity) . ' ' . $item->measuring_unit  }}</td>
                                             <td>{{$item->supplier->name}}</td>
@@ -184,7 +184,7 @@
                                         @foreach ($expired_items as $item)
                                             <tr>
                                                 <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                                    <img src="{{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="10%" height="10%"> {{$item->name}}
+                                                    <img src="{{$item->image ? asset('uploads/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="10%" height="10%"> {{$item->name}}
                                                 </td>
                                                 <td>{{floatval($item->quantity) . ' ' . $item->measuring_unit  }}</td>
                                                 <td>{{$item->supplier->name}}</td>

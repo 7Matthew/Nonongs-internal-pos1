@@ -58,9 +58,13 @@ class InventoryController extends Controller
         $item->user_id = auth()->id();
         $item->cost = strip_tags($request->input('cost'));
         $item->expiry_date = $request->input('expiry_date');
+        
+        $newImageName = '';
         if ($request->hasFile('image')) {
-            $item->image = $request->file('image')->store('uploads','public');
+            $newImageName = time() . "-" . $request->name  . '.' . $request->image->extension();   
+            $request->image->move(public_path('uploads'), $newImageName);
         }
+        $item->image = $newImageName;
         $item->save();
 
         return redirect()->route('inventory.index')->with('success','item added successfully!');
@@ -109,9 +113,16 @@ class InventoryController extends Controller
         $item->user_id = auth()->id();
         $item->cost = strip_tags($request->input('cost'));
         $item->quantity = strip_tags($request->input('quantity'));
+        $newImageName = '';
         if ($request->hasFile('image')) {
-            $item->image = $request->file('image')->store('uploads','public');
+            $newImageName = time() . "-" . $request->name  . '.' . $request->image->extension();   
+            $request->image->move(public_path('uploads'), $newImageName);
+            $destination = 'uploads/'.$item->image;
+            if (File::exists($destination)) {
+                File::delete($destination);
+            }
         }
+        $item->image = $newImageName;
         $item->update();
 
         return redirect()->route('inventory.index')->with('edit-success','item updated successfully!');
