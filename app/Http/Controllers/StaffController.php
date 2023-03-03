@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use PDF;
 use App\Models\Item;
+use App\Models\User;
 use App\Models\Orders;
 use App\Models\FoodItem;
 use App\Models\FoodMenu;
 use Illuminate\Http\Request;
+use App\Models\Sales_reports;
 use App\Models\FoodItem_orders;
 use App\Models\Inventory_reports;
 use App\Models\Transaction_reports;
@@ -62,6 +64,28 @@ class StaffController extends Controller
 
         return $pdf->stream('inventory_report_from_'.date('F d Y', strToTime($from)).'_to_'.date('F d Y', strToTime($to)).'.pdf');
     }
+
+    public function sales_report(Request $request)
+    {
+        $from = $request->input('from');
+        $to = $request->input('to');
+        $foods = FoodItem::get();
+
+        $pdf = PDF::loadView('pdf.sales_report',[
+            'orders' => Orders::get(),
+            'from' => $from,
+            'to'=> $to,
+        ]); 
+        
+        $sales_report = new Sales_reports();
+        $sales_report->user_id = auth()->id();
+        $sales_report->from = $from;
+        $sales_report->to = $to;
+        $sales_report->save();
+
+        return $pdf->stream('sales_report_from_'.date('F d Y', strToTime($from)).'_to_'.date('F d Y', strToTime($to)).'.pdf');
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -152,7 +176,9 @@ class StaffController extends Controller
         for ($i=0; $i < count($request->food_item_id); $i++) { 
             $datasave = [
                 'food_item_id' => $request->food_item_id[$i],
-                'order_id' => $order->id,
+                'orders_id' => $order->id,
+                'item_price' => $request->item_price[$i],
+                'quantity' => $request->quantity[$i],
             ];
             FoodItem_orders::create($datasave);
         }

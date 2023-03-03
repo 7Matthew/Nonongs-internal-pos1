@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Models\Item;
 use App\Models\Orders;
 use App\Models\FoodItem;
+use App\Models\Sales_reports;
 use App\Models\Inventory_reports;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Transaction_reports;
@@ -65,5 +66,8 @@ class User extends Authenticatable
     }
     public function inventory_report(){
         return $this->hasMany(Inventory_reports::class, 'user_id');
+    }
+    public function sales_report(){
+        return $this->hasMany(Sales_reports::class, 'user_id');
     }
 }

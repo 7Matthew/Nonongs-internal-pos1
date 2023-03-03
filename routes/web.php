@@ -56,6 +56,7 @@ Route::middleware(['auth','isAdmin'])->group(function(){
   Route::get('/order_history',  [App\Http\Controllers\AdminController::class, 'order_history'])->name('order_history');
   Route::get('/reports/transaction_report',  [App\Http\Controllers\StaffController::class, 'transaction_report'])->name('transaction_report');
   Route::get('/reports/inventory_report',  [App\Http\Controllers\StaffController::class, 'inventory_report'])->name('inventory_report');
+  Route::get('/reports/sales_report',  [App\Http\Controllers\StaffController::class, 'sales_report'])->name('sales_report');
   /**ROUTE FOR FOOD MENU CRUD */
   Route::resource("/food-item", FoodItemController::class);
   Route::resource("/categories", CategoriesController::class);
