@@ -68,7 +68,7 @@
 
     @if(Session::has('success'))
     <div class="toast-show alert alert-success text-dark mt-4 p-auto" data-aos="fade-in" delay="500" duration="700" data-bs-dismiss="alert" aria-label="Close" role="alert">
-        {{ 'Item Added Successfully!' }}
+        {{ 'Success!' }}
     </div>
     @endif
     @if(Session::has('edit-success'))
@@ -322,7 +322,7 @@
                 <div class="modal-body">
                     <div class="page-content justify-content">
                         <h3 class="bg-danger p-2 rounded">
-                            <img src={{$item->image ? asset('storage/'. $item->image) : asset('images/logo.jpg') }} alt={{$item->name}} width="10%" height="10%">
+                            <img src="{{$item->image ?  asset('uploads/'. $item->image) : asset('images/logo.jpg') }}" alt={{$item->name}} width="10%" height="10%">
                             {{$item->name}}
                         </h3>
                         <h4>

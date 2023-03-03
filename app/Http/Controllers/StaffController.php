@@ -86,6 +86,27 @@ class StaffController extends Controller
         return $pdf->stream('sales_report_from_'.date('F d Y', strToTime($from)).'_to_'.date('F d Y', strToTime($to)).'.pdf');
     }
 
+    public function trend_report(Request $request)
+    {
+        $from = $request->input('from');
+        $to = $request->input('to');
+        $foods = FoodItem::get();
+
+        $pdf = PDF::loadView('pdf.trend_report',[
+            'orders' => Orders::get(),
+            'from' => $from,
+            'to'=> $to,
+        ]); 
+        
+        // $sales_report = new Sales_reports();
+        // $sales_report->user_id = auth()->id();
+        // $sales_report->from = $from;
+        // $sales_report->to = $to;
+        // $sales_report->save();
+
+        return $pdf->stream('trend_report_from_'.date('F d Y', strToTime($from)).'_to_'.date('F d Y', strToTime($to)).'.pdf');
+    }
+
 
     /**
      * Display a listing of the resource.
