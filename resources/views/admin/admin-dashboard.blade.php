@@ -229,8 +229,8 @@
                 @foreach ($recent_items as $item)
                   <tr>
                     <td class="text-light">{{$item->name}}</td>
-                    <td class="text-light">{{$item->quantity . " $item->measuring_unit"}}</td>
-                    <td class="text-light">&#8369 {{$item->cost}}</td>
+                    <td class="text-light">{{floatval($item->quantity) . " $item->measuring_unit"}}</td>
+                    <td class="text-light">&#8369 {{floatval($item->cost)}}</td>
                   </tr>
                 @endforeach
               </tbody>

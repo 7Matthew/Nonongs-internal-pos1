@@ -10,6 +10,7 @@ use App\Models\FoodItem;
 use App\Models\FoodMenu;
 use Illuminate\Http\Request;
 use App\Models\Sales_reports;
+use App\Models\Trend_reports;
 use App\Models\FoodItem_orders;
 use App\Models\Inventory_reports;
 use App\Models\Transaction_reports;
@@ -93,16 +94,17 @@ class StaffController extends Controller
         $foods = FoodItem::get();
 
         $pdf = PDF::loadView('pdf.trend_report',[
-            'orders' => Orders::get(),
+            'foods' => $foods,
+            'orders' => Orders::whereBetween('created_at', [$from, $to])->get(),
             'from' => $from,
             'to'=> $to,
         ]); 
         
-        // $sales_report = new Sales_reports();
-        // $sales_report->user_id = auth()->id();
-        // $sales_report->from = $from;
-        // $sales_report->to = $to;
-        // $sales_report->save();
+        $trend_report = new Trend_reports();
+        $trend_report->user_id = auth()->id();
+        $trend_report->from = $from;
+        $trend_report->to = $to;
+        $trend_report->save();
 
         return $pdf->stream('trend_report_from_'.date('F d Y', strToTime($from)).'_to_'.date('F d Y', strToTime($to)).'.pdf');
     }
@@ -173,7 +175,7 @@ class StaffController extends Controller
         $order->total_price = $total_price;
         $order->description = $request->input('description');
         $order->modeOfPayment = $modeOfPayment;
-
+        $order->discount = $request->input('discount');
         if ($payment >= $total_price) {
             $order->paymentStatus = 'Paid';
             $order->payment = $payment;

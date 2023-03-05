@@ -13,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('trend_reports', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('description');
-            $table->decimal('total_price', 11,2);
-            $table->text('paymentStatus')->nullable();
-            $table->text('modeOfPayment')->nullable();
-            $table->decimal('payment', 11,2)->default(0);
-            $table->decimal('payment_change', 11,2)->default(0);  
+            $table->text('from');
+            $table->text('to');
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('trend_reports');
     }
 };

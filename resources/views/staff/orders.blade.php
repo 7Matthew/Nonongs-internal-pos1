@@ -64,17 +64,17 @@
                                                 </div>     
                                             </td>
                                             <td>
-                                                <p>&#8369 {{$order->total_price}}</p>
+                                                <p>&#8369 {{floatval($order->total_price)}}</p>
                                             </td>
                                             <td>
                                                 @if ($order->paymentStatus == 'Paid')
-                                                   <p class="bg-success"> &#8369  {{$order->payment}}</p> 
+                                                   <p class="bg-success"> &#8369  {{floatval($order->payment)}}</p> 
                                                 @else   
-                                                    <p class="bg-danger"> &#8369  {{$order->payment}}</p> 
+                                                    <p class="bg-danger"> &#8369  {{floatval($order->payment)}}</p> 
                                                 @endif
                                             </td>
                                             <td>
-                                                <b><i><u> &#8369 {{$order->payment_change}}</u></i><b>
+                                                <b><i><u> &#8369 {{floatval($order->payment_change)}}</u></i><b>
                                             </td>
                                             <td>
                                                 @if ($order->paymentStatus == 'Paid')
@@ -127,6 +127,14 @@
                                         <input type="number" name="payment" placeholder=&#8369 id="payment" class="form-control">
                                     </div>
                                 </div>
+                                {{-- <div class="row mb-3">
+                                    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                                        <label for="discount" class="form-label">Discount</label>
+                                    </div> 
+                                    <div class="col-lg-8 col-md-6 col-sm-12 col-xs-12">
+                                        <input type="number" name="discount" placeholder="%" id="discount" class="form-control">
+                                    </div>
+                                </div> --}}
                                 <div class="row">
                                     <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                                         <label for="modeOfPayment" class="form-label">Payment Method</label>

@@ -32,6 +32,7 @@
 <body>
     @php
         $total = 0;
+        $itemprice =0;
     @endphp
     <div id="footer">
         <p class="page">Page </p>
@@ -52,6 +53,7 @@
             <th>Price</th>
             <th>Processed by</th>
             <th>Quantity</th>
+            <th>Discount</th>
             <th>Item Total Price</th>                        
         </thead>
         <tbody>
@@ -65,13 +67,28 @@
                         <td>{{$food->price}}</td>
                         <td>{{$order->user->name}}</td>
                         @php $items = \App\Models\FoodItem_orders::where('food_item_id', $food->id)->get(); @endphp
+                        
                         @foreach ($items->where('orders_id',$order->id) as $item)
                             <td>
                                 {{floatval($item->quantity)}}
                             </td>
                             <td>
-                                {{floatval($item->item_price)}}
+                                @if ($order->discount == null)
+                                    {{0}}%
+                                @else
+                                    {{$order->discount . "%"}}
+                                @endif
                             </td>
+                            <td>
+                                @if ($order->discount != 0)
+                                   P {{ $itemprice = $item->item_price - (($order->discount / 100) * $item->item_price)}}
+                                @else
+                                   P {{$itemprice = floatval($item->item_price)}}    
+                                @endif
+                            </td>
+                            @php
+                                $total = $total + $itemprice;
+                            @endphp
                         @endforeach
                     </tr>
                 @endforeach
@@ -81,7 +98,7 @@
     </table>
 
     <section>
-        <h3>Total Sales: P </h3>
+        <h3>Total Sales: P {{$total}}</h3>
     </section>
 </body>
 </html>

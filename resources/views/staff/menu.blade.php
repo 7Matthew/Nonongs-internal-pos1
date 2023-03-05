@@ -84,6 +84,15 @@
                                     $("#cart_item_price"+item.id).val(0);
                                     $("#total").val(totalPrice);
                                 });
+
+                                $("#discount").change(function(){
+                                    let discounted = (parseInt($("#discount").val()) / 100);
+                                        discounted = discounted * parseInt($("#total").val());
+                                    let total = totalPrice - discounted;
+                                        console.log("new total: "+total);
+                                    $("#total").val(total);
+                                    $("#discount").attr('readonly',true);
+                                });
                                 
                                 $("#description").text("");
                                 // append to order description if 
@@ -91,7 +100,7 @@
                                     
                                     $("#description").append($("#itemName"+counter).text() +" - " + "PhP" +  $("#cart_item_price"+counter).val() + " \n");
                                     let change = parseInt($("#payment").val()) - parseInt($("#total").val())    
-                                    $("#summary_total").text("Amount Due: PhP " + parseInt($("#total").val()));
+                                    $("#summary_total").text("Amount Due: PhP " + $("#total").val());
                                     $("#summary_change").text("Change: PhP " + change);
                                 });
                             
@@ -147,6 +156,7 @@
                 $("#total").val(total);
             });  
             
+            
             $("#record_to_summary"+counter).click(function(){   
                 $("#description").append($("#item_name"+counter).text() +" - " + "PhP" +  $("#cart_item_price"+counter).text() + " \n");
                 order_description.push($("#item_name"+counter).text() + " -- "  + $("#cart_item_price"+counter).text());
@@ -154,7 +164,10 @@
             });
         }  
 
-        
+        $("#cart_form").submit(function(){
+            $("#submit_button").attr('disabled',true);
+            $("#submit_button").text('Submitting...');
+        });
     });
 </script>
 
@@ -246,7 +259,7 @@
                 <div class="card-header text-muted">Cart Items</div>
                 <div class="card-body text-dark overflow-auto" style="position:static; height:300px;">
                     {{-- FORM --}}
-                    <form action="{{ route('make_order.store') }}" method="post" class="form" enctype="multipart/form-data">
+                    <form action="{{ route('make_order.store') }}" method="post" class="form" enctype="multipart/form-data" id="cart_form">
                         @csrf
                         <table class="table">
                             <thead class="bg-warning">
@@ -258,28 +271,6 @@
                             <tbody id="cartContent">
                                 {{-- CART CONTENT --}}
                                 
-                                {{-- @foreach ($data as $item)
-                                    <tr id={{'hide'.$item->id}}>
-                                        <td>
-                                            <button type="button" class="btn btn-light btn-sm p-1" title="Add to Order Summary" id={{"record_to_summary".$item->id}}><i class="fa-solid fa-circle-plus text-success"></i></button>
-                                            <button type="button" class="btn btn-light btn-sm p-1" title="Remove to cart" id={{'remove'.$item->id}}><i class="text-danger fa-solid fa-trash-can fa-lg "></i></button>
-                                        </td>
-                                        <td>
-                                            <b id={{"item_name".$item->id}}>{{$item->name}}</b>
-                                        </td>
-                                        <td>
-                                            <input type="text" name="food_item_id[]" readonly class="col-lg-3 col-md-3 col-sm-12 form-control" value="{{$item->id}}"> 
-                                        </td> 
-                                        <td>
-                                                <button type="button" class="btn btn-danger btn-sm mr-1" id={{"decrement".$item->id}}>-</button>
-                                                <input type="number" min=0 max="200" name="quantity[]" id={{"input_quantity".$item->id}} width="5px" value="0" class="col-lg-2 col-md-4 col-sm-6 text-center" readonly>
-                                                <button type="button" class="btn btn-success btn-sm ml-1" id={{"increment".$item->id}}>+</button>
-                                        </td>
-                                        <td>
-                                                <p id={{"cart_item_price".$item->id}}>{{$item->price}}</p>
-                                        </td>
-                                    </tr>
-                                @endforeach --}}
                             </tbody>
                         </table>
                         <div class="row content-end">
@@ -298,8 +289,21 @@
                                 <label for="payment" class="form-text">Payment: </label>
                             </div>
                             <div class="col-lg-8 text-left">
-                               <input type="number" name="payment" id="payment" placeholder="&#8369" class="form-control col-lg-4 col-md-4 col-sm-6 text-center">
+                               <input type="number" name="payment" id="payment" placeholder="&#8369" class="form-control col-lg-4 col-md-4 col-sm-6 text-center" autofocus>
                                 @error('payment')
+                                    <div class="alert alert-danger" role="alert">
+                                    <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row my-2">
+                            <div class="col-lg-4">
+                                <label for="discount" class="form-text">Discount: </label>
+                            </div>
+                            <div class="col-lg-8 text-left">
+                               <input type="number" name="discount" id="discount" placeholder="% " class="form-control col-lg-4 col-md-4 col-sm-6 text-center" autofocus>
+                                @error('discount')
                                     <div class="alert alert-danger" role="alert">
                                     <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
                                     </div>
@@ -343,7 +347,7 @@
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                  <button type="submit" class="btn btn-success">Submit</button>
+                                  <button type="submit" class="btn btn-success" id="submit_button">Submit</button>
                                 </div>
                               </div>
                             </div>

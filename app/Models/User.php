@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Models\Orders;
 use App\Models\FoodItem;
 use App\Models\Sales_reports;
+use App\Models\Trend_reports;
 use App\Models\Inventory_reports;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Transaction_reports;
@@ -69,5 +70,8 @@ class User extends Authenticatable
     }
     public function sales_report(){
         return $this->hasMany(Sales_reports::class, 'user_id');
+    }
+    public function trend_report(){
+        return $this->hasMany(Trend_reports::class, 'user_id');
     }
 }
