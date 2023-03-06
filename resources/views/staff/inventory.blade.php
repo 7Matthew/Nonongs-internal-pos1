@@ -42,6 +42,34 @@
                 "scrollCollapse": true,
                 "paging": true
             });
+            $('#low_items').DataTable({
+                order: [[0,'desc']],
+                responsive: true,
+                "lengthMenu": [ 5, 10, 25, 50, 75, 100 ],
+                "scrollY": "50vh",
+                "scrollCollapse": true,
+                "paging": true
+            });
+
+            $("#name").change(function(){
+                $("#submit_create").attr('disabled',false);
+            });
+            $("#quantity").change(function(){
+                $("#submit_create").attr('disabled',false);
+            });
+            $("#cost").change(function(){
+                $("#submit_create").attr('disabled',false);
+            });
+
+            $("#form_update").submit(function(){
+                $("#submit_edit").attr('disabled',true);
+                $("#submit_edit").text('Submitting...');
+            });
+            
+            $("#form_create").submit(function(){
+                $("#submit_create").attr('disabled',true);
+                $("#submit_create").text('Submitting...');
+            });
         });
     </script>
 
@@ -184,7 +212,7 @@
                                         @foreach ($expired_items as $item)
                                             <tr>
                                                 <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                                    <img src="{{$item->image ? asset('uploads/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}"alt="item" width="10%" height="10%"> {{$item->name}}
+                                                    <img src="{{$item->image ? asset('uploads/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}" alt="item" width="10%" height="10%"> {{$item->name}}
                                                 </td>
                                                 <td>{{floatval($item->quantity) . ' ' . $item->measuring_unit  }}</td>
                                                 <td>{{$item->supplier->name}}</td>
@@ -209,13 +237,50 @@
                 </div>
             </div>
         </div>
+        <div class="row mb-2">
+            <div class="col m-relative">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-text">
+                            <h6>Low Stock Items</h6>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col m-relative"> 
+                                <table id="low_items" class="table table-striped aos-init aos-animate" data-aos="fade-right" data-aos-delay="500" data-aos-duration="700">
+                                    <thead>
+                                        <th>Name</th>
+                                        <th>Quantity</th>
+                                        <th>Supplier</th>
+                                        <th>Category</th>
+                                        <th>Created by</th>
+                                        <th>Cost</th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($data->where('quantity', '<=', 1) as $item)
+                                            <tr>
+                                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                    <img src="{{$item->image ? asset('uploads/'. $item->image) : asset('images/logo.jpg') }}" class="mb-2 elevation-1" title="{{$item->name}}" alt="item" width="10%" height="10%"> {{$item->name}}
+                                                </td>
+                                                <td>{{floatval($item->quantity) . ' ' . $item->measuring_unit  }}</td>
+                                                <td>{{$item->supplier->name}}</td>
+                                                <td>{{$item->category->name}}</td>
+                                                <td>{{$item->user->name}}</td>
+                                                <td>&#8369 {{floatval($item->cost)}}</td>
+                                            </tr>    
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-
-
     {{-- MODAL Create --}}
-
-    <div class="modal fade" id="modal-create-food-item" tabindex="-1" aria-labelledby="modal-create-food-item" aria-hidden="true">
+    <div class="modal fade" id="modal-create-food-item" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modal-create-food-item" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header bg-alert bg-warning">
@@ -223,7 +288,43 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('inventory.store') }}" method="post" enctype="multipart/form-data">
+                    {{-- DISPLAY ERRORS --}}
+                    @error('name')
+                        <div class="alert alert-danger" data-bs-dismiss="alert" role="alert">
+                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                        </div>
+                    @enderror
+                    @error('measuring_unit')
+                        <div class="alert alert-danger" data-bs-dismiss="alert" role="alert">
+                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                        </div>
+                    @enderror
+                    @error('quantity')
+                        <div class="alert alert-danger" data-bs-dismiss="alert" role="alert">
+                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                        </div>
+                    @enderror
+                    @error('supplier_id')
+                        <div class="alert alert-danger" data-bs-dismiss="alert" role="alert">
+                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                        </div>
+                    @enderror
+                    @error('category')
+                        <div class="alert alert-danger" data-bs-dismiss="alert" role="alert">
+                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                        </div>
+                    @enderror
+                    @error('cost')
+                        <div class="alert alert-danger" data-bs-dismiss="alert" role="alert">
+                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                        </div>
+                    @enderror
+                    @error('expiry_date')
+                        <div class="alert alert-danger" data-bs-dismiss="alert" role="alert">
+                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                        </div>
+                    @enderror
+                    <form action="{{ route('inventory.store') }}" method="post" enctype="multipart/form-data" id="form_create">
                         @csrf
                         <div class="row mb-2">
                             <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-text text-danger">Required field *</span>
@@ -232,20 +333,10 @@
                             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                                 <label for="name">Name <span class="text-danger">*</span> </label></br>
                                 <input type="text" name="name" id="name" class="form-control" value ="{{old('name')}}"></br>
-                                @error('name')
-                                <div class="alert alert-danger" role="alert">
-                                    <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                                </div>
-                                @enderror
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                                 <label for="quantity">quantity <span class="text-danger">*</span> </label></br>
-                                <input type="number" name="quantity" id="quantity" step=0.01 placeholder="0.00" class="form-control" value ="{{old('quantity')}}"></br>
-                                @error('quantity')
-                                <div class="alert alert-danger" role="alert">
-                                    <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                                </div>
-                                @enderror
+                                <input type="number" name="quantity" id="quantity" step=0.01 placeholder="0" class="form-control" value ="{{old('quantity')}}"></br>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                                 <label for="measuring_unit">Measurement <span class="text-danger">*</span> </label></br>
@@ -260,11 +351,6 @@
                                     <option value="Pack">Pack</option>
                                     <option value="Bundle">Bundle</option>
                                 </select>
-                                @error('measuring_unit')
-                                <div class="alert alert-danger" role="alert">
-                                    <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                                </div>
-                                @enderror
                             </div>
                         </div>
 
@@ -277,11 +363,7 @@
                                         <option value={{$supplier->id}}>{{$supplier->name}}</option>
                                     @endforeach
                                 </select>
-                                @error('supplier_id')
-                                <div class="alert alert-danger" role="alert">
-                                    <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                                </div>
-                                @enderror
+                                
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                                 <label for="category" class="form-label">Category <span class="text-danger">*</span> </label></br>
@@ -291,81 +373,34 @@
                                         <option value={{$category->id}}>{{$category->name}}</option>
                                     @endforeach
                                 </select>
-                                @error('category')
-                                <div class="alert alert-danger" role="alert">
-                                    <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                                </div>
-                                @enderror
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                                 <label for="cost">Cost <span class="text-danger">*</span> </label></br>
                                 <input type="number" name="cost" id="cost" class="form-control" value ="{{old('cost')}}" step=0.1 placeholder=&#8369></br>
-                                @error('cost')
-                                <div class="alert alert-danger" role="alert">
-                                    <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                                </div>
-                                @enderror
+                                
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                 <label for="expiry_date">Expiry <span class="text-danger">*</span> </label></br>
                                 <input type="date" name="expiry_date" id="expiry_date" class="form-control" value ="{{old('expiry_date')}}"></br>
-                                @error('expiry_date')
-                                <div class="alert alert-danger" role="alert">
-                                    <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                                </div>
-                                @enderror
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                 <label for="image">Food image</label></br>
                                 <input type="file" name="image" class="form-control" accept="image/png, image/gif, image/jpeg" value ={{old('image')}}></br>
                             </div>
                         </div>
+                        <button type="button" class="btn btn-primary mt-2" data-bs-dismiss="modal">  Cancel </button>
+                        <button type="submit" class="btn btn-success mt-2" id="submit_create" disabled>  Submit <i class="fa-solid fa-arrow-right text-light"></i> </button> 
                         
-                        
-                        <button type="submit" class="btn btn-success mt-2" id="submit"> Submit </button></br>
                     </form>
                 </div>
             </div>
         </div>
     </div>  
-
-    {{-- create new category --}}
-    <div class="modal fade" id="modal-create-new-category" tabindex="-1" aria-labelledby="modal-create-food-item" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header bg-alert bg-warning">
-                    <h1 class="modal-title fs-4" id="modal-confirm-order">Create New Category</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('food-item.store') }}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <label for="name">Name</label></br>
-                        <input type="text" name="name" id="name" class="form-control" value ="{{old('name')}}"></br>
-                        @error('name')
-                        <div class="alert alert-danger" role="alert">
-                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                        </div>
-                        @enderror
-                        <label for="label">Label</label></br>
-                        <input type="text" name="label" id="label" class="form-control" value ="{{old('label')}}"></br>
-                        @error('label')
-                        <div class="alert alert-danger" role="alert">
-                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                        </div>
-                        @enderror
-                        <button type="submit" class="btn btn-success mt-2">Submit</button></br>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>  
-
     {{-- MODAL Edit and show --}}
     @foreach ($data as $item)
-        <div class="modal fade" id={{"modal-edit-food-item".$item->id}} tabindex="-1" aria-labelledby="modal-edit-food-item" aria-hidden="true">
+        <div class="modal fade" id={{"modal-edit-food-item".$item->id}} data-bs-backdrop="static" tabindex="-1" aria-labelledby="modal-edit-food-item" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header bg-alert bg-warning">
@@ -373,7 +408,39 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{route('inventory.update', ['inventory'=> $item->id])}}" method="post" enctype="multipart/form-data">
+                        {{-- DISPLAY ERRORS --}}
+                        @error('name')
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                            </div>
+                        @enderror
+                        @error('supplier_id')
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                            </div>
+                        @enderror      
+                        @error('category')
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                            </div>
+                        @enderror
+                        @error('cost')
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                            </div>
+                        @enderror
+                        @error('expiry_date')
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                            </div>
+                        @enderror
+                        @error('quantity')
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                            </div>
+                        @enderror
+
+                        <form action="{{route('inventory.update', ['inventory'=> $item->id])}}" id="form_update" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="row mb-2">
@@ -382,33 +449,24 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                     <label>Name <span class="text-danger">*</span> </label></br>
-                                    <input type="text" name="name" id="name" class="form-control" value ="{{$item->name}}"></br>
-                                    @error('name')
-                                    <div class="alert alert-danger" role="alert">
-                                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                                    </div>
-                                    @enderror
+                                    <input type="text" name="name" id="edit_name" class="form-control" value ="{{$item->name}}"></br>
+                                    
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                     <label for="supplier_id" class="form-label">Supplier <span class="text-danger">*</span> </label></br>
-                                    <select name ="supplier_id" id="supplier_id" class="form-control">
+                                    <select name ="supplier_id" id="edit_supplier_id" class="form-control">
                                         <option></option>
                                         <option value={{$item->supplier_id}} selected>{{$item->supplier->name}}</option>
                                         @foreach ($suppliers as $supplier)
                                             <option value={{$supplier->id}}>{{$supplier->name}}</option>
                                         @endforeach
                                     </select>
-                                    @error('supplier_id')
-                                    <div class="alert alert-danger" role="alert">
-                                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                                    </div>
-                                    @enderror  
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                     <label for="category" class="form-label">Category <span class="text-danger">*</span> </label></br>
-                                    <select name ="category_id" id="category" class="form-control" value ="{{old('category_id')}}">
+                                    <select name ="category_id" id="edit_category" class="form-control" value ="{{old('category_id')}}">
                                         <option></option>
                                         <option value={{$item->category_id}} selected>{{$item->category->name}}</option>
                                         @foreach ($categories as $category)
@@ -416,40 +474,37 @@
                                         @endforeach
                                     </select>
                                     </br>
-                                    @error('category')
-                                    <div class="alert alert-danger" role="alert">
-                                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                                    </div>
-                                    @enderror
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                     <label>Cost <span class="text-danger">*</span> </label></br>
-                                    <input type="number" step=0.01 name="cost" id="cost" class="form-control" value ="{{$item->cost}}"></br>
-                                    @error('cost')
-                                    <div class="alert alert-danger" role="alert">
-                                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                                    </div>
-                                    @enderror  
+                                    <input type="number" step=0.01 name="cost" id="edit_cost" class="form-control" value ="{{$item->cost}}"></br>  
                                 </div>
                             </div>
                             </br>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                     <label for="quantity">Quantity <span class="text-danger">*</span> </label></br>
-                                <input type="number" name="quantity" id="quantity" step=0.01 placeholder="0.00" class="form-control" value ="{{$item->quantity}}"></br>
-                                @error('quantity')
-                                <div class="alert alert-danger" role="alert">
-                                    <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                                </div>
-                                @enderror
+                                <input type="number" name="quantity" id="edit_quantity" step=0.01 placeholder="0.00" class="form-control" value ="{{$item->quantity}}"></br>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                     <label for="image">Food image </label></br>
                                     <input type="file" name="image" class="form-control" accept="image/png, image/gif, image/jpeg" value ={{$item['image']}}></br>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label for="expiry_date">Expiry <span class="text-danger">*</span> </label></br>
+                                    @php
+                                        $expiry = date_create($item->expiry_date);
+    
+                                        $expiry = date_format($expiry, 'd-m-y');    
+                                    @endphp
+                                    <input type="date" name="expiry_date" id="edit_expiry_date" class="form-control"></br>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary mt-2" data-bs-dismiss="modal">  Cancel </button>
+                            <button type="submit" class="btn btn-success mt-2" id="submit_edit">Submit</button>
                             
-                            <button type="submit" class="btn btn-success">Submit</button>
                         </form>
                     </div>
                 </div>

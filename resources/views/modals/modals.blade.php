@@ -1,11 +1,31 @@
 {{-- MODAL CREATE NEW USER --}}
-<div class="modal fade" id="modal-add-user" tabindex="-1" aria-labelledby="modal-add-user" aria-hidden="true">
+<div class="modal fade" id="modal-add-user" data-bs-backdrop="static" tabindex="-1" aria-labelledby="modal-add-user" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-alert bg-warning">
                 <h1 class="modal-title fs-4" id="modal-confirm-order">Add New User</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            @error('name')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ 'Field is required!' }}</strong>
+                </span>
+            @enderror
+            @error('email')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ 'Field is required!' }}</strong>
+                </span>
+            @enderror
+            @error('username')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ 'Field is required!' }}</strong>
+                </span>
+            @enderror
+            @error('password')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ 'Field is required!' }}</strong>
+                </span>
+            @enderror
             <form method="POST" action="{{ route('manage-users.store') }}">
                 <div class="modal-body">
                         @csrf
@@ -19,12 +39,6 @@
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ 'Field is required!' }}</strong>
-                                    </span>
-                                @enderror
                             </div>
                         </div>
 
@@ -35,12 +49,6 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="sample@gmail.com">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ 'Field is required!' }}</strong>
-                                    </span>
-                                @enderror
                             </div>
                         </div>
 
@@ -51,12 +59,6 @@
 
                             <div class="col-md-6">
                                 <input id="username" type="username" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username">
-
-                                @error('username')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ 'Field is required!' }}</strong>
-                                    </span>
-                                @enderror
                             </div>
                         </div>
 
@@ -77,12 +79,6 @@
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="atleast 8 characters"> 
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ 'Field is required!' }}</strong>
-                                    </span>
-                                @enderror
                             </div>
                         </div>
 
@@ -97,8 +93,8 @@
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary"> {{ __('Register') }} </button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success"> {{ __('Register') }} </button>
                 </div>
             </form>
         </div>
@@ -106,13 +102,28 @@
 </div>
 
 {{-- MODAL EDIT USER --}}
-<div class="modal fade" id="modal-edit-user{{$item->id}}" tabindex="-1" aria-labelledby="modal-edit-user" aria-hidden="true">
+<div class="modal fade" id="modal-edit-user{{$item->id}}" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modal-edit-user" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-alert bg-warning">
                 <h1 class="modal-title fs-4" id="modal-confirm-order">Edit User</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            @error('name')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            @error('email')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            @error('username')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
             <form method="POST" class="mt-4" action="{{ route('manage-users.update', ['manage_user'=> $item->id]) }}" enctype="multipart/form-data">
                 <div class="modal-body">
                         @csrf
@@ -127,12 +138,6 @@
         
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $item->name }}" required autocomplete="name" autofocus>
-        
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </div>
                         </div>
         
@@ -143,12 +148,6 @@
         
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $item->email }}" required autocomplete="email">
-        
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </div>
                         </div>
         
@@ -159,12 +158,6 @@
         
                             <div class="col-md-6">
                                 <input id="username" type="username" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ $item->username }}" required autocomplete="username">
-        
-                                @error('username')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </div>
                         </div>
         
@@ -186,7 +179,7 @@
                 </div>
                 <div class="modal-footer">
                     <a  href="{{route('manage-users.index')}}"><button type="button" class="btn btn-primary">Cancel</button></a>
-                    <button type="submit" class="btn btn-success"> {{ __('Save') }} </button>
+                    <button type="submit" class="btn btn-success"> {{ __('Submit') }}  </button>
                 </div>
             </form>
         </div>

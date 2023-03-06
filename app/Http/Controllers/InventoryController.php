@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Item;
-use App\Models\Supplier;
 use App\Models\FoodMenu;
+use App\Models\Supplier;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class InventoryController extends Controller
 {
@@ -113,6 +114,10 @@ class InventoryController extends Controller
         $item->user_id = auth()->id();
         $item->cost = strip_tags($request->input('cost'));
         $item->quantity = strip_tags($request->input('quantity'));
+        if($request->input('expiry_date') != null)
+        {
+            $item->expiry_date = $request->input('expiry_date');
+        }
         $newImageName = '';
         if ($request->hasFile('image')) {
             $newImageName = time() . "-" . $request->name  . '.' . $request->image->extension();   
@@ -121,8 +126,9 @@ class InventoryController extends Controller
             if (File::exists($destination)) {
                 File::delete($destination);
             }
+            $item->image = $newImageName;
         }
-        $item->image = $newImageName;
+        
         $item->update();
 
         return redirect()->route('inventory.index')->with('edit-success','item updated successfully!');

@@ -121,40 +121,113 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            
+        @if (Auth::user()->role == 0)
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+              
             <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item hover-transform">
-            <a class="nav-link" href="{{ route('menu') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dashboard">
-              <i class="fa-solid fa-chart-line fa-lg mr-auto"></i>  
-              <p>
-                Menu
-              </p>
-            </a>
-          </li>
-          <li class="nav-item hover-transform">
-            <a class="nav-link" href="{{ route('orders') }}"data-bs-toggle="tooltip" data-bs-placement="bottom" title="Order History">
-                <i class="fa-solid fa-table fa-lg mr-auto"></i> 
-              <p>
-                Order History
-              </p>
-            </a>
-          </li>
-        </li> <li class="nav-item hover-transform">
-          <a class="nav-link" href="{{ route('inventory.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Manage Inventory">
-            <i class="fa-solid fa-warehouse fa-lg"></i>
-            <p>
-              Inventory 
-            </p>
-          </a>
-        </li> 
-        </ul>
+              with font-awesome or any other icon font library -->
+            <li class="nav-item hover-transform">
+              <a class="nav-link" href="{{ route('admin-dashboard') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dashboard">
+                <i class="fa-solid fa-chart-line fa-lg mr-auto"></i>  
+                <p>
+                  Dashboard
+                </p>
+              </a>
+            </li>
+            <li class="nav-item hover-transform">
+              <a class="nav-link" href="{{ route('orders') }}"data-bs-toggle="tooltip" data-bs-placement="bottom" title="Order History">
+                  <i class="fa-solid fa-table fa-lg mr-auto"></i> 
+                <p>
+                  Order History
+                </p>
+              </a>
+            </li>
+            <li class="nav-item hover-transform">
+              <a class="nav-link" href="{{ route('categories.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Food Menu">
+                <i class="fa-solid fa-sort fa-lg mr-auto"></i>
+                <p>
+                  Categories
+                </p>
+              </a>
+            </li>
+            <li class="nav-item hover-transform">
+              <a class="nav-link" href="{{ route('food-item.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Food Menu">
+                <i class="fas fa-hamburger fa-lg mr-auto"></i>  
+                <p>
+                  Food Menu
+                </p>
+              </a>
+            </li>
+            </li> <li class="nav-item hover-transform">
+              <a class="nav-link" href="{{ route('inventory.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Manage Inventory">
+                <i class="fa-solid fa-warehouse fa-lg"></i>
+                <p>
+                  Inventory 
+                </p>
+              </a>
+            </li> 
+            <li class="nav-item hover-transform">
+              <a class="nav-link" href="{{ route('manage-users.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Manage Users Account">
+                <i class="fa-solid fa-user fa-lg mr-auto"></i>  
+                <p>
+                  Users
+                </p>
+              </a>
+            </li> 
+            <li class="nav-item hover-transform">
+              <a class="nav-link" href="{{ url('/menu') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Point Of Sales">
+                <i class="fa-solid fa-mobile-retro fa-lg mr-auto"></i>
+                <p>
+                  POS
+                </p>
+              </a>
+            </li> 
+            <li class="nav-item hover-transform">
+              <a class="nav-link" href="{{ route('reports') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Generate Reports">
+                <i class="fa-solid fa-chart-simple fa-lg"></i>
+                <p>
+                  Reports 
+                </p>
+              </a>
+            </li> 
+          </ul>
+        @else
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">  
+            <!-- Add icons to the links using the .nav-icon class
+              with font-awesome or any other icon font library -->
+            <li class="nav-item hover-transform">
+              <a class="nav-link" href="{{ route('menu') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dashboard">
+                <i class="fa-solid fa-chart-line fa-lg mr-auto"></i>  
+                <p>
+                  Menu
+                </p>
+              </a>
+            </li>
+            <li class="nav-item hover-transform">
+              <a class="nav-link" href="{{ route('orders') }}"data-bs-toggle="tooltip" data-bs-placement="bottom" title="Order History">
+                  <i class="fa-solid fa-table fa-lg mr-auto"></i> 
+                <p>
+                  Order History
+                </p>
+              </a>
+            </li>
+            </li> <li class="nav-item hover-transform">
+              <a class="nav-link" href="{{ route('inventory.index') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Manage Inventory">
+                <i class="fa-solid fa-warehouse fa-lg"></i>
+                <p>
+                  Inventory 
+                </p>
+              </a>
+            </li> 
+          </ul>     
+        @endif
+
+        
       </nav>
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
-  </aside>
+  </aside>  
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">

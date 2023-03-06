@@ -56,6 +56,14 @@
             $("html, body").animate({ scrollTop: 0 }, "fast");
             return false;
         });
+
+        $("#name").change(function(){
+                $("#submit_create").attr('disabled',false);
+        });
+        $("#form_create").submit(function(){
+            $("#submit_create").attr('disabled',true);
+            $("#submit_create").text('Submitting...');
+        });
     }) 
 </script>
 
@@ -148,7 +156,7 @@
 
 {{-- MODAL Create --}}
 
-<div class="modal fade" id="modal-create-food-item" tabindex="-1" aria-labelledby="modal-create-food-item" aria-hidden="true">
+<div class="modal fade" id="modal-create-food-item" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modal-create-food-item" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-alert bg-warning">
@@ -156,7 +164,27 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('food-item.store') }}" method="post" enctype="multipart/form-data">
+                @error('name')
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                    </div>
+                @enderror
+                @error('category')
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                    </div>
+                @enderror
+                @error('description')
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                    </div>
+                @enderror
+                @error('price')
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                    </div>
+                @enderror
+                <form action="{{ route('food-item.store') }}" method="post" enctype="multipart/form-data" id="form_create">
                     @csrf
                     <div class="row mb-2">
                         <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-text text-danger">Required field *</span>
@@ -164,12 +192,8 @@
                     <div class="row mb-1">
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <label class="form-label" for="name">Name <span class="text-danger">*</span></label></br> 
-                            <input type="text" name="name" id="name" class="form-control" value ="{{old('name')}}"></br>
-                            @error('name')
-                            <div class="alert alert-danger" role="alert">
-                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                            </div>
-                            @enderror
+                            <input type="text" name="name" id="name" class="form-control" required autofocus value ="{{old('name')}}"></br>
+                            
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <label class="form-label" for="category" class="form-label">Category <span class="text-danger">*</span> </label></br>
@@ -179,37 +203,24 @@
                                     <option value={{$category->id}}>{{$category->name}}</option>
                                 @endforeach
                             </select>
-                            @error('category')
-                                <div class="alert alert-danger" role="alert">
-                                    <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                                </div>
-                            @enderror
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <label class="form-label" for="description" class="form-label">Description <span class="text-danger">*</span> </label></br>
-                            <input type="text" name="description" id="description" class="form-control" value ="{{old('description')}}"></br>
-                            @error('description')
-                            <div class="alert alert-danger" role="alert">
-                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                            </div>
-                            @enderror
+                            <textarea type="text" name="description" id="description" class="form-control" value ="{{old('description')}}"> </textarea> </br>
                         </div>
                         <div class="col-lg-6 col-md-3 col-sm-12 col-xs-12">
                             <label class="form-label" for="price">Price <span class="text-danger">*</span> </label></br>
                             <input type="number" name="price" id="price" class="form-control" value ="{{old('price')}}"></br>
-                            @error('price')
-                            <div class="alert alert-danger" role="alert">
-                                <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                            </div>
-                            @enderror
                         </div>
                     </div>
                     
                     <label class="form-label" for="image">Food image</label></br>
                     <input type="file" name="image" class="form-control" accept="image/png, image/gif, image/jpeg" value ={{old('image')}}></br>
-                    <input type="submit" value="Save" class="btn btn-success mt-2"></br>
+                    <button type="button" class="btn btn-primary mt-2" data-bs-dismiss="modal">  Cancel </button>
+                    <button type="submit" id="submit_create" class="btn btn-success mt-2" disabled> Submit <i class="fa-solid fa-arrow-right text-light"></i> </button>
+                    
                 </form>
             </div>
         </div>
@@ -222,7 +233,7 @@
 @foreach ($data as $item)
     
     {{-- Modal Add Ingredients --}}
-    <div class="modal fade" id="{{"modal-add-ingredients" . $item->id}}" tabindex="-1" aria-labelledby="modal-add-ingredients" aria-hidden="true">
+    <div class="modal fade" id="{{"modal-add-ingredients" . $item->id}}" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modal-add-ingredients" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header bg-alert bg-warning">
@@ -255,7 +266,8 @@
                             </div>
                         </div>
                         {{-- submit --}}
-                        <input type="submit" value="Save" class="btn btn-success mt-2"></br>
+                        <button type="button" class="btn btn-primary mt-2" data-bs-dismiss="modal">  Cancel </button>
+                        <button type="submit" class="btn btn-success mt-2"> Submit<i class="fa-solid fa-arrow-right text-light"></i></button> </br>
                     </form>
                 </div>
             </div>
@@ -263,7 +275,7 @@
     </div>  
 
     {{-- MODAL Edit and show --}}
-    <div class="modal fade" id={{"modal-edit-food-item".$item->id}} tabindex="-1" aria-labelledby="modal-edit-food-item" aria-hidden="true">
+    <div class="modal fade" id={{"modal-edit-food-item".$item->id}} tabindex="-1" data-bs-backdrop="static" aria-labelledby="modal-edit-food-item" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header bg-alert bg-warning">
@@ -271,6 +283,21 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    @error('name')
+                        <div class="alert alert-danger" role="alert">
+                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                        </div>
+                    @enderror
+                    @error('description')
+                        <div class="alert alert-danger" role="alert">
+                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                        </div>
+                    @enderror
+                    @error('price')
+                        <div class="alert alert-danger" role="alert">
+                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
+                        </div>
+                    @enderror
                     <form action="{{route('food-item.update', ['food_item'=> $item->id])}}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -278,40 +305,24 @@
                             <span class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-text text-danger">Required field *</span>
                         </div>
                         <label for="name" class="form-label"> Name <span class="text-danger">*</span> </label></br>
-                        <input type="text" name="name" id="name" class="form-control" value ="{{$item->name}}"></br>
-                        @error('name')
-                        <div class="alert alert-danger" role="alert">
-                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                        </div>
-                        @enderror
+                        <input type="text" required autofocus name="name" id="name" class="form-control" value ="{{$item->name}}"></br>
+                        
                         <label class="form-label" for="description">Description </label></br>
-                        <input type="text" name="description" id="description" class="form-control" value ="{{$item->description}}"></br>
-                        @error('description')
-                        <div class="alert alert-danger" role="alert">
-                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                        </div>
-                        @enderror
+                        <textarea name="description" id="description" class="form-control" value ="{{$item->description}}"> </textarea></br>
+                        
                         <label>Price <span class="text-danger">*</span> </label></br>
                         <input type="number" name="price" id="price" class="form-control" value ="{{$item->price}}"></br>
-                        @error('price')
-                        <div class="alert alert-danger" role="alert">
-                            <i class="fa-solid fa-circle-exclamation"></i>{{ucwords($message)}}
-                        </div>
-                        @enderror
                         
-
                         <label class="form-label" for="image">Food image</label></br>
                         <input type="file" name="image" class="form-control" accept="image/png, image/gif, image/jpeg" value ={{$item['image']}}></br>
-                        <input type="submit" value="Save" class="btn btn-success"> 
-                        <a href="{{ route('food-item.index') }}" class="btn btn-primary">Cancel</a>
+
+                        <button type="button" class="btn btn-primary mt-2" data-bs-dismiss="modal">  Cancel </button>
+                        <button type="submit" class="btn btn-success mt-2"> Submit <i class="fa-solid fa-arrow-right text-light"></i></button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-    
-
     <div class="modal fade" id={{"modal-show-food-item".$item->id}} tabindex="-1" aria-labelledby="modal-show-food-item" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -337,7 +348,7 @@
                                 $ingredient = \App\Models\FoodItem::find($item->id);
                             @endphp
                             @foreach ($ingredient->item as $data)
-                                {{$data->name . ", "}}
+                                {{$data->name . $data->pivot->quantity . $data->measuring_unit . "   "}}
                             @endforeach
                         </h4>
                         <h4>
